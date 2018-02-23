@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+  <meta name="theme-color" content="#000008">
+  <!-- Metrics -->
+  {% if env == 'production' %}
+  <meta name="yandex-verification" content="96ad22f6d41dc2a8" />
+  <meta name="google-site-verification" content="ZNpEojV1A4wMaH0rSOvuwlawy7sJMCU5TsfA1gY48Ts" />
+  <meta name="msvalidate.01" content="8A47F6686F1A9D2E9D3662F020AA980D" />
+  {% endif %}
+  <!-- title and desc -->
+  {{helmet.title.toString()}}
+  {{helmet.meta.toString()}}
+  <!-- styles -->
+  <link rel="stylesheet" href="/stylesheets/reset.css"/>
+  <link rel="stylesheet" href="/stylesheets/{{css}}.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <!-- Other JS -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  {% if env == 'production' %}
+    <script src="/js/axios.min.js"></script>
+  {% else %}
+    <script src="/js/axios.js"></script>
+  {% endif %}
+</head>
+<body>
+  <div id="app">{{html|safe}}</div>
+  <script>window.__ENV__ = {{env|json_encode|safe}};</script>
+  <script>window.__snapshot__ = {{snapshot|json_encode|safe}};</script>
+  <script>window.__DEV_TYPE__ = {{devType|json_encode|safe}};</script>
+  <!-- <script src="/js/bundle.js"></script> -->
+  <script src="/js/main.bundle.js"></script>
+</body>
+</html>

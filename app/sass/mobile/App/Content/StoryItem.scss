@@ -1,0 +1,274 @@
+
+
+.story-item {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.story {
+  margin: 0 auto;
+  background: white;
+  padding-top: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media (max-width: 450px) {
+  .story {
+    padding: 15px 15px 0 15px;
+  }
+}
+
+.text {
+  font: normal 16px/25px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1.1em;
+  transition: all 300ms ease-in-out;
+}
+
+.text a {
+    color: #004cbe;
+}
+
+.text a:hover {
+    color: #df4e09;
+}
+
+.story .text p:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+
+.story__heading {
+  position: relative;
+}
+.story-rating {
+  display: block;
+  font-size: 12px;
+  position: absolute;
+  left: -27px;
+  top: -1px;
+  background: #051a25;
+  padding: 0 5px;
+  height: 24px;
+  color: white;
+  line-height: 1.9em;
+  text-align: center;
+  border-radius: 5px;
+  min-width: 18px;
+}
+
+.story__heading h2 {
+  margin-left: 10px;
+}
+
+@media (max-width: 425px) {
+  .story-rating {
+    left: 0px;
+  }
+
+  .story__heading h2 {
+    margin-left: 35px;
+  }
+}
+
+.story h2 {
+  margin-bottom: 8px;
+      font-family: 'Helvetica Neue', 'Tahoma', 'Helvetica', 'Arial', 'Liberation Sans', 'Sans Uralic', 'Droid Sans', sans-serif;
+  font-size: 1.5em;
+  font-weight: bold;
+
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 550px) {
+  .story h2 {
+    flex-direction: column;
+  }
+
+  .story .publish-date {
+    margin-top: 5px;
+  }
+
+  .story-icon {
+    display: none !important;
+  }
+}
+
+.story h2 a {
+  color: black;
+  text-decoration: none;
+}
+
+.story h2 a:hover {
+  color: #ff6868;
+}
+
+.story .publish-date {
+  font-size: 14px;
+  color: #777;
+  font-weight: initial;
+}
+
+
+ul.tags {
+  list-style:none;
+  position: relative;
+  color: black;
+  text-decortaion: none;
+  margin-bottom: 10px;
+}
+
+ul.tags a {
+  color: black;
+  text-decoration: none;
+}
+
+ul.tags li.tag {
+  display:inline-block;
+  margin-left: 10px;
+  border: 1px solid #dee2e5;
+  background-color: #dee2e5;
+  border-radius: 5px;
+  padding: 6px 15px;
+  color: #a9b1b5;
+  transition: all 300ms ease-in-out;
+  font-size: 13px;
+}
+
+ul.tags li.tag.tag_highlight {
+  background-color: #fff292;
+  border-color: #fff292;
+}
+
+ul.tags li.tag a {
+  color: black;
+  text-decoration: none;
+}
+
+ul.tags li.tag:hover {
+  background: #9abfda
+}
+
+
+
+.story_footer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: white;
+}
+
+@media (max-width:600px) {
+  .story_footer {
+    padding: 20px;
+  }
+}
+
+.story-item:not(:last-child) .story_footer {
+  margin-bottom:  35px;
+}
+
+.story_rating__container, .story_comments__container {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.story_comments-count,
+.story_rating {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.story-comments-icon.fa {
+  font-size: 1.7em;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #051a25;
+}
+
+.story-comments-icon.fa:hover {
+  color:#ff6868 !important;
+}
+
+.story_comments-link {
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.story_comments-link:hover {
+  text-decoration: none;
+}
+
+.social__container {
+  display: inline-block;
+  float: right;
+}
+
+.story-icon {
+  display: block;
+  font-size: 12px;
+  position: absolute;
+  left: -20px;
+  top: -8px;
+  background: url(/images/shortstory.png) no-repeat;
+  background-size: contain;
+  height: 36px;
+  color: white;
+  line-height: 1.9em;
+  text-align: center;
+  border-radius: 5px;
+  min-width: 35px;
+}
+
+.story_icon.fa {
+  font-size: 1.7em;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #051a25;
+  position: relative;
+  top: 0;
+}
+
+.story_icon.fa:hover {
+  color:#ff6868 !important;
+}
+
+.story_icon-like.fa-heart {
+  color:#ff6868 !important;
+}
+
+.story_icon-like:hover {
+  color:#ff6868 !important;
+}
+
+.story_icon-like.fa-heart:hover {
+  color:#051a25 !important;
+}
+
+@media (max-width: 550px) {
+  .story_rating_label,
+  .story_comments_label {
+    display: none
+  }
+}
+
+@media (max-width: 350px) {
+  .story_icon.fa {
+    margin-right: 15px;
+  }
+
+  .social__container a:last-child .story_icon.fa {
+    margin-right: 0;
+  }
+
+}

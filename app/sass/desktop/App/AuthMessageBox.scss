@@ -1,0 +1,164 @@
+.overlay {
+  position: fixed;
+  overflow: hidden;
+  text-align: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  z-index: 900;
+  background-color: rgba(255,255,255,.97);
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.overlay-lighter {
+  background-color: rgba(255,255,255,.65);
+}
+
+.overlay-dark {
+  background-color: rgba(0,0,0,.65);
+}
+
+.message-box {
+  margin: auto;
+  height: 550px;
+  width: 650px;
+  background: white;
+  -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  box-shadow: 0 5px 10px rgba(0,0,0,.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.message-box {
+  /* if idea with linear gradient doesnt works */
+  background: url(/images/bg/6-min-extra.jpg);
+  background-size: cover;
+  position: relative;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.8)), url(/images/bg/6-min-extra.jpg);
+  background-size: cover;
+}
+
+.message-box.mb-register {
+  background: url(/images/bg/4.jpg);
+  background: linear-gradient(rgba(125, 125, 125, 0.3), rgba(0, 0, 0, 0.5)), url(/images/bg/4.jpg);
+  background-size: cover;
+  color: white;
+}
+
+.message-box-wrapper {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.message-box-wrapper>h1 {
+  margin-bottom: 15px;
+}
+.message-box-wrapper>p {
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+.message-box .auth-form {
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+.message-box .auth-form .controls-block {
+  flex-direction: column;
+  display: block;
+}
+
+.message-box .auth-form input {
+  width: 100%;
+}
+
+.message-box .auth-form .wanna-register {
+  width: 100%;
+}
+
+.message-box .auth-form .signup-btn {
+  margin: 0 auto;
+}
+
+.message-box .auth-form .signup-btn {
+  padding: 7px 0px;
+  margin-bottom: 15px;
+  width: 270px;
+}
+
+.message-box .auth-form .signup-btn:not(:disabled), .message-box .reg-form .register-btn {
+  color: white;
+  background: #415367;
+  box-shadow: 0 2px 10px rgba(65, 83, 103, 0.5), 0 3px 6px rgba(65, 83, 103, 0.2);
+}
+
+.message-box .auth-form .signup-btn:not(:disabled):hover, .message-box .reg-form .register-btn:hover {
+  background: #2b3744;
+  box-shadow: 0 5px 10px rgba(65, 83, 103, 0.5), 0 6px 9px rgba(65, 83, 103, 0.2);
+}
+
+.message-box .auth-form .wanna-register p {
+  margin-bottom: 10px;
+}
+
+.message-box-close-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 1;
+  padding: 15px;
+}
+
+.message-box-close-icon .svg-icon {
+  cursor: pointer;
+  fill: rgba(0,0,0,.7);
+}
+
+.message-box.mb-register .message-box-close-icon .svg-icon {
+  cursor: pointer;
+  fill: rgba(255,255,255,.7);
+}
+
+.message-box-close-icon .svg-icon:hover {
+  fill: rgba(0,0,0,1);
+}
+
+.message-box.mb-register .message-box-close-icon .svg-icon:hover {
+  fill: rgba(255,255,255,1);
+}
+
+.message-box .reg-form .controls-block {
+  width: 100%;
+  position: relative;
+  margin-bottom: 1.5em;
+}
+
+.message-box .reg-form .control-error {
+  position: absolute;
+  color: white;
+}
+
+.message-box .wanna-login a {
+  color: white;
+  font-weight: bold;
+}
+
+.message-box .reg-form div[id^="recaptcha-"] {
+  -webkit-transform: scale(.9);
+  transform: scale(.9);
+}
+
+.message-box .reg-form .controls-block:not(:last-child) {
+  margin-bottom: 1.5em;
+}

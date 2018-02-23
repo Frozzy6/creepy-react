@@ -1,0 +1,30 @@
+.message {
+  font: normal 16px/25px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  background: #b4cab4;
+  padding: 10px 40px;
+  margin-top: 15px;
+}
+
+.message-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.message i {
+  margin-right: 15px;
+  font-size: 22px;
+  position: relative;
+  top: 2px;
+}
+
+.homepage .user-menu-list {
+  line-height: 20px;
+}
+
+.homepage .user-menu-list li>i {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: baseline;
+  font-size: 15px;
+}

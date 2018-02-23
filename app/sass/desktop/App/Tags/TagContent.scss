@@ -1,0 +1,19 @@
+.tag-content .content.header {
+  background: white;
+  padding: 15px 40px;
+  width: 670px;
+  box-sizing: border-box;
+}
+
+.tag-content .content.header h1 {
+  margin-bottom: 0;
+}
+
+.tag-content__back-link {
+  text-decoration: none;
+  color: black;
+}
+
+.tag-content__back-link:hover {
+  color: #ff935e;
+}

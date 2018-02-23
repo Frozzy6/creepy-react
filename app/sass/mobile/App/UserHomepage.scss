@@ -1,0 +1,48 @@
+.message {
+  font: normal 1em "Helvetica Neue",Helvetica,Arial,sans-serif;
+  background: #b4cab4;
+  padding: 10px 40px;
+  line-height: 20px;
+}
+.message-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.message i {
+  margin-right: 15px;
+  font-size: 22px;
+  position: relative;
+  top: 2px;
+}
+
+@media (max-width: 470px){
+  .message  {
+    padding: 10px 15px
+  }
+}
+
+
+.homepage .user-menu-list {
+  line-height: 20px;
+}
+
+.homepage .user-menu-list li>i {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: baseline;
+  font-size: 15px;
+}
+
+.panel-top {
+  background: white;
+  padding: 20px 40px;
+}
+
+
+.submit-login-error {
+  padding: 5px;
+  text-align: center;
+  font-size: 15px;
+}

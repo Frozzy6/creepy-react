@@ -1,0 +1,39 @@
+.pagination {
+  margin-top: 15px;
+  min-height: 26px;
+}
+
+.pagination a {
+  font-size: 11pt;
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  height: 20px;;
+  text-align: center;
+  padding: 0px 5px;
+}
+
+.pagination a.arrow {
+  font-size: 16pt;
+}
+.pagination a.arrow-left,
+.pagination a.arrow-right {
+  width: 40px;
+}
+
+.pagination a.arrow-left::after {
+  content: "←";
+  font-size: 16pt;
+}
+
+.pagination a.arrow-right::before {
+  content: "→";
+  font-size: 16pt;
+}
+
+.pagination a.current {
+  background: white;
+  color: #333131;
+  border-radius: 5px;
+  line-height: 1.3em;
+}

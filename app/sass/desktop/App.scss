@@ -1,0 +1,44 @@
+@import "./../Common.scss";
+
+html, body, #app, .root {
+  height: 100%;
+}
+
+.root__wrap {
+  min-height: calc(100% - 95px);
+}
+
+.wrap {
+  width: 1000px;
+  margin: auto;
+}
+
+.wrap.main {
+  margin-bottom: 20px;
+}
+
+h1 {
+  font: normal 27px/32px "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+body, td, input, button, li {
+  font-family: 'Helvetica Neue', 'Tahoma', 'Helvetica', 'Arial', 'Liberation Sans', 'Sans Uralic', 'Droid Sans', sans-serif;
+  font-size: 14px;
+}
+
+@import "./App/Static/Logo.scss";
+@import "./App/Navbar.scss";
+@import "./App/Footer.scss";
+@import "./App/AuthMessageBox.scss";
+@import "./App/Content/Greeting.scss";
+@import "./App/Content/Pagination.scss";
+@import "./App/Content/Content.scss";
+@import "./App/Content/StoryItem.scss";
+@import "./App/Content/CommentsBlock.scss";
+@import "./App/Content/Sidebar/Sidebar.scss";
+@import "./App/Content/Sidebar/PageTagsSidebarModule.scss";
+@import "./App/Content/Sidebar/AuthSidebarModule.scss";
+@import "./App/Content/Sidebar/UserSidebarModule.scss";
+@import "./App/Tags/Tags.scss";
+@import "./App/Tags/TagContent.scss";
+@import "./App/UserHomepage.scss";

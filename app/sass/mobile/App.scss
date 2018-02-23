@@ -1,0 +1,32 @@
+@import "./../Common.scss";
+
+html, body, #app, .root {
+  height: 100%;
+}
+
+.root__wrap {
+    min-height: calc(100% - 60px);
+}
+
+.wrap {
+  margin: 10px auto;
+  margin-top: 0;
+  padding-top: 10px;
+}
+
+body, td, input, button, li {
+  font-size: 10pt;
+}
+
+@import "./App/Static/Logo.scss";
+@import "./App/Navbar.scss";
+@import "./App/Footer.scss";
+@import "./App/AuthMessageBox.scss";
+@import "./App/Content/Greeting.scss";
+@import "./App/Content/Pagination.scss";
+@import "./App/Content/Content.scss";
+@import "./App/Content/StoryItem.scss";
+@import "./App/Content/CommentsBlock.scss";
+@import "./App/Tags/Tags.scss";
+@import "./App/Tags/TagContent.scss";
+@import "./App/UserHomepage.scss";

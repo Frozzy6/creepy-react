@@ -1,0 +1,105 @@
+.nav {
+  background: rgba(0,0,0,0.9);
+  padding: 1px 0;
+  padding: 10px 0;
+}
+
+.nav li.submit {
+  position: absolute;
+  right: 90px;
+}
+
+.nav li.profile {
+  position: absolute;
+  right: 0;
+}
+
+.nav li.profile .fa-user-circle-o {
+  position: absolute;
+  font-size: 25px;
+  right: 55px;
+  top: 6px;
+}
+
+.nav li.profile .active .fa-user-circle-o {
+  color: white;
+}
+.nav li.profile .active:hover .fa-user-circle-o {
+  color: red;
+}
+
+.nav li.profile .fa-sign-in {
+  position: absolute;
+  font-size: 25px;
+  right: 62px;
+  top: 7px;
+}
+
+ul.head-menu {
+  list-style:none;
+  position: relative;
+  min-height: 37px
+}
+
+ul.head-menu li {
+  /*position:relative;*/
+  display:inline;
+}
+
+ul.head-menu li a {
+  text-decoration:none;
+  color: white;
+  display:inline-block;
+  padding:10px;
+  font-family:'Trebuchet MS';
+  font-size:17px;
+}
+
+ul.head-menu span {
+  display:block;
+  width:calc(100% - 23px);
+  height:4px;
+  background: white;
+  position:absolute;
+  left:10px;
+  bottom:-10px;
+}
+ul.head-menu  li a.active {
+  color: #ff6868;
+}
+
+ul.head-menu  li a:hover {
+  color: red;
+}
+
+ul.head-menu  li a:hover ~ span {
+ 	 animation: all 0.3s ease-out;
+   /*background:#0088CC;*/
+   background: #ff6868;
+}
+
+@keyframes ul {
+ 	0% {
+    width:0;
+  }
+  100% {
+    width:calc(100% - 23px);
+  }
+}
+
+
+/* LOADER */
+ul.head-menu li.spinner {
+  position: absolute;
+  left: -36px;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  background: url('/images/spinner.png');
+  background-size: cover;
+  -webkit-animation: sk-rotate 2.0s infinite linear;
+  animation: sk-rotate 2.0s infinite linear;
+}
+
+@-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(-360deg) }}
+@keyframes sk-rotate { 100% { transform: rotate(-360deg); -webkit-transform: rotate(-360deg) }}

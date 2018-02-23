@@ -1,0 +1,19 @@
+.content {
+  width: 670px;
+  /* background: white; */
+  /* padding: 15px 40px; */
+  margin-top: 15px;
+  float:left;
+}
+
+.content.wide {
+  width: 920px;
+}
+
+.content.white {
+  background: white
+}
+
+.content.padding {
+  padding: 15px 40px;
+}

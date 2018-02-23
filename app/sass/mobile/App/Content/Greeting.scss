@@ -1,0 +1,55 @@
+.greeting {
+  float: none;
+  position: relative;
+  background: white;
+  margin-top: 15px;
+  padding: 15px 40px;
+  font: normal 15px/20px "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.greeting.content {
+  float: none;
+}
+
+.greeting p:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.panel-top {
+  float: none;
+  position: relative;
+  background: white;
+  padding: 15px 40px;
+}
+
+.greeting__icon {
+  position: absolute;
+  right: 20px;
+}
+
+.greeting__icon-close.fa {
+  font-size: 1.7em;
+  transition: all 0.2s;
+  color: #051a25;
+  cursor: pointer;
+}
+
+.greeting__icon-close:hover {
+  color:#ff6868 !important;
+}
+
+
+.greeting p:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 450px) {
+  .greeting h1 {
+    padding-right: 30px;
+  }
+
+  .greeting {
+    padding: 15px;
+  }
+
+}

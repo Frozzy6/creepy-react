@@ -1,0 +1,21 @@
+.sidebar .sidebar-item__tags .sidebar-item-body a {
+  display: inline-block;
+  color: #eaeaea;
+  text-decoration: none;
+  line-height: 2;
+  padding: 0px 10px;
+  margin-right: 5px;
+  background: #051A25;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.sidebar .sidebar-item__tags .sidebar-item-body  a:hover {
+  background: #290707;
+  color: #ff6868;
+}

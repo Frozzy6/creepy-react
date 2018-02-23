@@ -1,0 +1,12 @@
+.content {
+  margin-top: 15px;
+  transition: all 300ms ease-in-out;
+}
+
+.content.white {
+  background: white
+}
+
+.content.padding {
+  padding: 15px 40px;
+}

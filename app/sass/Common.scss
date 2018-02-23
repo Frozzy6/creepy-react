@@ -1,0 +1,271 @@
+$font-stack: 'Helvetica Neue', 'Tahoma', 'Helvetica', 'Arial', 'Liberation Sans', 'Sans Uralic', 'Droid Sans', sans-serif;
+
+$link-color: #376e90;
+$bg-image: '/images/bg/1.jpg';
+
+$button-color: #415367;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: black url($bg-image) top center fixed no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+
+body, td, input, button, li {
+  font-family: 'Helvetica Neue', 'Tahoma', 'Helvetica', 'Arial', 'Liberation Sans', 'Sans Uralic', 'Droid Sans', sans-serif;
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+  color: $link-color;
+}
+
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+textarea {
+  display: block;
+  margin: 0;
+  border-radius: 0;
+  color: #444;
+  background-color: transparent;
+  overflow: auto;
+  resize: none;
+  width: 95%;
+  height: 360px;
+  padding: 10px;
+  font: 16px/18px 'Open Sans', sans-serif;
+  letter-spacing: 1px;
+}
+
+.clearfix::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.button {
+  padding-top: 10px;
+  display: block;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-align: center;
+  width: 85%;
+  font-weight: bold;
+  padding: 8px 0px;
+  border: 1px solid #415367;
+  border-radius: 1px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+  color: #415367;
+  text-decoration: none;
+  transition: 0.2s ease all;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  margin: 0 auto;
+}
+
+.button:hover {
+  color: white;
+  background: $button-color;
+  box-shadow: 0 2px 10px rgba(65, 83, 103, 0.5), 0 3px 6px rgba(65, 83, 103, 0.2);
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  height: 100%;
+  background: rgba(255,255,255,0.6);
+}
+
+.loading img {
+  max-width: 80px;
+  display: block;
+  height: auto !important;
+  margin: 0 auto;
+}
+
+h1 {
+  font: normal 1.5em "Helvetica Neue",Helvetica,Arial,sans-serif;
+  margin-bottom: 15px;
+}
+
+
+.hide {
+  display: none !important;
+}
+
+
+input {
+  display: block;
+  box-sizing: border-box;
+  font-size: 1em;
+  padding: 0.4em 0.4em;
+  width: 99%;
+  border-radius: 4px;
+  border: 1px solid #BABABA;
+}
+
+
+/* Auth form */
+.auth-form .controls-block {
+  display: flex;
+  justify-content: space-around;
+}
+
+.auth-form label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  display: block;
+}
+
+.auth-form input {
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 1em;
+  padding: 0.4em 0.4em;
+  width: 45%;
+  margin-bottom: 1em;
+  border-radius: 4px;
+  border: 1px solid #BABABA;
+  font-size: 14px;
+}
+
+.auth-form .signup-btn {
+  display: block;
+  font-size: 14px;
+  letter-spacing: 1px;
+  /*text-transform: uppercase;*/
+  text-align: center;
+  width: 100px;
+  font-weight: bold;
+  /* padding: 5px 0px; */
+  border: 1px solid #415367;
+  border-radius: 1px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+  color: #415367;
+  text-decoration: none;
+  transition: 0.2s ease all;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.auth-form .signup-btn:disabled {
+  color: #a0a0a0;
+  border-color: #a0a0a0;
+}
+
+.auth-form .signup-btn:not(:disabled):hover {
+  color: white;
+  background: #415367;
+  box-shadow: 0 2px 10px rgba(65, 83, 103, 0.5), 0 3px 6px rgba(65, 83, 103, 0.2);
+}
+
+.auth-form .wanna-register {
+  text-align: center;
+  font-size: 14px;
+  width: 110px;
+}
+.auth-form .wanna-register p {
+  margin-bottom: 5px;
+}
+
+
+/* Register form */
+
+.reg-form .controls-block {
+  justify-content: space-around;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.reg-form .controls-block:not(:last-child) {
+  margin-bottom:  1em;
+}
+
+.reg-form .controls-block.recaptcha {
+  padding-bottom: 15px;
+  margin: 0;
+}
+
+.reg-form input {
+  display: block;
+  box-sizing: border-box;
+  font-size: 1em;
+  padding: 0.4em 0.4em;
+  width: 99%;
+  border-radius: 4px;
+  border: 1px solid #BABABA;
+}
+
+.reg-form .register-btn {
+  padding-top: 10px;
+  display: block;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-align: center;
+  width: 85%;
+  font-weight: bold;
+  padding: 8px 0px;
+  border: 1px solid #415367;
+  border-radius: 1px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+  color: #415367;
+  text-decoration: none;
+  transition: 0.2s ease all;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  margin: 0 auto;
+}
+
+.reg-form .register-btn:disabled {
+  color: #a0a0a0;
+  border-color: #a0a0a0;
+}
+
+.reg-form .register-btn:not(:disabled):hover {
+  color: white;
+  background: #415367;
+  box-shadow: 0 2px 10px rgba(65, 83, 103, 0.5), 0 3px 6px rgba(65, 83, 103, 0.2);
+}
+
+.reg-form div[id^="recaptcha-"] {
+  /* transform: scale(0.85);
+  width: 100%; */
+  height: 70px;
+  -webkit-transform: scale(.75);
+  transform: scale(.75);
+  clear: both;
+  margin: 0 auto;
+}
+
+.reg-form .wanna-login {
+  text-align: center;
+  font-size: 13px;
+}
+
+.reg-form .control-error {
+  margin-top: 1px;
+  color: red;
+}
+
+.auth-bad {
+  padding-top: 20px;
+  color: red;
+}

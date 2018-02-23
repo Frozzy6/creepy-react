@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /random 
+Host: scary-stories.ru

@@ -1,0 +1,33 @@
+.sidebar .sidebar-user {
+  width: 250px;
+}
+
+.sidebar-user .logout {
+  position: absolute;
+  right: 0;
+  font-size: 24px;
+  top: -4px;
+}
+
+.sidebar-user .logout:hover {
+  color: #ff6868 !important;
+  cursor: pointer;
+}
+
+.sidebar-user-greeting {
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.sidebar-user .user-menu-list {
+  line-height: 20px;
+}
+
+.sidebar-user .user-menu-list li>i {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: baseline;
+  font-size: 15px;
+}

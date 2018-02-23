@@ -1,0 +1,30 @@
+.sidebar {
+  width: 300px;
+  height: 300px;
+  float: right;
+  margin-top: 15px;
+}
+
+.sidebar-item  {
+  margin-bottom: 20px;
+}
+
+.sidebar h2 {
+  font: normal 22px/27px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.sidebar h2 a:hover {
+  color: #ff935e;
+}
+
+.sidebar h2 a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar .sidebar-item-body__white {
+  background: white;
+  padding: 20px 15px;
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+  <meta name="theme-color" content="#000008">
+  {{helmet.title.toString()}}
+  {{helmet.meta.toString()}}
+  <link rel="stylesheet" href="/stylesheets/reset.css"/>
+  <link rel="stylesheet" href="/stylesheets/{{css}}.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+</head>
+<body>
+  <div id="app">{{html|safe}}</div>
+</body>
+</html>

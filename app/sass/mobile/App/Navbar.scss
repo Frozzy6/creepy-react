@@ -1,0 +1,128 @@
+.nav {
+  background: black;
+  padding: 1px 0;
+}
+
+ul.head-menu {
+  list-style:none;
+  position: relative;
+}
+
+@media (min-width:470px) {
+  ul.head-menu {
+    padding-left: 20px;
+  }
+}
+
+ul.head-menu li {
+  /*position:relative;*/
+  display:inline;
+}
+
+ul.head-menu li a {
+  text-decoration:none;
+  color: white;
+  display:inline-block;
+  padding:8px;
+  font-size: 0.9em;
+}
+
+@media (min-width: 465px) {
+  ul.head-menu li a {
+    font-size: 1.1em;
+  }
+}
+
+ul.head-menu span {
+  display:block;
+  width:calc(100% - 23px);
+  height:4px;
+  background: white;
+  position:absolute;
+  left:10px;
+  bottom:-10px;
+}
+ul.head-menu  li a.active {
+  color: #ff6868;
+}
+
+ul.head-menu  li a:hover {
+  color: red;
+}
+
+ul.head-menu  li a:hover ~ span {
+ 	 animation:ul 0.3s ease-out;
+   /*background:#0088CC;*/
+   background: #ff6868;
+}
+
+@keyframes ul {
+ 	0% {
+    width:0;
+  }
+  100% {
+    width:calc(100% - 23px);
+  }
+}
+
+@media (min-width: 600px) {
+  div.nav li.submit {
+    position: absolute;
+    right: 120px;
+  }
+}
+
+
+
+div.nav li.profile {
+  position: absolute;
+  right: 10px;
+}
+
+div.nav li.profile .fa-user-circle-o {
+  position: absolute;
+  font-size: 25px;
+  right: 55px;
+  top: 4px;
+}
+
+div.nav li.profile .fa-sign-in {
+  position: absolute;
+  font-size: 20px;
+  left: -18px;
+  top: 6px;
+}
+
+
+@media (max-width: 600px) {
+  div.nav li.profile {
+    position: absolute;
+    right: 10px;
+  }
+
+  div.nav li.profile .fa-sign-in {
+    position: relative;
+  }
+
+  div.nav li.submit {
+    position: absolute;
+    right: 50px;
+  }
+
+  div.nav li.profile a,
+  div.nav li.submit a {
+    font-size: 0px;
+  }
+  div.nav li.submit a:before {
+    display: block;
+  }
+}
+@media (max-width: 470px) {
+  div.nav li.profile .fa-sign-in { top: 3px; }
+  div.nav li.submit a:before { position: relative; }
+}
+
+@media (max-width: 350px) {
+  div.nav li.profile { right: 0 }
+  div.nav li.submit { right: 40px; }
+}
