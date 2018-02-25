@@ -1,6 +1,6 @@
 import TagContentSource from '../sources/TagContentSource';
-import StoryItemActions  from '../actions/StoryItemActions';
-import StoryItemStore  from '../stores/StoryItemStore';
+// import StoryItemActions  from '../actions/StoryItemActions';
+// import StoryItemStore  from '../stores/StoryItemStore';
 
 class TagContentStore {
   constructor() {
@@ -19,13 +19,14 @@ class TagContentStore {
     alt.getActions('AppActions').stopLoading.defer();
 
     // Create for each story its own actions and store ( if not exists yet )
-    stories.map( (story) => {
-      const store = alt.getStore( 'StoryItemStore' + story.uID );
-      if ( !store ) {
-        alt.createActions( StoryItemActions, {}, story.uID );
-        alt.createStore( StoryItemStore, 'StoryItemStore' + story.uID, story.uID );
-      }
-    });
+    // stories.map( (story) => {
+      // const store = alt.getStore( 'StoryItemStore' + story.uID );
+      // if ( !store ) {
+        // alt.createActions( StoryItemActions, {}, story.uID );
+        // alt.createStore( StoryItemStore, 'StoryItemStore' + story.uID, story.uID );
+      // }
+    // });
+
     this.tagInfo = tagInfo;
     this.stories = stories;
   }

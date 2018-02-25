@@ -22,7 +22,10 @@ class AppActions {
 
     axios.post( URL )
       .catch( err => this.authFail( err ) )
-      .finally(() => this.logout() );
+      .finally(() => {
+        this.logout();
+        this.getActions('ContentActions').resetLikes();
+      });
 
     return true;
   }

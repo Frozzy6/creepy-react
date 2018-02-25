@@ -32,8 +32,9 @@ class Story extends React.Component {
 
   render(){
     const { story, activeTag } = this.props;
+    let tags = story.tags || [];
 
-    const tags = story.tags.map( (tag, index) => {
+    tags = tags.map( (tag, index) => {
       var active = tag === activeTag
       return ( <TagItem tag={tag} key={index} active={active}/>);
     });
@@ -62,26 +63,36 @@ class StoryItem extends React.Component {
     const flux = this.props.flux;
     const story = this.props.story;
 
-    this.storyItemActions = flux.getActions('StoryItemActions');
-    this.storyItemStore = flux.getStore('StoryItemStore' + story.uID );
-    this.state = this.storyItemStore.getState();
+    this.flux = flux;
+    this.contentActions = flux.getActions('ContentActions');
+    this.appStore = flux.getStore('AppStore');
 
-    this.handleLike = this.handleLike.bind( this );
-    this.onChange = this.onChange.bind(this);
+    this.state = {
+      app: this.appStore.getState()
+    }
+
+    this.handleLike = this.handleLike.bind(this);
+    this.onAppChange = this.onChange.bind(this, 'app');
   }
 
   componentDidMount() {
-    this.storyItemStore.listen(this.onChange);
+    this.appStore.listen(this.onAppChange);
   }
 
   componentWillUnmount() {
-    this.storyItemStore.unlisten(this.onChange);
+    this.appStore.unlisten(this.onAppChange);
   }
 
   handleLike(){
-    const story = this.props.story;
+    if ( !this.state.app.user ) {
+      const actions = this.flux.getActions('AuthMessageBoxActions');
 
-    this.storyItemActions["toggleLike" + story.uID]( !this.state.liked );
+      actions.changeTab('register');
+      return actions.show();
+    }
+
+    const story = this.props.story;
+    this.contentActions.toggleLikeTo({uID: story.uID, shouldInc: !story.wasLiked})
   }
 
   handleClick(e){
@@ -94,15 +105,16 @@ class StoryItem extends React.Component {
     return false;
   }
 
-  onChange(state) {
-    this.setState(state);
+  onChange(name, state) {
+    this.setState({[name]:state});
   }
 
   render(){
+    const user = this.state.app.user;
     const story = this.props.story;
-    const wasLiked = this.state.liked;
     const activeTag = this.props.activeTag;
     const verbose = this.props.verbose;
+    const wasLiked = ( user ? story.wasLiked : false );
 
     const commentsIconLink = ( !verbose ? (
       <span className="story_comments__container">
@@ -114,14 +126,14 @@ class StoryItem extends React.Component {
       </span>
     ) : null );
 
-    const likeIcon = ( this.state.liked ? "fa-heart" : "fa-heart-o");
+    const likeIcon = ( wasLiked ? "fa-heart" : "fa-heart-o");
 
     const controlsBlock = (
       <div className="story_footer">
         <span onClick={this.handleLike} className="story_rating__container">
           <i className={"story_icon story_icon-like fa " + likeIcon} title="Мне понравилось"></i>
           <span className="story_rating_label">Рейтинг:&nbsp;</span>
-          <span className="story_rating">{story.data.rating}</span>
+          <span className="story_rating">{story.likeCount}</span>
         </span>
         {commentsIconLink}
         <div className="social__container">

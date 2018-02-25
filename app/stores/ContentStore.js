@@ -41,14 +41,6 @@ class ContentStore {
     }
 
     this.sidebarTags = getTagsFromStories( stories );
-    // Create for each story its own actions and store ( if not exists yet )
-    stories.map( (story) => {
-      const store = alt.getStore( 'StoryItemStore' + story.uID );
-      if ( !store ) {
-        alt.createActions( StoryItemActions, {}, story.uID );
-        alt.createStore( StoryItemStore, 'StoryItemStore' + story.uID, story.uID );
-      }
-    });
     this.alt.getActions('AppActions').stopLoading.defer();
     this.stories = stories;
   }
@@ -87,6 +79,40 @@ class ContentStore {
     }
 
     this.stories[0].comments.push(comment);
+  }
+
+  onLikeSuccess( args ){
+    const { uID, inc } = args;
+
+    for ( let story of this.stories ) {
+      if ( story.uID == uID ) {
+        story.wasLiked = !story.wasLiked;
+        story.likeCount += inc;
+        break;
+      }
+    }
+
+  }
+
+  onLikeFailed( args ){
+    console.log(args.err);
+  }
+
+  onInitialDataSuccess( data ){
+    for ( let story of this.stories ) {
+      for ( let item of data ) {
+        if ( story.uID == item.uID ) {
+          story.wasLiked = item.isLiked;
+          break;
+        }
+      }
+    }
+  }
+
+  onResetLikes(){
+    for ( let story of this.stories ) {
+      story.wasLiked = false;
+    }
   }
 
 }

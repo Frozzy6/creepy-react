@@ -21,12 +21,18 @@ class AuthFormStore {
   }
 
   onAuthSuccess(data) {
-    this.alt.getActions('AppActions').stopLoading.defer();
+    //TODO: call appActions instead of internal
+    const appActions = this.alt.getActions('AppActions');
+    const contentActions = this.alt.getActions('ContentActions');
+
+    appActions.stopLoading.defer();
     this.sendingData = false;
 
     /* Clear user input data */
     this.login = '',
     this.password = '';
+
+    contentActions.getInitial.defer();
   }
 
   onAuthFail(errorMessage) {

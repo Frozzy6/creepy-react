@@ -17,29 +17,11 @@ if ( window.__snapshot__ ) {
   flux.bootstrap(decodeURIComponent(window.escape(atob(window.__snapshot__))));
   /* Set access token to request head */
   delete axios.defaults.headers.common["Authorization"];
-  setTimeout(()=>{
+  // debugger;
+  // setTimeout(()=>{
     axios.defaults.headers.common.Authorization = 'Bearer ' + flux.getStore('AppStore').state.token;
     console.log(axios.defaults.headers.common.Authorization)
-  })
-  // Temporary fix to create dynamic StoryItemStores
-  // TODO: manyaly create strores and actions before bootstrap
-  // may be it helps
-  // http://alt.js.org/docs/stores/#storeemitchange
-  // try to do it on server side
-
-  if ( flux.getStore('ContentStore').state.stories.length >= 1 ) {
-    flux.getActions('ContentActions').getStoriesSuccess( flux.getStore('ContentStore').state.stories )
-  }
-  if ( flux.getStore('TagContentStore').state.stories.length >= 1 ) {
-    let tagState = flux.getStore('TagContentStore').state;
-    flux.getActions('TagContentActions').getStroriesByTagSuccess( [ tagState.tagInfo, tagState.stories ] );
-  }
-  axios.defaults.validateStatus = function (status) {
-    // if ( status == 401 ) {
-    //   window.location.reload(false);
-    // }
-     return status >= 200 && status < 300
-  };
+  // })
 
   /* Check for extend token */
   /* Do something before request is sent */
@@ -124,7 +106,7 @@ RouterMatch({ history: browserHistory, routes: patchedRoutes }, async (error, re
   }
 });
 
-/* Preload images for message boxes */
+/* Preload images for message box */
 function preload( urls ){
   const images = [];
   for (var i = 0; i < urls.length; i++) {
