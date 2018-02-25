@@ -15,7 +15,7 @@ class AuthFormActions {
   }
 
   login( login, password ) {
-    const URL = `${config[NODE_ENV].HOST}actions/oauth/token`;
+    const URL = `${config[NODE_ENV].HOST}/actions/oauth/token`;
     this.authStart();
 
     axios.post( URL, { login, password } )

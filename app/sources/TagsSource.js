@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+import config from '../../config.js';
+const NODE_ENV = process.env.NODE_ENV || window.__ENV__;
+const API_HOST = config[NODE_ENV].API_HOST;
+
 var TagsSource = function( flux ){
   return {
     fetchTags: function () {
@@ -7,7 +11,7 @@ var TagsSource = function( flux ){
         remote: function( state, flux ) {
           flux.getActions('AppActions').startLoading();
 
-          const URL = '/tags/all';
+          const URL = `${API_HOST}/tags/all`;
           return axios.get( URL )
             .then( response => response.data )
         },

@@ -1,13 +1,18 @@
 import axios from 'axios';
 
+import config from '../../config.js';
+const NODE_ENV = process.env.NODE_ENV || window.__ENV__;
+const API_HOST = config[NODE_ENV].API_HOST;
+
 var AppSource = function( flux ){
   return {
     fetchToken: function () {
       return {
         remote: function( state, flux ) {
+          console.log('deprecated?');
           flux.getActions('AppActions').startLoading();
 
-          const URL = '/oauth/token';
+          const URL = `${API_HOST}/oauth/token`;
           return axios.post(
             URL,
             {

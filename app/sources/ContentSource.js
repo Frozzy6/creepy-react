@@ -1,11 +1,16 @@
 import axios from 'axios';
 import ContentActions from '../actions/ContentActions';
 
+import config from '../../config.js';
+const NODE_ENV = process.env.NODE_ENV || window.__ENV__;
+const API_HOST = config[NODE_ENV].API_HOST;
+
 //TODO: remove duplicate functions
 var getStoriesByToken = function( token, offset, resolve, flux, reject ) {
   offset = offset || '';
-  const totalRequest = '/stories/count';
-  const url = '/stories/' + token +'/' + offset;
+  
+  const totalRequest = `${API_HOST}/stories/count`;
+  const url = `${API_HOST}/stories/${token}/${offset}`;
 
   const p1 = axios.get( totalRequest )
     .then( responce => responce.data )
@@ -32,21 +37,21 @@ var APIRequests = {
     return getStoriesByToken( 'scary', offset, resolve, flux, reject );
   },
   story: function( id, resolve, flux, reject ){
-    const url = '/stories/' + id;
+    const url = `${API_HOST}/stories/${id}`;
 
     return axios( url )
       .then( response => [response.data] )
-      .then( (data) => {flux.getActions('ContentActions').hidePagination(); return data;} )
-      .then( (data) => { resolve(data); } )
+      .then( data => {flux.getActions('ContentActions').hidePagination(); return data;} )
+      .then( data => resolve(data) )
       .catch( e => reject(e));
   },
   random: function( nul, resolve, flux, reject ){
-    const url = '/stories/random';
+    const url = `${API_HOST}/stories/random`;
 
     return axios.get( url )
       .then( response => [response.data] )
-      .then( (data) => { flux.getActions('ContentActions').hidePagination(); return data; } )
-      .then( (data) => { resolve(data) })
+      .then( data => { flux.getActions('ContentActions').hidePagination(); return data; } )
+      .then( data => resolve(data) )
       .catch( e => reject(e));
   }
 };

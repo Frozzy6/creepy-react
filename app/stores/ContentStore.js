@@ -1,6 +1,6 @@
 import ContentSource from '../sources/ContentSource';
-import StoryItemActions  from '../actions/StoryItemActions';
-import StoryItemStore  from '../stores/StoryItemStore';
+// import StoryItemActions  from '../actions/StoryItemActions';
+// import StoryItemStore  from '../stores/StoryItemStore';
 
 const getTagsFromStories = function( stories ){
   stories = stories  || [];

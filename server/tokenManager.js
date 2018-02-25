@@ -22,7 +22,7 @@ class TokenManager {
 
   /* Private common method for token request */
   async _requestToken( reqBody ){
-    const GET_TOKEN_URL = `${API_HOST}oauth/token`;
+    const GET_TOKEN_URL = `${API_HOST}/oauth/token`;
     const manager = this;
 
     return new Promise((resolve, reject) => {
@@ -75,7 +75,7 @@ class TokenManager {
   }
 
   async getUserInfo( token ){
-    const ABOUT_URL = `${API_HOST}oauth/me`;
+    const ABOUT_URL = `${API_HOST}/oauth/me`;
     const manager = this;
 
     return new Promise((resolve, reject) => {

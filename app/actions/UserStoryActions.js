@@ -1,6 +1,10 @@
 import alt from '../alt';
 import axios from 'axios';
 
+import config from '../../config.js';
+const NODE_ENV = process.env.NODE_ENV || window.__ENV__;
+const API_HOST = config[NODE_ENV].API_HOST;
+
 class UserStoryActions {
   constructor() {
     this.generateActions(
@@ -16,7 +20,8 @@ class UserStoryActions {
 
 
   postStory( data ) {
-    const URL = '/stories/new';
+    const URL = `${API_HOST}/stories/new`;
+
     this.postUserStoryStart();
     this.disable();
 

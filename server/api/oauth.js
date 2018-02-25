@@ -34,7 +34,7 @@ router.route("/oauth/register").post(async function( req, res, next ){
   console.log(data);
   const checkRecaptcha = function(){
     return new Promise( ( resolve, reject ) => {
-      request.post(`${API_HOST}recaptcha/verify`)
+      request.post(`${API_HOST}/recaptcha/verify`)
         .send({ response: data.gRecaptchaResponse })
         .then( result => resolve( result.body ) )
         .catch( err => reject( err ) );
@@ -79,7 +79,7 @@ router.route("/oauth/register").post(async function( req, res, next ){
   await tokenManager.getAppToken();
 
   request
-    .post(`${API_HOST}oauth/register`)
+    .post(`${API_HOST}/oauth/register`)
     .set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Authorization', `Bearer ${tokenManager.appToken}`)
     .send(data)

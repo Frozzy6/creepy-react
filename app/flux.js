@@ -19,27 +19,14 @@ import AuthSidebarStore from './stores/AuthSidebarStore';
 import CommentsBlockStore from './stores/CommentsBlockStore';
 import AuthMessageBoxStore from './stores/AuthMessageBoxStore';
 
-import axios from 'axios';
-import config from '../config.js';
-
-try {
-  const NODE_ENV = process.env.NODE_ENV || window.__ENV__;
-
-  axios.defaults.baseURL = config[NODE_ENV].API_HOST;
-  console.log('ENV', NODE_ENV);
-  console.log('API server:', axios.defaults.baseURL)
-} catch( e ) {
-  console.log('ENV variable doesn\'t set');
-}
-
 export default class Flux extends Alt {
   constructor() {
     super();
 
-    this.createActions( AppActions );
+    this.createActions( AppActions, this );
     this.createActions( TagsActions );
     this.createActions( TagContentActions );
-    this.createActions( ContentActions );
+    this.createActions( ContentActions, this );
     this.createActions( UserStoryActions );
     this.createActions( AuthSidebarActions, this );
     this.createActions( CommentsBlockActions, this );

@@ -21,7 +21,7 @@ class RegisterFormActions {
   }
 
   register( data ) {
-    const URL = `${config[NODE_ENV].HOST}actions/oauth/register`;
+    const URL = `${config[NODE_ENV].HOST}/actions/oauth/register`;
     this.registerStart();
 
     axios.post( URL, { data } )
