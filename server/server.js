@@ -43,7 +43,7 @@ app.enable('trust proxy');
 app.use(compression());
 app.use(logger('dev'));
 app.use(session({
-  secret: config[NODE_ENV].SESSION_KEY,
+  secret: 'sXuPBOkmgBsXDcKW',
   resave: true,
   saveUninitialized: true
 }));
@@ -86,7 +86,7 @@ app.use(async function(req, res, next) {
     flux.getActions('AppActions').setToken( usrSession.oauth );
     // TODO: refresh token if expired
   }
-  debugger;
+
   const patchedRoutes = patchRouteHooks(routes.default, { flux });
 
   const routeMatchCallback = async function( err, redirectLocation, renderProps ){
