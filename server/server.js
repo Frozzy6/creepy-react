@@ -24,7 +24,6 @@ var NotFoundComponent = require("../app/components/NotFound").default;
 var ErrorComponent = require("../app/components/Error").default;
 
 var Flux = require("../app/flux").default;
-var ApiSuggest = require("../server/apiSuggest").default;
 
 const fetchComponentData = require("./fetchComponentData").default;
 const tokenManager = require('./tokenManager').default;
