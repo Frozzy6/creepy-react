@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 
@@ -59,40 +59,20 @@ class Story extends React.Component {
 class StoryItem extends React.Component {
   constructor(props){
     super(props)
-
-    const flux = this.props.flux;
-    const story = this.props.story;
-
-    this.flux = flux;
-    this.contentActions = flux.getActions('ContentActions');
-    this.appStore = flux.getStore('AppStore');
-
-    this.state = {
-      app: this.appStore.getState()
-    }
-
     this.handleLike = this.handleLike.bind(this);
     this.onAppChange = this.onChange.bind(this, 'app');
   }
 
-  componentDidMount() {
-    this.appStore.listen(this.onAppChange);
-  }
-
-  componentWillUnmount() {
-    this.appStore.unlisten(this.onAppChange);
-  }
-
   handleLike(){
-    if ( !this.state.app.user ) {
-      const actions = this.flux.getActions('AuthMessageBoxActions');
-
-      actions.changeTab('register');
-      return actions.show();
-    }
-
-    const story = this.props.story;
-    this.contentActions.toggleLikeTo({uID: story.uID, shouldInc: !story.wasLiked})
+    // if ( !this.state.app.user ) {
+    //   const actions = this.flux.getActions('AuthMessageBoxActions');
+    //
+    //   actions.changeTab('register');
+    //   return actions.show();
+    // }
+    //
+    // const story = this.props.story;
+    // this.contentActions.toggleLikeTo({uID: story.uID, shouldInc: !story.wasLiked})
   }
 
   handleClick(e){
@@ -110,11 +90,12 @@ class StoryItem extends React.Component {
   }
 
   render(){
-    const user = this.state.app.user;
+    // const user = this.state.app.user;
     const story = this.props.story;
     const activeTag = this.props.activeTag;
     const verbose = this.props.verbose;
-    const wasLiked = ( user ? story.wasLiked : false );
+    // const wasLiked = ( user ? story.wasLiked : false );
+    const wasLiked = false;
 
     const commentsIconLink = ( !verbose ? (
       <span className="story_comments__container">
@@ -150,13 +131,13 @@ class StoryItem extends React.Component {
       </div>
     );
 
-    const commentsBlock = ( verbose ? (<CommentsBlock comments={story.comments} uID={story.uID} flux={this.props.flux}/>)  : null );
+    // const commentsBlock = ( verbose ? (<CommentsBlock comments={story.comments} uID={story.uID} flux={this.props.flux}/>)  : null );
 
     return (
       <div className="story-item">
         <Story story={story} activeTag={activeTag}/>
-        {controlsBlock}
-        {commentsBlock}
+        {/* {controlsBlock} */}
+        {/* {commentsBlock} */}
       </div>
   )}
 }

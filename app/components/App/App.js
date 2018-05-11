@@ -1,15 +1,16 @@
 import React from 'react';
-import Logo from './App/Static/Logo';
-import Navbar from './App/Navbar/Navbar';
-import Footer from './App/Footer';
-import AuthMessageBox from './App/AuthMessageBox';
 import {Helmet} from 'react-helmet';
-
+import Logo from './Logo/Logo';
+import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer';
+// import AuthMessageBox from './App/AuthMessageBox';
 
 class App extends React.Component {
-  render() {
-    const flux = this.props.flux;
+  constructor(props) {
+    super(props)
+  }
 
+  render() {
     return (
       <div className="root">
         <Helmet>
@@ -18,14 +19,14 @@ class App extends React.Component {
           <meta name="Keywords" content="страшилки,страшные истории, мистические истории, мистика, на ночь, ужасные истории, страх, ужас, ужастики"/>
         </Helmet>
         <div className="root__wrap">
-          <Logo flux={flux} />
-          <Navbar history={this.props.history} flux={flux}/>
+          <Logo logoNumber={this.props.logoNumber} />
+          <Navbar history={this.props.history}/>
           <div className="wrap main">
             {this.props.children}
           </div>
-          <AuthMessageBox flux={flux}/>
+          {/* <AuthMessageBox /> */}
         </div>
-        <Footer flux={flux} />
+        <Footer />
       </div>
     );
   }

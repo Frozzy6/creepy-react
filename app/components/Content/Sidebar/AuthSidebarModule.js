@@ -3,8 +3,8 @@ import {Link} from 'react-router';
 import Recaptcha from 'react-recaptcha';
 
 
-import AuthForm from '../../../Common/AuthForm';
-import RegisterForm from '../../../Common/RegisterForm';
+import AuthForm from '../../Common/AuthForm';
+import RegisterForm from '../../Common/RegisterForm';
 
 class AuthSidebarModule extends React.Component {
   constructor( props ){

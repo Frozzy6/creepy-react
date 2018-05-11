@@ -33,4 +33,6 @@ class AppActions {
   static displayName = 'AppActions';
 }
 
+export const daindpiawndaw ='dawdawdawdaw';
+
 export default AppActions;

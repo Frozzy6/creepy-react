@@ -2,8 +2,8 @@ import React from 'react';
 import {Link} from 'react-router';
 import Recaptcha from 'react-recaptcha';
 
-import RegisterFormActions from '../../actions/Common/RegisterFormActions';
-import RegisterFormStore from '../../stores/Common/RegisterFormStore';
+// import RegisterFormActions from '../../actions/Common/RegisterFormActions';
+// import RegisterFormStore from '../../stores/Common/RegisterFormStore';
 
 let counter = 0;
 

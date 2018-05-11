@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 
 const html = `
  <!--LiveInternet counter--><script type="text/javascript"><!--
@@ -67,35 +67,35 @@ const html = `
 export default class Footer extends React.Component {
   constructor(props) {
     super(props);
-    const flux = props.flux;
+    // const flux = props.flux;
 
-    this.appStore = flux.getStore('AppStore');
-    this.state = {
-      appState: flux.getStore('AppStore').getState()
-    };
-    this.onAppDataChange = this.onAppDataChange.bind(this);
+    // this.appStore = flux.getStore('AppStore');
+    // this.state = {
+      // appState: flux.getStore('AppStore').getState()
+    // };
+    // this.onAppDataChange = this.onAppDataChange.bind(this);
   }
 
   componentDidMount() {
-    this.appStore.listen(this.onAppDataChange);
+    // this.appStore.listen(this.onAppDataChange);
   }
 
   componentWillUnmount() {
-    this.appStore.unlisten(this.onAppDataChange);
+    // this.appStore.unlisten(this.onAppDataChange);
   }
 
   onAppDataChange(state) {
-    if ( this.refs.footer ) {
-      this.setState({appState: state})
-    }
+    // if ( this.refs.footer ) {
+      // this.setState({appState: state})
+    // }
   }
 
   render() {
-    let counters = null;
+    // let counters = null;
 
-    if ( this.state.appState.env == 'production') {
-      counters = ( <div className="counters" dangerouslySetInnerHTML={{__html: html}}></div> );
-    }
+    // if ( this.state.appState.env == 'production') {
+    //   counters = ( <div className="counters" dangerouslySetInnerHTML={{__html: html}}></div> );
+    // }
 
     return (
       <footer className="footer" ref="footer">
@@ -109,7 +109,7 @@ export default class Footer extends React.Component {
               <Link to="/feedback">Обратная связь</Link>
             </span>
           </p>
-          {counters}
+          {/* {counters} */}
         </div>
       </footer>
     );

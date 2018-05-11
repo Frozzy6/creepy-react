@@ -2,8 +2,8 @@ import React from 'react';
 import {Link} from 'react-router';
 import {Helmet} from "react-helmet";
 
-var About = React.createClass({
-  render: function() {
+export default class About extends React.Component {
+  render(){
     return (
       <div className="content wide white padding">
         <Helmet>
@@ -22,8 +22,6 @@ var About = React.createClass({
           <p>Читайте страшные истории на ночь и наслаждайтесь, поскольку здесь собраны самые страшные истории из реальной жизни и страшилки</p>
         </div>
       </div>
-    );
+    )
   }
-});
-
-export default About;
+}

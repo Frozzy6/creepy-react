@@ -1,15 +1,15 @@
 import React from 'react';
-import {Link} from 'react-router';
-import Logo from './App/Static/Logo';
-import Navbar from './App/Navbar/Navbar';
-import Footer from './App/Footer';
+// import {Link} from 'react-router';
+// import Logo from './App/Static/Logo';
+// import Navbar from './App/Navbar/Navbar';
+// import Footer from './App/Footer';
 import {Helmet} from "react-helmet";
 
 class ErrorComponent extends React.Component {
   render() {
     return (
       <div className="root">
-        <Helmet>
+        {/* <Helmet>
           <title>Страшные истории</title>
           <meta name="Description" content="Собрание страшилок и страшных историй на основе реальных событий из разных уголков мира. Возможность поделиться своей историей."/>
           <meta name="Keywords" content="страшилки,страшные истории, мистические истории, мистика, на ночь, ужасные истории, страх, ужас, ужастики"/>
@@ -31,7 +31,7 @@ class ErrorComponent extends React.Component {
             </div>
           </div>
         </div>
-        <Footer />
+        <Footer /> */}
       </div>
     );
   }

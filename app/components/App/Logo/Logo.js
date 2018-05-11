@@ -1,16 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 
 class Logo extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.store = props.flux.getStore('LogoStore');
-    this.state = this.store.getState();
-  }
-
   render() {
-    const state = this.state;
+    const {
+      logoNumber
+    } = this.props;
 
     return (
       <div className="top">
@@ -18,9 +13,10 @@ class Logo extends React.Component {
           <Link to="/" title="Страшные истории">
             <img className="scary-label" src="/images/logo.png"/>
           </Link>
-          {/* <Link to="#"> */}
-          <img src={"/images/lg/" + state.imgNumber + ".png"} className="ghost-logo"/>
-          {/* </Link> */}
+          <Link to="#">
+          {/* <img src={"/images/lg/" + state.imgNumber + ".png"} className="ghost-logo"/> */}
+            <img src={`/images/lg/${logoNumber}.png`} className="ghost-logo"/>
+          </Link>
         </div>
       </div>
     )

@@ -1,26 +1,10 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 
 class Pagination extends React.Component {
   constructor(props){
     super(props);
-    this.appStore = props.flux.getStore('AppStore');
-
-    this.state = this.appStore.getState();
-    this.onChange = this.onChange.bind(this);
     this.handleClickItem = this.handleClickItem.bind(this);
-  }
-
-  componentDidMount() {
-    this.appStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    this.appStore.unlisten(this.onChange);
-  }
-
-  onChange(state) {
-    this.setState(state);
   }
 
   handleClickItem(){
@@ -29,7 +13,7 @@ class Pagination extends React.Component {
 
   render(){
     let { maxPages, currentPage, query } = this.props;
-
+    console.log(maxPages, currentPage, query);
     var navs = [];
     for ( let i = Math.min(currentPage + 2, maxPages); i >= currentPage-2; --i ) {
       if ( i <= 0 ) { break; }

@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
-  <meta name="theme-color" content="#000008">  
+  <meta name="theme-color" content="#000008">
   {% if env == 'production' %}
   <!-- Metrics -->
   <meta name="yandex-verification" content="96ad22f6d41dc2a8" />
@@ -31,7 +31,6 @@
   <script>window.__ENV__ = {{env|json_encode|safe}};</script>
   <script>window.__snapshot__ = {{snapshot|json_encode|safe}};</script>
   <script>window.__DEV_TYPE__ = {{devType|json_encode|safe}};</script>
-  <!-- <script src="/js/bundle.js"></script> -->
   <script src="/js/main.bundle.js"></script>
 </body>
 </html>

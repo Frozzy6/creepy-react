@@ -8,6 +8,10 @@ gulp.task('apply-prod-environment', function() {
   process.env.NODE_ENV = 'production';
 });
 
+gulp.task('apply-dev-environment', function() {
+  process.env.NODE_ENV = 'development';
+});
+
 gulp.task('webpack', function (callback) {
   webpack(require('./webpack.config'), function () {
     callback();
@@ -19,7 +23,7 @@ gulp.task('build-prod', ['apply-prod-environment'], function(){
   gulp.start('styles');
 });
 
-gulp.task('build-dev', function(){
+gulp.task('build-dev', ['apply-dev-environment'], function(){
   gulp.start('webpack');
   gulp.start('styles');
 });

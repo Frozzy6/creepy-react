@@ -1,74 +1,74 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-import AuthFormActions from '../../actions/Common/AuthFormActions';
-import AuthFormStore from '../../stores/Common/AuthFormStore';
+// import AuthFormActions from '../../actions/Common/AuthFormActions';
+// import AuthFormStore from '../../stores/Common/AuthFormStore';
 
 let counter = 0;
 
 class AuthForm extends React.Component {
   constructor( props ){
     super(props);
-    counter++
-
-    const flux = this.props.flux;
-    this.flux = flux;
-
-    const ACTIONS_NAME = `AuthFormActions${counter}`;
-    const STORE_NAME = `AuthFormStore${counter}`;
-
-    this.authActions = flux.getActions(ACTIONS_NAME);
-    if ( !this.authActions ) {
-      flux.addActions( ACTIONS_NAME, AuthFormActions, {}, flux );
-      // flux.createActions( AuthFormActions, this.authActions, { flux, ACTIONS_NAME });
-      this.authActions = flux.getActions(ACTIONS_NAME);
-      this.authStore = flux.createStore(AuthFormStore, STORE_NAME, counter );
-    } else {
-      this.authStore = flux.getStore(STORE_NAME);
-    }
-
-    this.state = this.authStore.getState();
-    this.handleChange = this.handleChange.bind( this );
-    this.handleSubmitForm = this.handleSubmitForm.bind(this);
-    this.onChange = this.onChange.bind( this );
+    // counter++
+    //
+    // const flux = this.props.flux;
+    // this.flux = flux;
+    //
+    // const ACTIONS_NAME = `AuthFormActions${counter}`;
+    // const STORE_NAME = `AuthFormStore${counter}`;
+    //
+    // this.authActions = flux.getActions(ACTIONS_NAME);
+    // if ( !this.authActions ) {
+    //   flux.addActions( ACTIONS_NAME, AuthFormActions, {}, flux );
+    //   // flux.createActions( AuthFormActions, this.authActions, { flux, ACTIONS_NAME });
+    //   this.authActions = flux.getActions(ACTIONS_NAME);
+    //   this.authStore = flux.createStore(AuthFormStore, STORE_NAME, counter );
+    // } else {
+    //   this.authStore = flux.getStore(STORE_NAME);
+    // }
+    //
+    // this.state = this.authStore.getState();
+    // this.handleChange = this.handleChange.bind( this );
+    // this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    // this.onChange = this.onChange.bind( this );
   }
 
   componentDidMount() {
-    this.authStore.listen(this.onChange);
+    // this.authStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    counter--;
-    this.authStore.unlisten(this.onChange);
-    this.flux.recycle(this.authStore);
+    // counter--;
+    // this.authStore.unlisten(this.onChange);
+    // this.flux.recycle(this.authStore);
   }
 
   onChange(state) {
-    this.setState(state);
+    // this.setState(state);
   }
 
   handleChange( event ){
     event.preventDefault();
-    this.authActions.updateFormData( event.target.name, event.target.value );
+    // this.authActions.updateFormData( event.target.name, event.target.value );
   }
 
   handleSubmitForm( event ) {
     event.preventDefault();
 
-    const login = this.state.login;
-    const password = this.state.password;
-
-    if ( login.length === 0 ) {
-      event.target.querySelector('[name=login]').focus()
-      return false;
-    }
-
-    if ( password.length === 0 ) {
-      event.target.querySelector('[name=password]').focus()
-      return false;
-    }
-
-    this.authActions.login(login, password);
+    // const login = this.state.login;
+    // const password = this.state.password;
+    //
+    // if ( login.length === 0 ) {
+    //   event.target.querySelector('[name=login]').focus()
+    //   return false;
+    // }
+    //
+    // if ( password.length === 0 ) {
+    //   event.target.querySelector('[name=password]').focus()
+    //   return false;
+    // }
+    //
+    // this.authActions.login(login, password);
   }
 
   render(){

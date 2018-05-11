@@ -1,21 +1,36 @@
 import React from 'react';
-import {Router} from 'react-router';
 import ReactDOM from 'react-dom';
-import browserHistory from 'react-router/lib/browserHistory';
-import RouterMatch from 'react-router/lib/match';
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 
-import routes from './routes';
-import patchRouteHooks from 'react-router-hooks-patch';
-import Flux from './flux';
+import configureStore from './utils/configureStore';
+import rootSaga from './sagas';
 
-const flux = new Flux();
-const patchedRoutes = patchRouteHooks(routes, { flux });
+import { AppContainer } from './containers';
+
 const mountNode = document.getElementById('app');
+const store = configureStore();
 
+store.runSaga(rootSaga);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <AppContainer />
+    </BrowserRouter>
+  </Provider>,
+  mountNode
+);
+
+//
+// import { ReduxAsyncConnect } from 'redux-async-connect';
+
+/*
 if ( window.__snapshot__ ) {
   flux.bootstrap(decodeURIComponent(window.escape(atob(window.__snapshot__))));
   /* Set access token to request head */
+  /*
   delete axios.defaults.headers.common["Authorization"];
   // debugger;
   // setTimeout(()=>{
@@ -25,6 +40,7 @@ if ( window.__snapshot__ ) {
 
   /* Check for extend token */
   /* Do something before request is sent */
+  /*
   axios.interceptors.request.use(function (config) {
     // if ( config._skip ) {
     //   return config;
@@ -66,18 +82,17 @@ if ( window.__snapshot__ ) {
     return Promise.reject(error);
   });
 }
+*/
+// console.log('Device type:', window.__DEV_TYPE__);
+// flux.getActions('AppActions').setDeviceType(window.__DEV_TYPE__);
+// flux.getActions('AppActions').setEnv(process.env.NODE_ENV || window.__ENV__);
 
-console.log('Device type:', window.__DEV_TYPE__);
-flux.getActions('AppActions').setDeviceType(window.__DEV_TYPE__);
-flux.getActions('AppActions').setEnv(process.env.NODE_ENV || window.__ENV__);
-
-const passFluxToComponent = (Component, props) => {
-    return <Component flux={flux} {...props} />;
-};
+// const passFluxToComponent = (Component, props) => {
+//     return <Component flux={flux} {...props} />;
+// };
 
 /*
   https://stackoverflow.com/questions/40280369/use-anchors-with-react-router
-*/
 function hashLinkScroll() {
   const { hash } = window.location;
   if (hash !== '') {
@@ -105,19 +120,14 @@ RouterMatch({ history: browserHistory, routes: patchedRoutes }, async (error, re
     ReactDOM.render(element, mountNode);
   }
 });
+*/
 
 /* Preload images for message box */
-function preload( urls ){
-  const images = [];
-  for (var i = 0; i < urls.length; i++) {
-    images[i] = new Image();
-    images[i].src = urls[i];
-  }
-}
-
-preload([
-  '/images/bg/6-min-extra.jpg',
-  '/images/bg/4.jpg'
-])
-
-export default flux;
+// [
+//   '/images/bg/6-min-extra.jpg',
+//   '/images/bg/4.jpg'
+// ].forEach( url => (new Image()).src = url);
+//
+// const component = (
+//   <Roter render={(props) => props } />
+// );
