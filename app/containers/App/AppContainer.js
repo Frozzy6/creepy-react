@@ -9,6 +9,11 @@ import App from '../../components/App/App';
 import About from '../../components/About';
 import ContentContainer from '../Content/ContentContainer';
 
+import StoriesPage from '../../pages/stories';
+import ScaryPage from '../../pages/scary';
+import StoryPage from '../../pages/story';
+import RandomPage from '../../pages/random';
+
 /*
   There is old routes
   <App>
@@ -35,7 +40,6 @@ import ContentContainer from '../Content/ContentContainer';
   </App>
 */
 
-
 class AppContainer extends Component {
   constructor(props) {
     super(props);
@@ -52,77 +56,41 @@ class AppContainer extends Component {
       >
         <Switch>
           <Route
-            exact
             path='/'
-            render={(props)=>{
-              return <ContentContainer
-                helloMessage={true}
-                query='stories'
-                {...props}
-              />
-            }}
+            exact
+            component={StoriesPage}
           />
           <Route
-            exact
             path='/stories/'
-            render={(props)=>{
-              return <ContentContainer
-                query='stories'
-                {...props}
-              />
-            }}
+            exact
+            component={StoriesPage}
           />
           <Route
             path='/stories/:page'
-            render={(props)=>{
-              return <ContentContainer
-                query='stories'
-                {...props}
-              />
-            }}
+            component={StoriesPage}
           />
-
           <Route
-            exact
             path='/scary/'
-            render={(props)=>{
-              return <ContentContainer
-                query='scary'
-                {...props}
-              />
-            }}
+            exact
+            component={ScaryPage}
           />
           <Route
-            exact
             path='/scary/:page'
-            render={(props)=>{
-              return <ContentContainer
-                query='scary'
-                {...props}
-              />
-            }}
-          />
-          <Route
             exact
+            component={ScaryPage}
+          />
+          <Route
             path='/story/:id'
-            render={(props)=>{
-              return <ContentContainer
-                query='story'
-                {...props}
-              />
-            }}
+            exact
+            component={StoryPage}
           />
           <Route
-            path='/random'
-            render={(props)=>{
-              return <ContentContainer
-                query='random'
-                {...props}
-              />
-            }}
+            path='/random/'
+            exact
+            component={RandomPage}
           />
           <Route
-            path="/about"
+            path='/about/'
             component={About}
           />
         </Switch>

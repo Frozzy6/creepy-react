@@ -1,8 +1,8 @@
-export getEnvVaribale function(){
+export const getEnvVaribale = function (param = 'ENV') {
   try {
-    return process.env.NODE_ENV || window.__ENV__;
+    return process.env[`NODE_${param}`] || window[`__${param}__`];
   } catch( e ) {
-    console.log('Request ENV variable doesnt set');
-    return false;
+    console.warn(`Request ${param} variable doesnt set`);
+    return null;
   }
 }

@@ -1,6 +1,6 @@
 /*
   Middleware of disable direct access on prod server.
-  It's need for prevent google/yandex duplicates
+  It's need for prevent google/yandex page duplicates
 
   GET scary-stories.com:80(nginx proxy) -> OK
   GET scary-stories.com:3000 -> 403

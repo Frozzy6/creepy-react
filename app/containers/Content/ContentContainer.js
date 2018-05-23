@@ -17,13 +17,13 @@ class ContentContainer extends Component {
       offset,
     } = this.props;
 
-    const id = this.props.match.params.id;
-    const stories = ['stories', 'scary'];
-    if (stories.includes(query)){
-      this.props.requestStoriesAC(query, offset);
-    } else {
-      this.props.requestStoryAC(id);
-    }
+    // const id = this.props.match.params.id;
+    // const stories = ['stories', 'scary'];
+    // if (stories.includes(query)){
+    //   this.props.requestStoriesAC(query, offset);
+    // } else {
+    //   this.props.requestStoryAC(id);
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -62,11 +62,11 @@ class ContentContainer extends Component {
       query,
       stories,
       helloMessage,
-      match: {
-        params: { page = "1" }
-      }
+      // match: {
+      //   params: { page = "1" }
+      // }
     } = this.props;
-
+    const page = 1;
     return (
       <Content
         stories={stories.toJS().entries}

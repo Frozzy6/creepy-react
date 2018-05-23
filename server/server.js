@@ -25,13 +25,13 @@ const tokenManager = require('./tokenManager').default;
 
 const apiOauthRouter = require('./api/oauth').default;
 
-const NODE_ENV = process.env.NODE_ENV;
-const API_HOST = config[NODE_ENV].API_HOST;
+const API_HOST = config.API_HOST;
 
 tokenManager.getAppToken();
 
 const app = express();
 
+/* TODO: change to getEnv from utils */
 app.set('port', process.env.PORT || 3000);
 app.enable('trust proxy');
 app.use(compression());

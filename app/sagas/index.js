@@ -1,10 +1,10 @@
 import { take, put, call, fork, select, takeEvery, all } from 'redux-saga/effects';
 import axios from 'axios';
-import * as actions from '../actions';
 
+import * as actions from '../actions';
 import config from '../../config.js';
-const NODE_ENV = process.env.NODE_ENV || window.__ENV__;
-const API_HOST = config[NODE_ENV].API_HOST;
+
+const API_HOST = config.API_HOST;
 
 function fetchStory(id){
   const url = `${API_HOST}/stories/${id}`;

@@ -4,8 +4,7 @@ import request from 'superagent';
 import tokenManager from '../tokenManager';
 import config from '../../config';
 
-const NODE_ENV = process.env.NODE_ENV;
-const API_HOST = config[NODE_ENV].API_HOST;
+const API_HOST = config.API_HOST;
 
 const router = express.Router();
 

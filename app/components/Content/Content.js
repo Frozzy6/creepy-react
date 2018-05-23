@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {Helmet} from "react-helmet";
 
@@ -17,91 +17,7 @@ const getDescriptionByToken = function( token ){
   return DESC[token];
 };
 
-class Content extends React.Component {
-  static fetch = [
-    {
-      storeName: 'ContentStore',
-      fetch: 'fetchStory',
-      args: ['contentToken', 'contentParam', 'flux']
-    }
-  ];
-
-  constructor(props){
-    super(props);
-    this.state = {};
-    // const flux = props.flux;
-    // this.contentStore = flux.getStore('ContentStore');
-    // this.contentActions = flux.getActions('ContentActions');
-    //
-    // this.appStore = flux.getStore('AppStore');
-    //
-    // this.state = this.contentStore.getState();
-    // this.state.appState = this.appStore.getState();
-    //
-    // this.onChange = this.onChange.bind(this);
-    // this.onAppDataChange = this.onAppDataChange.bind(this);
-    //
-    // const params = props.params;
-    // const param = params.page || params.id;
-    //
-    // if ( params && params.page ) {
-    //   this.state.page = params.page;
-    // } else {
-    //   this.state.page = 1;
-    // }
-  }
-
-  componentWillMount(){
-    // this.props.loadStories();
-    // const token = this.props.route.query;
-    // this.setState({description: getDescriptionByToken( token )});
-    // this.appStore.listen(this.onAppDataChange);
-  }
-
-  componentDidMount() {
-    // const token = this.props.route.query;
-    // const params = this.props.params;
-    // var param = params.page || params.id;
-    //
-    // this.contentStore.listen(this.onChange);
-    //
-    // //Get list of stories by token {latest, scary or random} and offset
-    // if ( token !== 'random' || this.state.stories.length === 0 ) {
-    //   this.contentStore.fetchStory( token, param, this.props.flux );
-    // }
-  }
-
-  componentWillUnmount() {
-    // this.contentStore.unlisten(this.onChange);
-    // this.appStore.unlisten(this.onAppDataChange);
-  }
-
-  componentWillReceiveProps(nextProps){
-    // const token = nextProps.route.query;
-    // const params = nextProps.params;
-    // var param = params.page || params.id;
-    //
-    // this.setState({description: getDescriptionByToken( token )});
-    //
-    // if ( params && params.page ) {
-    //   this.state.page = params.page;
-    // } else {
-    //   this.state.page = 1;
-    // }
-    //
-    // this.contentStore.fetchStory( token, param, this.props.flux );
-  }
-
-  onChange(state) {
-    // this.setState(state);
-  }
-
-  onAppDataChange(state) {
-    // if ( this.refs.content ) {
-    //   this.setState({appState: state})
-    // }
-  }
-
+class Content extends Component {
   render() {
     const {
       query,
