@@ -1,22 +1,17 @@
-cosnt TYPES = {
-  START: '_START',
-  SUCCESS: '_SUCCESS',
-  FAIL: '_FAIL',
+import {
+  START,
+  SUCCESS,
+  FAIL,
+} from '../baseActions';
+
+const genericAC = function() {
+  const [type, actionType, payload] = arguments;
+  const baseAction = {
+    type: actionType + type
+  };
+  return ( payload ? { ...baseAction, payload } : baseAction );
 }
 
-const genericAC = (action, payload, type) => ({
-  type: action + type,
-  payload
-})
-
-export const genericStartAC = function(..args) {
-  return genericAC(..args, TYPES.START);
-}
-
-export const genericSuccessAC = function(...args) {
-  return genericAC(..args, TYPES.SUCCESS);
-};
-
-export const genericFailAC = function(action, payload) {
-  return genericAC(..args, TYPES.FAIL);
-}
+export const genericStartAC = (...args) => genericAC(START, ...args);
+export const genericSuccessAC = (...args) => genericAC(SUCCESS, ...args);
+export const genericFailAC = (...args) => genericAC(FAIL, ...args);

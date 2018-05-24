@@ -13,60 +13,32 @@ class ContentContainer extends Component {
 
   componentWillMount(){
     const {
-      query,
+      token,
       offset,
     } = this.props;
 
-    // const id = this.props.match.params.id;
-    // const stories = ['stories', 'scary'];
-    // if (stories.includes(query)){
-    //   this.props.requestStoriesAC(query, offset);
-    // } else {
-    //   this.props.requestStoryAC(id);
-    // }
+    this.props.requestStoriesAC(token, offset);
   }
 
   componentWillReceiveProps(nextProps) {
-    // TODO: should use smth like that
-    // https://gist.github.com/Yimiprod/7ee176597fef230d1451
-    // to diff objects
     const {
-      query: prevQuery,
-      // id: prevId,
-      // offset: prevOffset,
-    } = this.props;
-    const prevOffset = this.props.match.params.page || "1";
-    const prevId = this.props.match.params.id;
-
-    const {
-      query,
-      // id,
-      // offset,
+      token,
+      page,
     } = nextProps;
-    const offset = nextProps.match.params.page || "1";
-    const id = nextProps.match.params.id;
 
-    if (query !== prevQuery || offset !== prevOffset || id !== prevId) {
-      // dublicate declaration
-      const stories = ['stories', 'scary'];
-      if (stories.includes(query)){
-        this.props.requestStoriesAC(query, offset);
-      } else {
-        this.props.requestStoryAC(id);
-      }
+    if ( page !== this.props.page ) {
+      this.props.requestStoriesAC(token, page);
     }
   }
 
   render(){
     const {
-      query,
+      token,
       stories,
       helloMessage,
-      // match: {
-      //   params: { page = "1" }
-      // }
+      page,
     } = this.props;
-    const page = 1;
+
     return (
       <Content
         stories={stories.toJS().entries}
@@ -74,14 +46,14 @@ class ContentContainer extends Component {
         showPagination={stories.toJS().showPagination}
         storiesTotal={stories.toJS().count}
         currentPage={parseInt(page, 10)}
-        query={query}
+        /* change to token prop */
+        query={token}
       />
     )
   }
 }
 
 ContentContainer.propTypes = {
-  requestStoryAC: PropTypes.func.isRequired,
   requestStoriesAC: PropTypes.func.isRequired,
   stories: PropTypes.instanceOf(Map).isRequired,
 };

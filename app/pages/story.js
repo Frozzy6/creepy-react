@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { ContentContainer } from '../containers';
+import { SingleContentContainer } from '../containers';
 
 export default function StoryPage(props) {
-  return <ContentContainer/>;
+  return (
+    <SingleContentContainer
+      token="story"
+    />
+  );
 }

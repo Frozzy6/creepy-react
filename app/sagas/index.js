@@ -1,7 +1,16 @@
 import { take, put, call, fork, select, takeEvery, all } from 'redux-saga/effects';
 import axios from 'axios';
 
-import * as actions from '../actions';
+import {
+  REQUEST_STORY,
+  REQUEST_STORIES,
+  SHOW_PAGINATION,
+} from '../actions';
+import {
+  genericStartAC,
+  genericSuccessAC,
+  genericFailAC,
+} from '../actions/utils/actionGeneric';
 import config from '../../config.js';
 
 const API_HOST = config.API_HOST;
@@ -33,49 +42,43 @@ function fetchStories(query, offset) {
     .catch(e => { console.log('something going wrong'); });
 }
 
-//TODO: move to stories.js sagas
-//TODO: should write helpers actionsGenerator, smth like:
-//TODO: genericSuccessAC(REQUEST_STORIES, payload)
-//TODO: genericStartAC(REQUEST_STORIES, payload)
-//TODO: genericFailAC(REQUEST_STORIES, payload)
-//TODO: to automaticly concats events with constants: REQUEST_STORIES + START, etc
 function* callFetchStories(action) {
   const {
     query,
     offset = 1,
   } = action.payload;
 
-  yield put({type: actions.REQUEST_STORIES + actions.START});
+  yield put(genericStartAC(REQUEST_STORIES));
 
   const [stories, count] = yield all([
     fetchStories(query, offset),
     fetchStoriesCount()
   ]);
   if (stories && count) {
-    yield put({type: actions.SHOW_PAGINATION});
-    yield put({type: actions.REQUEST_STORIES + actions.SUCCESS, payload: {stories, count}});
+    yield put({ type: SHOW_PAGINATION });
+    yield put(genericSuccessAC(REQUEST_STORIES, {stories, count}));
   } else {
-    yield put({type: actions.REQUEST_STORIES + actions.FAIL});
+    yield put(genericFailAC(REQUEST_STORIES));
   }
 }
 
 function* callFetchStory(action) {
-  yield put({type: actions.REQUEST_STORY + actions.START});
+  yield put(genericStartAC(REQUEST_STORY));
 
   const story = yield fetchStory(action.payload.id);
   if (story) {
-    yield put({type: actions.REQUEST_STORY + actions.SUCCESS, payload: {stories: [story]}});
+    yield put(genericSuccessAC(REQUEST_STORY, { story }));
   } else {
-    yield put({type: actions.REQUEST_STORY + actions.FAIL});
+    yield put(genericFailAC(REQUEST_STORY));
   }
 }
 
 function* getStoriesSaga() {
-  yield takeEvery(actions.REQUEST_STORIES, callFetchStories);
+  yield takeEvery(REQUEST_STORIES, callFetchStories);
 }
 
 function* getStorySaga() {
-  yield takeEvery(actions.REQUEST_STORY, callFetchStory);
+  yield takeEvery(REQUEST_STORY, callFetchStory);
 }
 
 

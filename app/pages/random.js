@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { ContentContainer } from '../containers';
+import { SingleContentContainer } from '../containers';
 
-export default function RandomPage(props) {
-  return <ContentContainer/>;
+export default function StoryPage(props) {
+  return (
+    <SingleContentContainer
+      token="random"
+    />
+  );
 }

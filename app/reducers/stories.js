@@ -2,7 +2,15 @@ import Immutable, { fromJS } from 'immutable';
 
 export const STORIES_DATA = 'STORIES_DATA';
 
-import { REQUEST_STORIES, REQUEST_STORY, SUCCESS } from '../actions' ;
+import {
+  REQUEST_STORY,
+  REQUEST_STORIES,
+} from '../actions' ;
+import {
+  START,
+  SUCCESS,
+  FAIL,
+} from '../actions/baseActions';
 
 const initState = Immutable.Map(fromJS({
   entries: [],
