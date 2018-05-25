@@ -32,7 +32,7 @@ class Story extends React.Component {
 
   render(){
     const { story, activeTag } = this.props;
-    let tags = story.tags || [];
+    let tags = story.get('tags') || [];
 
     tags = tags.map( (tag, index) => {
       var active = tag === activeTag
@@ -45,12 +45,12 @@ class Story extends React.Component {
         <div className="story__heading">
           <span className="story-icon"></span>
           <h2>
-            <Link to={"/story/" + story.uID}>{story.data.title}</Link>
-            <div className="publish-date">{moment(story.datePublished).format('DD MMMM YYYY в HH:mm')}</div>
+            <Link to={"/story/" + story.get('uID')}>{story.getIn(['data', 'title'])}</Link>
+            <div className="publish-date">{moment(story.get('datePublished')).format('DD MMMM YYYY в HH:mm')}</div>
           </h2>
         </div>
         <ul className="tags">{tags}</ul>
-        <div className="text" dangerouslySetInnerHTML={{__html: story.content}}></div>
+        <div className="text" dangerouslySetInnerHTML={{__html: story.get('content')}}></div>
       </div>
     )
   }
@@ -60,7 +60,6 @@ class StoryItem extends React.Component {
   constructor(props){
     super(props)
     this.handleLike = this.handleLike.bind(this);
-    this.onAppChange = this.onChange.bind(this, 'app');
   }
 
   handleLike(){
@@ -99,10 +98,10 @@ class StoryItem extends React.Component {
 
     const commentsIconLink = ( !verbose ? (
       <span className="story_comments__container">
-        <Link to={"/story/" + story.uID + "#comments"} className="story_comments-link">
+        <Link to={"/story/" + story.get('uID') + "#comments"} className="story_comments-link">
           <i className="fa fa-comments story-comments-icon" title="Комментарии"></i>
           <span className="story_comments_label">Коментарии:&nbsp;</span>
-          <span className="story_comments-count">{story.commentsCount}</span>
+          <span className="story_comments-count">{story.get('commentsCount')}</span>
         </Link>
       </span>
     ) : null );
@@ -114,30 +113,33 @@ class StoryItem extends React.Component {
         <span onClick={this.handleLike} className="story_rating__container">
           <i className={"story_icon story_icon-like fa " + likeIcon} title="Мне понравилось"></i>
           <span className="story_rating_label">Рейтинг:&nbsp;</span>
-          <span className="story_rating">{story.likeCount}</span>
+          <span className="story_rating">{story.get('likeCount')}</span>
         </span>
         {commentsIconLink}
         <div className="social__container">
-          <a onClick={this.handleClick} href={"http://vk.com/share.php?url=http://scary-stories.ru/story/"+story.uID}>
+          <a onClick={this.handleClick} href={"http://vk.com/share.php?url=http://scary-stories.ru/story/"+story.get('uID')}>
             <i className="story_icon fa fa-vk" title="Поделиться Вконтакте"></i>
           </a>
-          <a onClick={this.handleClick} href={"http://www.facebook.com/sharer.php?u=http://scary-stories.ru/story/"+story.uID}>
+          <a onClick={this.handleClick} href={"http://www.facebook.com/sharer.php?u=http://scary-stories.ru/story/"+story.get('uID')}>
             <i className="story_icon fa fa-facebook-square" title="Поделиться в фейсбуке"></i>
           </a>
-          <a onClick={this.handleClick} href={"http://twitter.com/intent/tweet?url=http://scary-stories.ru/story/"+story.uID+"&amp;text="+story.title}>
+          <a onClick={this.handleClick} href={"http://twitter.com/intent/tweet?url=http://scary-stories.ru/story/"+story.get('uID')+"&amp;text="+story.get('title')}>
             <i className="story_icon fa fa-twitter-square" title="Мне понравилось"></i>
           </a>
         </div>
       </div>
     );
-
-    // const commentsBlock = ( verbose ? (<CommentsBlock comments={story.comments} uID={story.uID} flux={this.props.flux}/>)  : null );
-
+    console.log(story.toJS());
     return (
       <div className="story-item">
         <Story story={story} activeTag={activeTag}/>
-        {/* {controlsBlock} */}
-        {/* {commentsBlock} */}
+        {controlsBlock}
+        { verbose &&
+          <CommentsBlock
+            uID={story.get('uID')}
+            comments={story.get('comments')}
+          />
+        }
       </div>
   )}
 }

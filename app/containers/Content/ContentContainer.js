@@ -41,13 +41,12 @@ class ContentContainer extends Component {
 
     return (
       <Content
-        stories={stories.toJS().entries}
+        stories={stories.get('entries')}
         helloMessage={helloMessage}
-        showPagination={stories.toJS().showPagination}
-        storiesTotal={stories.toJS().count}
+        showPagination={stories.get('showPagination')}
+        storiesTotal={stories.get('count')}
         currentPage={parseInt(page, 10)}
-        /* change to token prop */
-        query={token}
+        token={token}
       />
     )
   }

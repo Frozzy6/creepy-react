@@ -1,7 +1,4 @@
 import Immutable, { fromJS } from 'immutable';
-
-export const STORIES_DATA = 'STORIES_DATA';
-
 import {
   REQUEST_STORY,
   REQUEST_STORIES,
@@ -14,8 +11,9 @@ import {
 
 const initState = Immutable.Map(fromJS({
   entries: [],
+  story: {},
   showPagination: false,
-  count: -1
+  count: -1,
 }));
 
 export default function stories(state = initState, action) {
@@ -36,12 +34,11 @@ export default function stories(state = initState, action) {
     }
     case REQUEST_STORY + SUCCESS:
       const {
-        payload: { stories }
+        payload: { story }
       } = action;
 
       return state
-        .set('entries', fromJS(stories))
-        .set('count', -1)
+        .set('story', fromJS(story))
         .set('showPagination', false);
 
     default:

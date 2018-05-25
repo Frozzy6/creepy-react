@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 
@@ -9,6 +9,7 @@ const EmptyCommentsComponent = (props) =>  (
   </div>
 );
 
+// TODO: one class per file
 class CommentItem extends React.Component {
   constructor(props){
     super(props)
@@ -17,7 +18,7 @@ class CommentItem extends React.Component {
   render(){
     const comment = this.props.comment;
     if ( !comment.author ) {
-      console.log('BAD!!!', console.log(comment));
+      console.error('No comment author', console.log(comment));
     }
 
     return (
@@ -33,46 +34,12 @@ class CommentItem extends React.Component {
 class CommentsBlock extends React.Component {
   constructor(props){
     super(props)
+    const {
+      comments,
+    } = this.props;
 
-    const flux = this.props.flux;
-    const comments = this.props.comments;
-
-    this.flux = this.props.flux;
-
-    this.appStore = this.flux.getStore('AppStore');
-    this.commentsBlockActions = this.flux.getActions('CommentsBlockActions');
-    this.commentsBlockStore = this.flux.getStore('CommentsBlockStore');
-
-    this.state = {
-      appState: this.appStore.getState(),
-      commentsBlockState: this.commentsBlockStore.getState()
-    };
-
-    this.onChange = this.onChange.bind(this);
-    this.onAppChange = this.onAppChange.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.handleRegisterClick = this.handleRegisterClick.bind(this);
     this.handleAuthClick = this.handleAuthClick.bind(this);
-  }
-
-  componentDidMount() {
-    this.appStore.listen(this.onAppChange);
-    this.commentsBlockStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    this.appStore.unlisten(this.onAppChange);
-    this.commentsBlockStore.unlisten(this.onChange);
-  }
-
-  onChange(state) {
-    this.setState({commentsBlockState: state});
-  }
-
-  onAppChange(appState){
-    if ( this.refs.commentsBlock ) {
-      this.setState({appState:appState})
-    }
   }
 
   handleChange( event ) {
@@ -93,30 +60,35 @@ class CommentsBlock extends React.Component {
 
   handleRegisterClick( e ){
     e.preventDefault();
-    const actions = this.flux.getActions('AuthMessageBoxActions');
 
-    actions.changeTab('register');
-    actions.show();
+    // actions.changeTab('register');
+    // actions.show();
   }
 
   handleAuthClick( e ){
     e.preventDefault();
-    const actions = this.flux.getActions('AuthMessageBoxActions');
 
-    actions.changeTab('auth');
-    actions.show();
+    // actions.changeTab('auth');
+    // actions.show();
   }
 
   render(){
-    const appState = this.state.appState;
-    const commentsBlockState = this.state.commentsBlockState;
-    let commentsComponent = this.props.comments.map( (comment, index ) => ( <CommentItem comment={comment} key={index} /> ));
+    // TODO: move to default props
+    const {
+      comments = [],
+    } = this.props;
+
+    console.log(comments)
+    let commentsComponent = comments.map( (comment, index) => (
+      <CommentItem comment={comment} key={index} />
+    ));
 
     const loadingHTML = (
       <div className="loading"><img src="/images/spinner.svg"/></div>
     );
 
-    const commentEditorHTML = ( appState.user ? (
+    //todo: check auth
+    const commentEditorHTML = ( false ? (
       <div className="comment-editor">
         <h4>Оставьте коментрий</h4>
         <form id="comment-form" onSubmit={this.handleSubmit.bind(this)}>

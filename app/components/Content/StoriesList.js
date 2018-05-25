@@ -1,28 +1,15 @@
 import React from 'react';
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 import StoryItem from './StoryItem/StoryItem';
-// import AppStore from '../../../stores/AppStore';
 
 class StoriesList extends React.Component {
-  componentDidMount() {
-    // this.appStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    // this.appStore.unlisten(this.onChange);
-  }
-
-  onChange(state) {
-    // this.setState(state);
-  }
 
   render(){
     const {
       stories,
     } = this.props;
-    // const flux = this.props.flux;
-    // const stories = this.props.stories;
+
     // const isLoading = this.state.loading;
     const isLoading = false;
     const isSingle = stories.length === 1;
@@ -30,9 +17,9 @@ class StoriesList extends React.Component {
     let html = null;
     let helmet = null;
 
-    if ( stories.length > 0 ) {
+    if ( stories.size > 0 ) {
       html = stories.map( (story, index) => {
-        return ( <StoryItem story={story} key={story.uID} verbose={isSingle}/> );
+        return ( <StoryItem story={story} key={story.get('uID')}/> );
       });
     } else if ( !isLoading ){
       html = (
@@ -43,20 +30,8 @@ class StoriesList extends React.Component {
       );
     }
 
-    // if ( isSingle ) {
-    //   let story = stories[0];
-    //   helmet = (
-    //     <Helmet>
-    //       <title>{story.data.title + ' - Страшные истории'}</title>
-    //       <meta name='Title' content={story.data.title + ' - Страшные истории'}/>
-    //       <meta name='Description' content={story.data.description}/>
-    //     </Helmet>
-    //   )
-    // };
-
     return (
-      <div className={"content " + (stories.length === 1 ? 'wide' : '')}>
-        {/* {helmet} */}
+      <div className={'content'}>
         {html}
       </div>
   );}

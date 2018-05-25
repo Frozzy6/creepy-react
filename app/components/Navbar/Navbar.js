@@ -74,7 +74,12 @@ class Navbar extends React.Component {
             <NavItem to="/scary" currentLocation={currentLocation}>
               Страшные
             </NavItem>
-            <NavItem to="/random" currentLocation={currentLocation}>Случайная история</NavItem>
+            <NavItem
+              to="/random"
+              currentLocation={currentLocation}
+            >
+              Случайная история
+            </NavItem>
             {submitStory}
             {account}
             <div style={{clear:"both"}}></div>

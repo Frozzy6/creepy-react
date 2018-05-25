@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import {
   REQUEST_STORY,
+  REQUEST_RANDOM_STORY,
   REQUEST_STORIES,
   SHOW_PAGINATION,
 } from '../actions';
@@ -15,8 +16,8 @@ import config from '../../config.js';
 
 const API_HOST = config.API_HOST;
 
-function fetchStory(id){
-  const url = `${API_HOST}/stories/${id}`;
+function fetchStory(token, id){
+  const url = `${API_HOST}/stories/${token === 'random' ? token : id}`;
   return axios(url)
     .then(response => response.data)
     //TODO: should to make normal logging
@@ -64,8 +65,8 @@ function* callFetchStories(action) {
 
 function* callFetchStory(action) {
   yield put(genericStartAC(REQUEST_STORY));
-
-  const story = yield fetchStory(action.payload.id);
+  console.log(action.payload);
+  const story = yield fetchStory(action.payload.token, action.payload.id);
   if (story) {
     yield put(genericSuccessAC(REQUEST_STORY, { story }));
   } else {

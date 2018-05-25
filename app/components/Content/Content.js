@@ -1,61 +1,63 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
+import { Map, List } from 'immutable';
 
 import Pagination from './Pagination';
 import StoriesList from './StoriesList';
 import Sidebar from './Sidebar/Sidebar';
 import Greeting from './Greeting';
+import StoryDetails from './StoryDetails';
 
-const getDescriptionByToken = function( token ){
-  const DESC = {
-    stories: 'Собрание страшилок и страшных историй на основе реальных событий из разных уголков мира.',
-    scary: 'Собрание страшилок и страшных историй на основе реальных событий из разных уголков мира, показаные по популярности.',
-    random: 'Случайная страшилка или страшная история. Каждый раз новая.'
-  }
-
-  return DESC[token];
+const DESC = {
+  stories: 'Собрание страшилок и страшных историй на основе реальных событий из разных уголков мира.',
+  scary: 'Собрание страшилок и страшных историй на основе реальных событий из разных уголков мира, показаные по популярности.',
+  random: 'Случайная страшилка или страшная история. Каждый раз новая.'
 };
+
+const getDescriptionByToken = token => DESC[token];
 
 class Content extends Component {
   render() {
     const {
-      query,
+      token,
       stories,
+      story,
       helloMessage,
       showPagination,
       storiesTotal,
       currentPage,
     } = this.props;
 
-    let sidebarHTML = null;
-    // TODO: is that bug
+    // TODO: please no literals
     let maxPages = Math.ceil(storiesTotal / 10 );
-
-    /* Render sidebar only for desktop */
-    if ( stories.length > 1 ) {
-      sidebarHTML = <Sidebar />;
-    }
 
     return (
       <div ref="content">
         <Helmet>
           <title>Страшные истории</title>
-          <meta name='Description' content={getDescriptionByToken(query)}/>
+          <meta name='Description' content={getDescriptionByToken(token)}/>
         </Helmet>
         {helloMessage &&
           <Greeting/>
         }
         {/* // TODO: make without query param. withRouter may helps alot */}
         {showPagination &&
-          <Pagination maxPages={maxPages} currentPage={currentPage} query={query}/>
+          <Pagination maxPages={maxPages} currentPage={currentPage} query={token}/>
         }
-        <StoriesList stories={stories}/>
-        {/* {sidebarHTML} */}
+        { stories.size !== 0 &&
+          <Fragment>
+            <StoriesList stories={stories}/>
+            {/* <Sidebar /> */}
+          </Fragment>
+        }
+        { story &&
+          <StoryDetails story={story}/>
+        }
         <div style={{clear:"both"}}></div>
         {/* // TODO: make without query param. withRouter may helps alot */}
         {showPagination &&
-          <Pagination maxPages={maxPages} currentPage={currentPage} query={query}/>
+          <Pagination maxPages={maxPages} currentPage={currentPage} query={token}/>
         }
       </div>
     );
@@ -63,7 +65,13 @@ class Content extends Component {
 }
 
 Content.propTypes = {
-  stories: PropTypes.array,
+  stories: PropTypes.instanceOf(List),
+  story: PropTypes.instanceOf(Map),
+}
+
+Content.defaultProps = {
+  stories: new List(),
+  story: null,
 }
 
 export default Content;

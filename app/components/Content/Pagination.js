@@ -12,8 +12,9 @@ class Pagination extends React.Component {
   }
 
   render(){
+    // TODO: too much bad code
     let { maxPages, currentPage, query } = this.props;
-    console.log(maxPages, currentPage, query);
+
     var navs = [];
     for ( let i = Math.min(currentPage + 2, maxPages); i >= currentPage-2; --i ) {
       if ( i <= 0 ) { break; }
