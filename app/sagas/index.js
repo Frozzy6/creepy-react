@@ -35,7 +35,7 @@ function fetchStoriesCount() {
 
 function fetchStories(query, offset) {
   const token = (query == 'stories' ? 'latest' : 'scary');
-  console.log('offset', offset);
+
   const url = `${API_HOST}/stories/${token}/${offset}`;
 
   return axios(url)
@@ -65,7 +65,7 @@ function* callFetchStories(action) {
 
 function* callFetchStory(action) {
   yield put(genericStartAC(REQUEST_STORY));
-  console.log(action.payload);
+
   const story = yield fetchStory(action.payload.token, action.payload.id);
   if (story) {
     yield put(genericSuccessAC(REQUEST_STORY, { story }));

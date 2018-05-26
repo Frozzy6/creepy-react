@@ -1,11 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router-dom';
 import Recaptcha from 'react-recaptcha';
 
-// import RegisterFormActions from '../../actions/Common/RegisterFormActions';
-// import RegisterFormStore from '../../stores/Common/RegisterFormStore';
-
-let counter = 0;
+import { AUTH_MODAL_ITEM } from '../AuthModal/AuthModal';
 
 /* EMAIL */
 const emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -16,44 +13,11 @@ const loginRE = /^([a-zA-Z0-9 _-]+)$/;
 class RegisterForm extends React.Component {
   constructor( props ){
     super(props);
-    counter++;
 
-    const flux = this.props.flux;
-    this.flux = flux;
-
-    const ACTIONS_NAME = `RegisterFormActions${counter}`;
-    const STORE_NAME = `RegisterFormStore${counter}`;
-
-    this.regActions = flux.getActions(ACTIONS_NAME);
-    if ( !this.regActions ) {
-      flux.addActions( ACTIONS_NAME, RegisterFormActions, {}, flux );
-      // flux.createActions( RegisterFormActions, this.regActions, { flux, ACTIONS_NAME });
-      this.regActions = flux.getActions(ACTIONS_NAME);
-      this.regStore = flux.createStore(RegisterFormStore, STORE_NAME, counter );
-    } else {
-      this.regStore = flux.getStore(STORE_NAME);
-    }
-
-    this.state = this.regStore.getState();;
-    this.userHandleSubmit = this.props.handleFomrSubmit;
-    this.recaptchaInstance = null;
-
-    this.handleChange = this.handleChange.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
-
-  componentDidMount() {
-    this.regStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    counter--;
-    this.regStore.unlisten(this.onChange);
-    this.flux.recycle(this.regStore);
-  }
-
-  onChange(state) {
-    this.setState(state);
+    this.state = {
+      data: {},
+      errors: {},
+    };
   }
 
   handleChange( event ){
@@ -124,7 +88,10 @@ class RegisterForm extends React.Component {
   }
 
   render(){
-    const sendingData = this.state.sendingData;
+    const {
+      openDialogAC,
+    } = this.props;
+    const sendingData = false;
 
     const loadingHTML = (
       <div className="auth-loading">
@@ -139,23 +106,25 @@ class RegisterForm extends React.Component {
     return (
       <form className="reg-form" onSubmit={( e ) => { this.handleSubmitForm(e); }}>
         <div className="controls-block">
-          <input placeholder="Логин" type="text" name="login" autoComplete="off" maxLength="50" value={registerData.login} onChange={this.handleChange} />
+          <input placeholder="Логин" type="text" name="login" autoComplete="off" maxLength="50" onChange={this.handleChange} />
           <div className="control-error">{registerErrors.login}</div>
         </div>
         <div className="controls-block">
-          <input placeholder="Email" type="email" name="email" autoComplete="off" maxLength="50" value={registerData.email} onChange={this.handleChange}/>
+          <input placeholder="Email" type="email" name="email" autoComplete="off" maxLength="50" onChange={this.handleChange}/>
           <div className="control-error">{registerErrors.email}</div>
         </div>
         <div className="controls-block">
-          <input placeholder="Пароль" type="password" name="password" autoComplete="off" maxLength="50" value={registerData.password} onChange={this.handleChange}/>
+          <input placeholder="Пароль" type="password" name="password" autoComplete="off" maxLength="50"  onChange={this.handleChange}/>
           <div className="control-error">{registerErrors.password}</div>
         </div>
         <div className="controls-block">
-          <input placeholder="Пароль" type="password" name="passwordRepeat" autoComplete="off" maxLength="50" value={registerData.passwordRepeat} onChange={this.handleChange}/>
+          <input placeholder="Пароль" type="password" name="passwordRepeat" autoComplete="off" maxLength="50" onChange={this.handleChange}/>
           <div className="control-error">{registerErrors.passwordRepeat}</div>
         </div>
         <div className="controls-block recaptcha">
-          <Recaptcha elementID={`recaptcha-${counter}`} ref={e => this.recaptchaInstance = e} render="explicit" sitekey="6LesOxcUAAAAAH9i0IygDSN8TVgwaIs6hyZPzyxt" render="explicit" onloadCallback={function(){/*DUMMY FUNC HELLO LIBRARY*/}} verifyCallback={this.regActions.sendRecaptcha}/>
+          <Recaptcha elementID={`recaptcha-0`} ref={e => this.recaptchaInstance = e} render="explicit" sitekey="6LesOxcUAAAAAH9i0IygDSN8TVgwaIs6hyZPzyxt" render="explicit" onloadCallback={function(){/*DUMMY FUNC HELLO LIBRARY*/}} verifyCallback={function(){
+            console.log('not implimented yet');
+          }}/>
           <div className="control-error" style={{paddingLeft: "31px"}}>{registerErrors.gRecaptchaResponse}</div>
         </div>
         <div className="controls-block">
@@ -163,7 +132,9 @@ class RegisterForm extends React.Component {
         </div>
         <div className="controls-block">
           <div className="wanna-login">
-            <p>Уже есть аккаунт?  <Link onClick={( e ) => { this.exitCallback(e); }}>Войти</Link></p>
+            <p>Уже есть аккаунт?  <a onClick={( e ) => {
+              openDialogAC(AUTH_MODAL_ITEM);
+            }}>Войти</a></p>
           </div>
         </div>
         { sendingData ? loadingHTML : null }

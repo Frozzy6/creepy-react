@@ -6,14 +6,16 @@ export const REQUEST_RANDOM_STORY = 'REQUEST_RANDOM_STORY';
 export const SHOW_PAGINATION = 'SHOW_PAGINATION';
 export const HIDE_PAGINATION = 'SHOW_PAGINATION';
 /* Dialog */
-export const OPEN_DIALOG = 'OPEN_DIALOG';
-export const CLOSE_DIALOG = 'CLOSE_DIALOG';
+export const SHOW_DIALOG = 'SHOW_DIALOG';
+export const HIDE_DIALOG = 'HIDE_DIALOG';
 
-export const requestStoriesAC = (query, offset) => ({ type: REQUEST_STORIES, payload: {query, offset} });
-export const requestStoryAC = (token, id) => ({ type: REQUEST_STORY, payload: {token, id} });
+export const requestStoriesAC = (query, offset) => ({ type: REQUEST_STORIES, payload: { query, offset } });
+export const requestStoryAC = (token, id) => ({ type: REQUEST_STORY, payload: { token, id } });
+export const openDialogAC = (content) => ({ type: SHOW_DIALOG, payload: { content } });
+export const closeDialogAC = () => ({ type: HIDE_DIALOG });
 
-export const updateRouterState = (state) => action(UPDATE_ROUTER_STATE, { state });
-export const navigate = (pathname) => action(NAVIGATE, { pathname });
-
-
+export const getIsAppLoading = (state) => state.app.get('isLoading');
+export const getCurrentUser = (state) => state.app.get('user');
 export const getLogoNumber = (state) => state.app.get('logoNumber');
+export const getDialogIsOpen = (state) => state.dialog.get('isOpen');
+export const getDialogContent = (state) => state.dialog.get('content');

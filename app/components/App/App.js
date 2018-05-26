@@ -1,9 +1,9 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
 import Logo from './Logo/Logo';
-import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer';
-// import AuthMessageBox from './App/AuthMessageBox';
+import NavbarContainer from '../../containers/Navbar/NavbarContainer';
+import DialogContainer from '../../containers/Dialog/DialogContainer';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,11 +20,11 @@ class App extends React.Component {
         </Helmet>
         <div className="root__wrap">
           <Logo logoNumber={this.props.logoNumber} />
-          <Navbar history={this.props.history}/>
+          <NavbarContainer />
           <div className="wrap main">
             {this.props.children}
           </div>
-          {/* <AuthMessageBox /> */}
+          <DialogContainer />
         </div>
         <Footer />
       </div>

@@ -17,14 +17,14 @@ class CommentItem extends React.Component {
 
   render(){
     const comment = this.props.comment;
-    if ( !comment.author ) {
-      console.error('No comment author', console.log(comment));
+    if ( !comment.get('author') ) {
+      console.error('No comment author', console.log(comment.toJS()));
     }
 
     return (
       <div className="comment-item">
-        <div className="comment-item-head"><span className="comment-item-username">{comment.author ? comment.author.username : 'bad' }</span>&nbsp;&nbsp;<span style={{color: "#999", fontSize: "80%"}} >{moment(comment.dateCreated).format('DD MMMM в HH:mm')}</span></div>
-        <div className="comment-item-body">{comment.content}</div>
+        <div className="comment-item-head"><span className="comment-item-username">{comment.author ? comment.author.username : 'bad' }</span>&nbsp;&nbsp;<span style={{color: "#999", fontSize: "80%"}} >{moment(comment.get('dateCreated')).format('DD MMMM в HH:mm')}</span></div>
+        <div className="comment-item-body">{comment.get('content')}</div>
         {/* <i className="comment-item-like icon-like fa " title="Мне понравилось"></i> */}
       </div>
     );
@@ -78,8 +78,7 @@ class CommentsBlock extends React.Component {
       comments = [],
     } = this.props;
 
-    console.log(comments)
-    let commentsComponent = comments.map( (comment, index) => (
+    let commentsComponent = comments.map((comment, index) => (
       <CommentItem comment={comment} key={index} />
     ));
 

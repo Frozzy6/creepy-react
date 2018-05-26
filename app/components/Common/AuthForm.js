@@ -1,50 +1,16 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router-dom';
 
-// import AuthFormActions from '../../actions/Common/AuthFormActions';
-// import AuthFormStore from '../../stores/Common/AuthFormStore';
-
-let counter = 0;
+import { REGISTER_MODAL_ITEM } from '../RegisterModal/RegisterModal';
 
 class AuthForm extends React.Component {
   constructor( props ){
     super(props);
-    // counter++
-    //
-    // const flux = this.props.flux;
-    // this.flux = flux;
-    //
-    // const ACTIONS_NAME = `AuthFormActions${counter}`;
-    // const STORE_NAME = `AuthFormStore${counter}`;
-    //
-    // this.authActions = flux.getActions(ACTIONS_NAME);
-    // if ( !this.authActions ) {
-    //   flux.addActions( ACTIONS_NAME, AuthFormActions, {}, flux );
-    //   // flux.createActions( AuthFormActions, this.authActions, { flux, ACTIONS_NAME });
-    //   this.authActions = flux.getActions(ACTIONS_NAME);
-    //   this.authStore = flux.createStore(AuthFormStore, STORE_NAME, counter );
-    // } else {
-    //   this.authStore = flux.getStore(STORE_NAME);
-    // }
-    //
-    // this.state = this.authStore.getState();
-    // this.handleChange = this.handleChange.bind( this );
-    // this.handleSubmitForm = this.handleSubmitForm.bind(this);
-    // this.onChange = this.onChange.bind( this );
-  }
 
-  componentDidMount() {
-    // this.authStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    // counter--;
-    // this.authStore.unlisten(this.onChange);
-    // this.flux.recycle(this.authStore);
-  }
-
-  onChange(state) {
-    // this.setState(state);
+    this.state = {
+      login: '',
+      password: '',
+    }
   }
 
   handleChange( event ){
@@ -72,8 +38,11 @@ class AuthForm extends React.Component {
   }
 
   render(){
-    const isAuthFail = this.state.wrongCred;
-    const isSendingData = this.state.isSendingData;
+    const {
+      openDialogAC,
+    } = this.props;
+    const isAuthFail = false;
+    const isSendingData = false;
 
     const wrongAuthHtml = ( isAuthFail ? (
       <div className="controls-block">
@@ -87,7 +56,9 @@ class AuthForm extends React.Component {
         </div>
     ) : null );
 
-    this.exitCallback = this.props.exitCallback || function() {/*Do nothing*/};
+    this.exitCallback = (e) => {
+      e.preventDefault();
+    };
     return (
       <form className="auth-form" onSubmit={this.handleSubmitForm}>
         <div className="controls-block">
@@ -98,7 +69,9 @@ class AuthForm extends React.Component {
           <button className="signup-btn" type="submit">Войти</button>
           <div className="wanna-register">
             <p>Нет аккаунта?</p>
-            <Link onClick={( e ) => { this.exitCallback(e) }}>Регистрация</Link>
+            <a onClick={( e ) => {
+              openDialogAC(REGISTER_MODAL_ITEM);
+            }}>Регистрация</a>
           </div>
         </div>
         { wrongAuthHtml }

@@ -1,52 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types'
-import { withRouter } from 'react-router'
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import NavItem from './NavItem';
 
-class Navbar extends React.Component {
-  constructor(props){
-    super(props);
-    // const flux = this.props.flux;
-    this.state = {};
-    // this.appStore = flux.getStore('AppStore');
-    // this.msgBoxActions = flux.getActions('AuthMessageBoxActions');
-    //
-    // this.state = this.appStore.getState();
-    // this.onChange = this.onChange.bind(this);
-    // this.handleAuthClick = this.handleAuthClick.bind(this);
-  }
-
-  static propTypes = {
-    location: PropTypes.object.isRequired,
-  }
-
-  componentDidMount() {
-    // this.appStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    // this.appStore.unlisten(this.onChange);
-  }
-
-  onChange(state) {
-    // this.setState(state);
-  }
-
+class Navbar extends Component {
   handleAuthClick( e ){
     e.preventDefault();
-
-    // this.msgBoxActions.changeTab('auth');
-    // this.msgBoxActions.show();
+    this.props.openDialogAC();
   }
 
   render() {
     const {
       location,
+      isLoading,
+      user,
+      openDialogAC,
     } = this.props;
 
-    const loading = this.state.loading || false;
-    const user = this.state.user;
     const currentLocation = location.pathname;
 
     const account = ( user ? (
@@ -67,7 +37,7 @@ class Navbar extends React.Component {
       <div className="nav">
         <div className="wrap">
           <ul className="head-menu">
-            <li className={"spinner" + ( loading ? "" : " hide") }></li>
+            <li className={"spinner" + ( isLoading ? "" : " hide") }></li>
             <NavItem to="/stories" currentLocation={currentLocation}>
               Новые
             </NavItem>
@@ -81,7 +51,18 @@ class Navbar extends React.Component {
               Случайная история
             </NavItem>
             {submitStory}
-            {account}
+            { user ?
+              <Fragment>
+                <NavItem className="submit" to="/new"><i className="pencil-icon"></i>Прислать историю</NavItem>
+                <NavItem currentLocation={currentLocation} className="profile" to="/my">
+                  <i title={user} className="fa fa-user-circle-o"></i>
+                </NavItem>
+              </Fragment>
+              :
+              <NavItem currentLocation={currentLocation} className="profile" onClick={this.handleAuthClick.bind(this)} to="/login">
+                <i title="Войти" className="fa fa-sign-in"></i>Войти
+              </NavItem>
+            }
             <div style={{clear:"both"}}></div>
           </ul>
         </div>
@@ -91,4 +72,4 @@ class Navbar extends React.Component {
 }
 
 
-export default withRouter(Navbar);
+export default Navbar;

@@ -129,7 +129,7 @@ class StoryItem extends React.Component {
         </div>
       </div>
     );
-    console.log(story.toJS());
+
     return (
       <div className="story-item">
         <Story story={story} activeTag={activeTag}/>

@@ -1,35 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import classNames from 'classnames';
 
-import { OPEN_DIALOG, CLOSE_DIALOG } from '../actions';
-import DialogContent from '../components/DialogContent';
+import {
+  getDialogIsOpen,
+  getDialogContent,
+  closeDialogAC,
+  openDialogAC,
+} from '../../actions';
+import ModalContent from '../../components/ModalContent/ModalContent';
+import { REGISTER_MODAL_ITEM } from '../../components/RegisterModal/RegisterModal';
 
+class ReduxDialog extends Component {
+  render(){
+    const {
+      isOpen,
+      content,
+      ...rest
+    } = this.props;
 
-const mapStateToProps = ({dialog}) => {
-  const { isOpen, item = {} } = dialog;
-  return { isOpen, item };
-};
+    return (
+      <Modal
+        isOpen={isOpen}
+        className={
+          classNames('message-box',
+          { 'mb-register': content ===  REGISTER_MODAL_ITEM }
+        )}
 
-const mapDispatchToProps = (dispatch, props) => ({
-  onRequestClose: () =>  dispatch(closeDialog())
-});
+        overlayClassName='overlay overlay-dark'
+        ariaHideApp={false}
+      >
+        <ModalContent
+          content={content}
+          {...rest}
+        />
+      </Modal>
+    )
+  }
 
-
-const Dialog = function(props) {
-    class ReduxDialog extends Component {
-      render(){
-        const {isOpen, ...rest} = this.props;
-        return (
-          <Modal isOpen={isOpen} className="app-modal">
-            <DialogContent {...rest}/>
-          </Modal>
-        )
-      }
-
-    }
-
-    return connect(mapStateToProps, mapDispatchToProps)(ReduxDialog)
 }
 
-export default Dialog(DialogContent);
+export default connect(
+  (state) => ({
+    isOpen: getDialogIsOpen(state),
+    content: getDialogContent(state),
+  }), {
+    closeDialogAC,
+    openDialogAC,
+  })(ReduxDialog)
