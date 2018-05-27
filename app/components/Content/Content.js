@@ -5,7 +5,7 @@ import { Map, List } from 'immutable';
 
 import Pagination from './Pagination';
 import StoriesList from './StoriesList';
-import Sidebar from './Sidebar/Sidebar';
+import SidebarContainer from '../../containers/Sidebar/SidebarContainer';
 import Greeting from './Greeting';
 import StoryDetails from './StoryDetails';
 
@@ -48,7 +48,7 @@ class Content extends Component {
         { stories.size !== 0 &&
           <Fragment>
             <StoriesList stories={stories}/>
-            {/* <Sidebar /> */}
+            <SidebarContainer />
           </Fragment>
         }
         { story &&

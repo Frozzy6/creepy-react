@@ -1,17 +1,18 @@
 import React, { Component, Fragment } from 'react';
+import { partial } from 'lodash';
 
 import AuthForm from '../Common/AuthForm';
 
 function AuthModal(props){
   const {
-    openDialogAC,
+    handleRegisterClick,
   } = props;
 
   return (
     <Fragment>
       <h1>С возвращением</h1>
       <AuthForm
-        openDialogAC={openDialogAC}
+        handleRegisterClick={handleRegisterClick}
       />
     </Fragment>
   );

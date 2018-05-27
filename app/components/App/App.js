@@ -11,6 +11,11 @@ class App extends React.Component {
   }
 
   render() {
+    const {
+      children,
+      logoNumber,
+    } = this.props;
+
     return (
       <div className="root">
         <Helmet>
@@ -19,10 +24,10 @@ class App extends React.Component {
           <meta name="Keywords" content="страшилки,страшные истории, мистические истории, мистика, на ночь, ужасные истории, страх, ужас, ужастики"/>
         </Helmet>
         <div className="root__wrap">
-          <Logo logoNumber={this.props.logoNumber} />
+          <Logo logoNumber={logoNumber} />
           <NavbarContainer />
           <div className="wrap main">
-            {this.props.children}
+            {children}
           </div>
           <DialogContainer />
         </div>

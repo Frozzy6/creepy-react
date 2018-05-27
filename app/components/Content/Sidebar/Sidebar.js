@@ -4,25 +4,24 @@ import AuthSidebarModule from './AuthSidebarModule';
 import UserSidebarModule from './UserSidebarModule';
 import PageTagsSidebarModule from './PageTagsSidebarModule';
 
-class Sidebar extends React.Component {
-  render(){
-    // const tags = this.props.sidebarTags;
-    const sidebarBlocks = [];
+export default function Sidebar(props){
+  const {
+    requestAuthAC,
+  } = props;
 
-    if ( appState.user ) {
-      sidebarBlocks.push( <UserSidebarModule key="1"/> )
-    } else {
-      sidebarBlocks.push( <AuthSidebarModule key="1"/> )
-    }
+  const tags = ['tag1', 'tag2', 'tag3'];
 
-    // sidebarBlocks.push( <PageTagsSidebarModule sidebarTags={tags} key="2"/>)
-
-    return (
-      <div className="sidebar" ref="sidebar">
-        {sidebarBlocks}
-      </div>
-    );
-  };
+  return (
+    <div className="sidebar">
+      { false ?
+        <UserSidebarModule /> :
+        <AuthSidebarModule
+          requestAuthAC={requestAuthAC}
+        />
+      }
+      <PageTagsSidebarModule
+        tags={tags}
+      />
+    </div>
+  );
 }
-
-export default Sidebar;

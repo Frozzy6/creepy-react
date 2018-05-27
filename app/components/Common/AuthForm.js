@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { REGISTER_MODAL_ITEM } from '../RegisterModal/RegisterModal';
-
-class AuthForm extends React.Component {
+class AuthForm extends Component {
   constructor( props ){
     super(props);
 
@@ -11,35 +9,46 @@ class AuthForm extends React.Component {
       login: '',
       password: '',
     }
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmitForm = this.handleSubmitForm.bind(this);
   }
 
-  handleChange( event ){
+  handleChange(event) {
+    const {
+      name: key,
+      value,
+    } = event.target;
+    this.setState({ [key]: value });
     event.preventDefault();
-    // this.authActions.updateFormData( event.target.name, event.target.value );
   }
 
-  handleSubmitForm( event ) {
+  handleSubmitForm(event) {
+    const {
+      login,
+      password,
+    } = this.state;
+    const {
+      target,
+    } = event;
     event.preventDefault();
 
-    // const login = this.state.login;
-    // const password = this.state.password;
-    //
-    // if ( login.length === 0 ) {
-    //   event.target.querySelector('[name=login]').focus()
-    //   return false;
-    // }
-    //
-    // if ( password.length === 0 ) {
-    //   event.target.querySelector('[name=password]').focus()
-    //   return false;
-    // }
-    //
-    // this.authActions.login(login, password);
+    if ( login.length === 0 ) {
+      target.querySelector('[name=login]').focus()
+      return false;
+    }
+
+    if ( password.length === 0 ) {
+      target.querySelector('[name=password]').focus()
+      return false;
+    }
+
+    console.log('need auth');
   }
 
   render(){
     const {
-      openDialogAC,
+      handleRegisterClick,
     } = this.props;
     const isAuthFail = false;
     const isSendingData = false;
@@ -50,8 +59,8 @@ class AuthForm extends React.Component {
       </div>
     ) : null );
 
-    const loadingHTML = ( isSendingData ? (
-        <div className="auth-loading">
+    const loadingHTML = ( false ? (
+        <div className="loading auth-loading">
           <img src="/images/spinner.svg"/>
         </div>
     ) : null );
@@ -66,12 +75,21 @@ class AuthForm extends React.Component {
           <input placeholder="Пароль" name="password" type="password" autoComplete="off" maxLength="50" value={this.state.password} onChange={this.handleChange}/>
         </div>
         <div className="controls-block">
-          <button className="signup-btn" type="submit">Войти</button>
+          <button
+            className="signup-btn"
+            type="submit"
+          >
+            Войти
+          </button>
           <div className="wanna-register">
             <p>Нет аккаунта?</p>
-            <a onClick={( e ) => {
-              openDialogAC(REGISTER_MODAL_ITEM);
-            }}>Регистрация</a>
+            <a
+              onClick={( e ) => {
+                handleRegisterClick();
+              }}
+            >
+              Регистрация
+            </a>
           </div>
         </div>
         { wrongAuthHtml }

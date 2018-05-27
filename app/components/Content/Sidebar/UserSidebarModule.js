@@ -4,31 +4,16 @@ import {Link} from 'react-router';
 class UserSidebarModule extends React.Component {
   constructor( props ){
     super(props);
-    const flux = props.flux;
 
-    this.appStore = flux.getStore('AppStore');
-    this.appActions = flux.getActions('AppActions');
-
-    this.onAppDataChange = this.onAppDataChange.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-    this.state = { appState: this.appStore.getState() };
-  }
-
-  componentDidMount() {
-    this.appStore.listen(this.onAppDataChange);
-  }
-
-  componentWillUnmount() {
-    this.appStore.unlisten(this.onAppDataChange);
+    this.state = {};
   }
 
   render(){
-    const appState = this.state.appState;
     return (
       <div className="sidebar-item sidebar-user" ref="userSidebarPanel">
         <div className="sidebar-item-body sidebar-item-body__white">
           <div className="sidebar-user-greeting">
-            <span className="bold">{appState.user}</span>
+            <span className="bold">Username</span>
             <i onClick={this.handleLogout} title="Выйти" className="fa fa-sign-out logout"></i>
           </div>
           <ul className="user-menu-list">
@@ -39,12 +24,6 @@ class UserSidebarModule extends React.Component {
         </div>
       </div>
     )
-  }
-
-  onAppDataChange(state) {
-    if ( this.refs.userSidebarPanel ) {
-      this.setState( {appState: state} );
-    }
   }
 
   handleLogout( event ) {

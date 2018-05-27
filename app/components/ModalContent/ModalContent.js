@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { partial } from 'lodash';
 
 import AuthModal, { AUTH_MODAL_ITEM } from '../AuthModal/AuthModal';
 import RegisterModal, { REGISTER_MODAL_ITEM } from '../RegisterModal/RegisterModal';
@@ -14,12 +15,12 @@ export default function ModalContent(props){
   switch (content) {
     case AUTH_MODAL_ITEM:
       renderComponent = <AuthModal
-        openDialogAC={openDialogAC}
+        handleRegisterClick={partial(openDialogAC, REGISTER_MODAL_ITEM)}
       />
       break;
     case REGISTER_MODAL_ITEM:
       renderComponent = <RegisterModal
-        openDialogAC={openDialogAC}
+        handleAuthClick={partial(openDialogAC, AUTH_MODAL_ITEM)}
       />
       break;
     default:

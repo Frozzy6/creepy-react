@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Recaptcha from 'react-recaptcha';
 
-import { AUTH_MODAL_ITEM } from '../AuthModal/AuthModal';
-
 /* EMAIL */
 const emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -89,7 +87,7 @@ class RegisterForm extends React.Component {
 
   render(){
     const {
-      openDialogAC,
+      handleAuthClick,
     } = this.props;
     const sendingData = false;
 
@@ -133,7 +131,7 @@ class RegisterForm extends React.Component {
         <div className="controls-block">
           <div className="wanna-login">
             <p>Уже есть аккаунт?  <a onClick={( e ) => {
-              openDialogAC(AUTH_MODAL_ITEM);
+              handleAuthClick();
             }}>Войти</a></p>
           </div>
         </div>
