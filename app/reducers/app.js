@@ -1,14 +1,48 @@
-import Immutable from 'immutable';
+import { fromJS } from 'immutable';
+import {
+  REQUEST_AUTH,
+} from '../actions' ;
+import {
+  START,
+  SUCCESS,
+  FAIL,
+} from '../actions/baseActions';
 
-export const APP_DATA = 'APP_DATA';
-
-const initState = Immutable.Map({
+const initState = fromJS({
   logoNumber: Math.floor(Math.random() * 5) + 1,
+  auth: {
+    user: null,
+    state: {
+      loading: false,
+      success: false,
+      fail: false,
+    }
+  }
 });
 
-export default function shots(state = initState, action) {
+export default function appReducer(state = initState, action) {
   switch(action.type) {
-    case APP_DATA:
+    case REQUEST_AUTH:
+      return state.merge({
+        auth: {
+          state: {
+            loading: false,
+            success: false,
+            fail: false,
+          }
+        }
+      });
+    case REQUEST_AUTH + START:
+      return state
+        .setIn(['auth','state','loading'], true);
+    case REQUEST_AUTH + SUCCESS:
+      return state
+        .setIn(['auth','state','loading'], false)
+        .setIn(['auth','state','success'], true);
+    case REQUEST_AUTH + FAIL:
+      return state
+        .setIn(['auth','state','loading'], false)
+        .setIn(['auth','state','fail'], true);
     default:
       return state;
   }
