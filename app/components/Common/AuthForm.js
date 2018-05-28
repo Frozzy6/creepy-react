@@ -25,12 +25,16 @@ class AuthForm extends Component {
 
   handleSubmitForm(event) {
     const {
+      target,
+    } = event;
+    const {
       login,
       password,
     } = this.state;
     const {
-      target,
-    } = event;
+      handleAuthClick
+    } = this.props;
+
     event.preventDefault();
 
     if ( login.length === 0 ) {
@@ -43,23 +47,26 @@ class AuthForm extends Component {
       return false;
     }
 
-    console.log('need auth');
+    handleAuthClick(login, password);
   }
 
   render(){
     const {
+      user,
+      authState,
       handleRegisterClick,
     } = this.props;
+
     const isAuthFail = false;
     const isSendingData = false;
 
-    const wrongAuthHtml = ( isAuthFail ? (
+    const wrongAuthHtml = ( authState.get('fail') ? (
       <div className="controls-block">
         <div className="auth-bad">Ошибка. Неверные данные авторизации</div>
       </div>
     ) : null );
 
-    const loadingHTML = ( false ? (
+    const loadingHTML = ( authState.get('loading') ? (
         <div className="loading auth-loading">
           <img src="/images/spinner.svg"/>
         </div>

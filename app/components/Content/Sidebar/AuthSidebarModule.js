@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 import Recaptcha from 'react-recaptcha';
 
 import AuthForm from '../../Common/AuthForm';
 import RegisterForm from '../../Common/RegisterForm';
 
-class AuthSidebarModule extends React.Component {
+class AuthSidebarModule extends Component {
   constructor( props ){
     super(props);
     this.state = {
@@ -18,10 +18,17 @@ class AuthSidebarModule extends React.Component {
   }
 
   render() {
+    const {
+      authState,
+      requestAuthAC,
+    } = this.props;
+
     const isLoginTabShow = this.state.currentTab == 'auth';
     const widgets = [(
       <AuthForm
         handleRegisterClick={this.switchTab.bind(this, 'register')}
+        handleAuthClick={requestAuthAC}
+        authState={authState}
       />
     ),(
       <RegisterForm

@@ -6,6 +6,8 @@ import PageTagsSidebarModule from './PageTagsSidebarModule';
 
 export default function Sidebar(props){
   const {
+    user,
+    authState,
     requestAuthAC,
   } = props;
 
@@ -13,9 +15,10 @@ export default function Sidebar(props){
 
   return (
     <div className="sidebar">
-      { false ?
+      { user ?
         <UserSidebarModule /> :
         <AuthSidebarModule
+          authState={authState}
           requestAuthAC={requestAuthAC}
         />
       }

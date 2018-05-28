@@ -12,6 +12,7 @@ export default function ModalContent(props){
   } = props;
   let renderComponent = null;
 
+  //TODO: make it as containers
   switch (content) {
     case AUTH_MODAL_ITEM:
       renderComponent = <AuthModal

@@ -18,7 +18,8 @@ export const closeDialogAC = () => ({ type: HIDE_DIALOG });
 export const requestAuthAC = (login, password) => ({ type: REQUEST_AUTH, payload: { login, password } });
 
 export const getIsAppLoading = (state) => state.app.get('isLoading');
-export const getCurrentUser = (state) => state.app.get('user');
+export const getCurrentUser = (state) => state.app.getIn(['auth', 'user']);
+export const getAuthState = (state) => state.app.getIn(['auth', 'state']);
 export const getLogoNumber = (state) => state.app.get('logoNumber');
 export const getDialogIsOpen = (state) => state.dialog.get('isOpen');
 export const getDialogContent = (state) => state.dialog.get('content');

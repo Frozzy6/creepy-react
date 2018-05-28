@@ -16,8 +16,8 @@ const initState = fromJS({
       loading: false,
       success: false,
       fail: false,
-    }
-  }
+    },
+  },
 });
 
 export default function appReducer(state = initState, action) {
@@ -36,7 +36,9 @@ export default function appReducer(state = initState, action) {
       return state
         .setIn(['auth','state','loading'], true);
     case REQUEST_AUTH + SUCCESS:
+      const { authData } = action.payload;
       return state
+        .setIn(['auth', 'user'], authData)
         .setIn(['auth','state','loading'], false)
         .setIn(['auth','state','success'], true);
     case REQUEST_AUTH + FAIL:
