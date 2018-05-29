@@ -46,7 +46,7 @@ class AuthForm extends Component {
       target.querySelector('[name=password]').focus()
       return false;
     }
-
+    
     handleAuthClick(login, password);
   }
 

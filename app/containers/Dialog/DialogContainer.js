@@ -16,6 +16,7 @@ class ReduxDialog extends Component {
   render(){
     const {
       isOpen,
+      closeDialogAC,
       content,
       ...rest
     } = this.props;
@@ -27,12 +28,14 @@ class ReduxDialog extends Component {
           classNames('message-box',
           { 'mb-register': content ===  REGISTER_MODAL_ITEM }
         )}
-
         overlayClassName='overlay overlay-dark'
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={true}
+        onRequestClose={closeDialogAC}
       >
         <ModalContent
           content={content}
+          closeDialogAC={closeDialogAC}
           {...rest}
         />
       </Modal>

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable'
+import { Map } from 'immutable';
 
-import { requestStoriesAC, requestStoryAC } from '../../actions';
+import {
+  requestStoriesAC,
+  requestStoryAC,
+} from '../../actions';
 import Content from '../../components/Content/Content';
 
 class SingleContentContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount(){
     const {
       id,
@@ -29,9 +28,9 @@ class SingleContentContainer extends Component {
     return (
       <Content
         story={story}
+        token={token}
         helloMessage={false}
         showPagination={false}
-        token={token}
       />
     )
   }

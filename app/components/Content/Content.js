@@ -47,12 +47,16 @@ class Content extends Component {
         }
         { stories.size !== 0 &&
           <Fragment>
-            <StoriesList stories={stories}/>
+            <StoriesList
+              stories={stories}
+            />
             <SidebarContainer />
           </Fragment>
         }
         { story &&
-          <StoryDetails story={story}/>
+          <StoryDetails
+            story={story}
+          />
         }
         <div style={{clear:"both"}}></div>
         {/* // TODO: make without query param. withRouter may helps alot */}

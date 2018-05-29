@@ -4,16 +4,10 @@ import { partial } from 'lodash';
 import AuthForm from '../Common/AuthForm';
 
 function AuthModal(props){
-  const {
-    handleRegisterClick,
-  } = props;
-
   return (
     <Fragment>
       <h1>С возвращением</h1>
-      <AuthForm
-        handleRegisterClick={handleRegisterClick}
-      />
+      <AuthForm {...props}/>
     </Fragment>
   );
 }

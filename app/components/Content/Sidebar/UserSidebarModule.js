@@ -28,7 +28,7 @@ class UserSidebarModule extends React.Component {
 
   handleLogout( event ) {
     event.preventDefault();
-    this.appActions.doLogout();
+    console.log('wanna logout');
   }
 }
 

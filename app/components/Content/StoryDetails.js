@@ -22,9 +22,13 @@ export default function StoryDetails(props) {
           <meta name='Title' content={story.getIn(['data', 'title']) + ' - Страшные истории'}/>
           <meta name='Description' content={story.getIn(['data', 'description'])}/>
         </Helmet>
-        <StoryItem story={story} verbose={true}/>
+        <StoryItem
+          story={story}
+          verbose={true}
+        />
       </Fragment>
     );
+  //TODO: move to one top level
   } else if (!isLoading){
     html = (
       <div className="panel-top">

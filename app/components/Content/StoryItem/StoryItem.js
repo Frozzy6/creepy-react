@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 
-import CommentsBlock from './CommentsBlock';
+import CommentsBlockContainer from '../../../containers/CommentsBlock/CommentsBlockContainer';
 
 class TagItem extends React.Component {
   constructor(props){
@@ -89,10 +89,14 @@ class StoryItem extends React.Component {
   }
 
   render(){
-    // const user = this.state.app.user;
-    const story = this.props.story;
-    const activeTag = this.props.activeTag;
-    const verbose = this.props.verbose;
+    const {
+      openAuthModal,
+      openRegisterModal,
+      story,
+      activeTag,
+      verbose,
+    } = this.props;
+
     // const wasLiked = ( user ? story.wasLiked : false );
     const wasLiked = false;
 
@@ -135,9 +139,8 @@ class StoryItem extends React.Component {
         <Story story={story} activeTag={activeTag}/>
         {controlsBlock}
         { verbose &&
-          <CommentsBlock
-            uID={story.get('uID')}
-            comments={story.get('comments')}
+          <CommentsBlockContainer
+            story={story}
           />
         }
       </div>

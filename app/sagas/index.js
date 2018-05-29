@@ -1,11 +1,11 @@
 import { all } from 'redux-saga/effects';
 
 import storiesSagas from './stories';
-import authSagas from './auth';
+import oauthSagas from './oauth';
 
 export default function* root() {
   yield all([
     ...storiesSagas,
-    ...authSagas,
+    ...oauthSagas,
   ])
 }

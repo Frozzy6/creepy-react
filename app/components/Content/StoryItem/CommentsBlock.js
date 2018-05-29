@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -10,7 +10,7 @@ const EmptyCommentsComponent = (props) =>  (
 );
 
 // TODO: one class per file
-class CommentItem extends React.Component {
+class CommentItem extends Component {
   constructor(props){
     super(props)
   }
@@ -34,16 +34,17 @@ class CommentItem extends React.Component {
 class CommentsBlock extends React.Component {
   constructor(props){
     super(props)
-    const {
-      comments,
-    } = this.props;
 
-    this.handleRegisterClick = this.handleRegisterClick.bind(this);
-    this.handleAuthClick = this.handleAuthClick.bind(this);
+    this.state = {
+      message: '',
+    }
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange( event ) {
-    this.commentsBlockActions.updateData( event.target.value );
+  handleChange(event) {
+    const { value } = event.target;
+    this.setState({ message: value });
   }
 
   handleSubmit( event ){
@@ -58,25 +59,16 @@ class CommentsBlock extends React.Component {
     }
   }
 
-  handleRegisterClick( e ){
-    e.preventDefault();
-
-    // actions.changeTab('register');
-    // actions.show();
-  }
-
-  handleAuthClick( e ){
-    e.preventDefault();
-
-    // actions.changeTab('auth');
-    // actions.show();
-  }
-
   render(){
     // TODO: move to default props
     const {
       comments = [],
+      openAuthModal,
+      openRegisterModal,
+      user,
     } = this.props;
+
+    const commentsBlockState = {};
 
     let commentsComponent = comments.map((comment, index) => (
       <CommentItem comment={comment} key={index} />
@@ -87,18 +79,18 @@ class CommentsBlock extends React.Component {
     );
 
     //todo: check auth
-    const commentEditorHTML = ( false ? (
+    const commentEditorHTML = ( user ? (
       <div className="comment-editor">
         <h4>Оставьте коментрий</h4>
         <form id="comment-form" onSubmit={this.handleSubmit.bind(this)}>
-          <textarea placeholder="Текст коментария" value={this.state.commentsBlockState.message} onChange={this.handleChange}/>
+          <textarea placeholder="Текст коментария" value={this.state.message} onChange={this.handleChange}/>
           <button type="submit" className="button comment-form-button">Отправить</button>
         </form>
         {commentsBlockState.isSending ? loadingHTML : null }
       </div>
     ) : (
       <div className="comment-editor comment-login-error">
-        <p>Чтобы оставить комментарий <Link to="#" onClick={this.handleAuthClick}>войдите</Link> или <Link to="#" onClick={this.handleRegisterClick}>зарегистрируйтесь</Link>.</p>
+        <p>Чтобы оставить комментарий <Link to="#" onClick={openAuthModal}>войдите</Link> или <Link to="#" onClick={openRegisterModal}>зарегистрируйтесь</Link>.</p>
       </div>
     ) );
 

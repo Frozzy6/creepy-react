@@ -1,8 +1,10 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
   REQUEST_AUTH,
+  REQUEST_REG,
+  closeDialogAC,
 } from '../actions';
 import {
   genericStartAC,
@@ -32,13 +34,18 @@ function* callRequestAuth(action) {
 
   const authData = yield fetchAuth(login, password);
   if (authData){
-    console.log(authData);
     yield put(genericSuccessAC(REQUEST_AUTH, { authData }));
+    yield put(closeDialogAC());
   } else {
     yield put(genericFailAC(REQUEST_AUTH));
   }
 }
 
+function* callRequestReg(action) {
+  yield put(genericStartAC(REQUEST_REG));
+}
+
 export default [
   takeEvery(REQUEST_AUTH, callRequestAuth),
+  takeEvery(REQUEST_REG, callRequestReg),
 ];

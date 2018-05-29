@@ -10,12 +10,14 @@ export const SHOW_DIALOG = 'SHOW_DIALOG';
 export const HIDE_DIALOG = 'HIDE_DIALOG';
 /* Auth */
 export const REQUEST_AUTH = 'REQUEST_AUTH';
+export const REQUEST_REG = 'REQUEST_REG';
 
 export const requestStoriesAC = (query, offset) => ({ type: REQUEST_STORIES, payload: { query, offset } });
 export const requestStoryAC = (token, id) => ({ type: REQUEST_STORY, payload: { token, id } });
 export const openDialogAC = (content) => ({ type: SHOW_DIALOG, payload: { content } });
 export const closeDialogAC = () => ({ type: HIDE_DIALOG });
 export const requestAuthAC = (login, password) => ({ type: REQUEST_AUTH, payload: { login, password } });
+export const requestRegAC = (payload) => ({ type: REQUEST_REG, payload });
 
 export const getIsAppLoading = (state) => state.app.get('isLoading');
 export const getCurrentUser = (state) => state.app.getIn(['auth', 'user']);

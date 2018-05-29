@@ -59,6 +59,7 @@
 .message-box-wrapper {
   width: 300px;
   margin: 0 auto;
+  margin-top: 10px;
 }
 
 .message-box-wrapper>h1 {
@@ -67,6 +68,7 @@
 .message-box-wrapper>p {
   margin-bottom: 25px;
   font-size: 15px;
+  line-height: 1.2;
 }
 
 .message-box .auth-form {

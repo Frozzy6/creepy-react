@@ -30,7 +30,14 @@ class Navbar extends Component {
     ));
 
     const submitStory = ( user ? (
-      <NavItem className="submit" to="/new"><i className="pencil-icon"></i>Прислать историю</NavItem>
+      <NavItem
+        currentLocation={currentLocation}
+        className="submit"
+        to="/new"
+      >
+        <i className="pencil-icon"></i>
+        Прислать историю
+      </NavItem>
     ) : null );
 
     return (
@@ -53,12 +60,14 @@ class Navbar extends Component {
             {submitStory}
             { user ?
               <Fragment>
-                <NavItem className="submit" to="/new"><i className="pencil-icon"></i>Прислать историю</NavItem>
+                <NavItem currentLocation={currentLocation} className="submit" to="/new">
+                  <i className="pencil-icon"></i>
+                  Прислать историю
+                </NavItem>
                 <NavItem currentLocation={currentLocation} className="profile" to="/my">
                   <i title={user} className="fa fa-user-circle-o"></i>
                 </NavItem>
-              </Fragment>
-              :
+              </Fragment> :
               <NavItem currentLocation={currentLocation} className="profile" onClick={this.handleAuthClick.bind(this)} to="/login">
                 <i title="Войти" className="fa fa-sign-in"></i>Войти
               </NavItem>

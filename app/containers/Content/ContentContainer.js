@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable'
 
-import { requestStoriesAC, requestStoryAC } from '../../actions';
+import {
+  requestStoriesAC,
+  requestStoryAC,
+} from '../../actions';
 import Content from '../../components/Content/Content';
 
 class ContentContainer extends Component {
