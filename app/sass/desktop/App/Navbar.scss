@@ -79,6 +79,16 @@ ul.head-menu  li a:hover ~ span {
    background: #ff6868;
 }
 
+.pencil-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  vertical-align: top;
+  background: url(../images/pencil.svg);
+  background-size: cover;
+}
+
 @keyframes ul {
  	0% {
     width:0;

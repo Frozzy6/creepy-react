@@ -5,31 +5,21 @@ import PropTypes from 'prop-types'
 import {
   getCurrentUser,
   getAuthState,
+  getTagsPerPage,
   requestAuthAC,
+  requestLogoutAC,
 } from '../../actions';
-
 import Sidebar from '../../components/Content/Sidebar/Sidebar';
 
-function SidebarContainer(props) {
-  const {
-    user,
-    authState,
-    requestAuthAC,
-  } = props;
+const SidebarContainer = (props) => (
+  <Sidebar {...props} />
+);
 
-  return (
-    <Sidebar
-      requestAuthAC={requestAuthAC}
-      user={user}
-      authState={authState}
-    />
-  )
-}
-
-export default connect(
-  (state) => ({
-    user: getCurrentUser(state),
-    authState: getAuthState(state),
-  }), {
-    requestAuthAC,
-  })(SidebarContainer);
+export default connect(state => ({
+  user: getCurrentUser(state),
+  authState: getAuthState(state),
+  tags: getTagsPerPage(state),
+}), {
+  requestAuthAC,
+  requestLogoutAC,
+})(SidebarContainer);

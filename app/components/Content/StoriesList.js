@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet";
 import StoryItem from './StoryItem/StoryItem';
 
 class StoriesList extends React.Component {
-
   render(){
     const {
       stories,

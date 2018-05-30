@@ -117,7 +117,7 @@ class StoryItem extends React.Component {
         <span onClick={this.handleLike} className="story_rating__container">
           <i className={"story_icon story_icon-like fa " + likeIcon} title="Мне понравилось"></i>
           <span className="story_rating_label">Рейтинг:&nbsp;</span>
-          <span className="story_rating">{story.get('likeCount')}</span>
+          <span className="story_rating">{story.get('likesCount')}</span>
         </span>
         {commentsIconLink}
         <div className="social__container">

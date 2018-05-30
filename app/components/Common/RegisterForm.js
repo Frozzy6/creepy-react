@@ -18,8 +18,19 @@ class RegisterForm extends React.Component {
     };
   }
 
-  handleChange( event ){
-    this.regActions.updateFormData( event.target.name, event.target.value );
+  handleChange = event => {
+    const {
+      name,
+      value,
+    } = event.target;
+
+    this.setState(prevState => ({
+      errors: prevState.errors,
+      data: {
+        ...prevState.data,
+        [name]: value,
+      }
+    }))
   }
 
   //TODO: simplify and make msg codes from store. not raw string messages
@@ -116,7 +127,7 @@ class RegisterForm extends React.Component {
           <div className="control-error">{registerErrors.password}</div>
         </div>
         <div className="controls-block">
-          <input placeholder="Пароль" type="password" name="passwordRepeat" autoComplete="off" maxLength="50" onChange={this.handleChange}/>
+          <input placeholder="Повторите пароль" type="password" name="passwordRepeat" autoComplete="off" maxLength="50" onChange={this.handleChange}/>
           <div className="control-error">{registerErrors.passwordRepeat}</div>
         </div>
         <div className="controls-block recaptcha">

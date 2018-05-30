@@ -6,14 +6,6 @@ export default function PageTagsSidebarModule(props) {
     tags,
   } = props;
 
-  let tagsHTML = null;
-
-  if ( tags.length > 0 ) {
-    tagsHTML = tags.map( ( tag, index ) => {
-      return ( <Link to={'/tags/'+tag} key={index}>{tag}</Link>);
-    });
-  }
-
   return (
     <div className="sidebar-item sidebar-item__tags">
       <h2>

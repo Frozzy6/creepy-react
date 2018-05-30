@@ -1,20 +1,21 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router-dom';
 
 class UserSidebarModule extends React.Component {
-  constructor( props ){
-    super(props);
-
-    this.state = {};
-  }
-
   render(){
+    const {
+      user,
+      requestLogoutAC,
+    } = this.props;
+
     return (
       <div className="sidebar-item sidebar-user" ref="userSidebarPanel">
         <div className="sidebar-item-body sidebar-item-body__white">
           <div className="sidebar-user-greeting">
-            <span className="bold">Username</span>
-            <i onClick={this.handleLogout} title="Выйти" className="fa fa-sign-out logout"></i>
+            <span className="bold">
+              {user.get('user')}
+            </span>
+            <i onClick={requestLogoutAC} title="Выйти" className="fa fa-sign-out logout"></i>
           </div>
           <ul className="user-menu-list">
             <li><i className="fa fa-star"></i>Рейтинг: 0</li>
@@ -24,11 +25,6 @@ class UserSidebarModule extends React.Component {
         </div>
       </div>
     )
-  }
-
-  handleLogout( event ) {
-    event.preventDefault();
-    console.log('wanna logout');
   }
 }
 

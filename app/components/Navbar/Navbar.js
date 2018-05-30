@@ -29,17 +29,6 @@ class Navbar extends Component {
       </NavItem>
     ));
 
-    const submitStory = ( user ? (
-      <NavItem
-        currentLocation={currentLocation}
-        className="submit"
-        to="/new"
-      >
-        <i className="pencil-icon"></i>
-        Прислать историю
-      </NavItem>
-    ) : null );
-
     return (
       <div className="nav">
         <div className="wrap">
@@ -57,7 +46,6 @@ class Navbar extends Component {
             >
               Случайная история
             </NavItem>
-            {submitStory}
             { user ?
               <Fragment>
                 <NavItem currentLocation={currentLocation} className="submit" to="/new">
@@ -65,7 +53,7 @@ class Navbar extends Component {
                   Прислать историю
                 </NavItem>
                 <NavItem currentLocation={currentLocation} className="profile" to="/my">
-                  <i title={user} className="fa fa-user-circle-o"></i>
+                  <i title={user.get('user')} className="fa fa-user-circle-o"></i>
                 </NavItem>
               </Fragment> :
               <NavItem currentLocation={currentLocation} className="profile" onClick={this.handleAuthClick.bind(this)} to="/login">

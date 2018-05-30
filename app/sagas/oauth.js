@@ -4,6 +4,7 @@ import axios from 'axios';
 import {
   REQUEST_AUTH,
   REQUEST_REG,
+  REQUEST_LOGOUT,
   closeDialogAC,
 } from '../actions';
 import {
@@ -45,7 +46,26 @@ function* callRequestReg(action) {
   yield put(genericStartAC(REQUEST_REG));
 }
 
+function requestLogout(){
+  const URL = `${HOST}/actions/oauth/logout`;
+
+  return axios.post( URL )
+    .catch( err => console.log( err ) )
+}
+
+function* callRequestLogout() {
+  yield put(genericStartAC(REQUEST_LOGOUT));
+
+  const logoutData = yield requestLogout();
+  if (logoutData) {
+    yield put(genericSuccessAC(REQUEST_LOGOUT));
+  } else {
+    yield put(genericFailAC(REQUEST_LOGOUT));
+  }
+}
+
 export default [
   takeEvery(REQUEST_AUTH, callRequestAuth),
   takeEvery(REQUEST_REG, callRequestReg),
+  takeEvery(REQUEST_LOGOUT, callRequestLogout),
 ];

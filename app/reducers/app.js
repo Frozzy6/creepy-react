@@ -1,6 +1,8 @@
 import { fromJS } from 'immutable';
+
 import {
   REQUEST_AUTH,
+  REQUEST_LOGOUT,
 } from '../actions' ;
 import {
   START,
@@ -38,13 +40,16 @@ export default function appReducer(state = initState, action) {
     case REQUEST_AUTH + SUCCESS:
       const { authData } = action.payload;
       return state
-        .setIn(['auth', 'user'], authData)
+        .setIn(['auth', 'user'], fromJS(authData))
         .setIn(['auth','state','loading'], false)
         .setIn(['auth','state','success'], true);
     case REQUEST_AUTH + FAIL:
       return state
         .setIn(['auth','state','loading'], false)
         .setIn(['auth','state','fail'], true);
+    case REQUEST_LOGOUT + SUCCESS:
+      return state
+        .setIn(['auth', 'user'], null);
     default:
       return state;
   }
