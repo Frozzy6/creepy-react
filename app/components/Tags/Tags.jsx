@@ -43,16 +43,33 @@ class Tags extends React.Component {
     this.setState(state);
   }
 
+  /**
+   * Renders TagItem
+   * @param {string} tag - tag's name
+   * @param {number} [index] - use index as key prop
+   * @return {JSX.Element} 
+   */
+  renderTagItem(tag, index = null) {
+    return (
+      <TagItem tag={tag} key={index} />
+    )
+  }
+
+  /**
+   * Render list of tags
+   * @return {JSX.Element}
+   */
+  renderTagItems() {
+    const { filteredTags } = this.state;
+
+    return (
+      <div className="taglist">
+        { filteredTags.map(this.renderTagItem) }
+      </div>
+    );
+  }
+
   render() {
-    const tags = this.state.filteredTags;
-    var tagsHTML = null;
-
-    if ( tags.length > 0 ) {
-      tagsHTML = tags.map( ( tag, index ) => {
-        return ( <TagItem tag={tag} key={index}/>);
-      });
-    }
-
     return (
       <div className="content wide">
          <Helmet>
@@ -60,10 +77,15 @@ class Tags extends React.Component {
          </Helmet>
         <div className="tags-list">
           <h1>Темы историй:</h1>
-          <input className="tag-list__search" type="text" value={this.state.query} onChange={this.handleChange} placeholder="Поиск по тегам" />
-          <div className="taglist">
-            {tagsHTML}
-          </div>
+          <input 
+            type="text"
+            className="tag-list__search"
+            value={this.state.query}
+            onChange={this.handleChange}
+            placeholder="Поиск по тегам" 
+          />
+
+          {this.renderTagItems}
         </div>
       </div>
     );
