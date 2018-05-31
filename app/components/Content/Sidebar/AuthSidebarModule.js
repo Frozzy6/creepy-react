@@ -20,7 +20,9 @@ class AuthSidebarModule extends Component {
   render() {
     const {
       authState,
+      registerError,
       requestAuthAC,
+      requestRegAC,
     } = this.props;
 
     const isLoginTabShow = this.state.currentTab == 'auth';
@@ -33,6 +35,8 @@ class AuthSidebarModule extends Component {
     ),(
       <RegisterForm
         handleAuthClick={this.switchTab.bind(this, 'auth')}
+        handleRegisterClick={requestRegAC}
+        registerError={registerError}
       />
     )];
 

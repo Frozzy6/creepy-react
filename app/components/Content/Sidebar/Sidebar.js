@@ -9,7 +9,9 @@ export default function Sidebar(props){
     user,
     tags,
     authState,
+    registerError,
     requestAuthAC,
+    requestRegAC,
     requestLogoutAC,
   } = props;
 
@@ -22,7 +24,9 @@ export default function Sidebar(props){
         /> :
         <AuthSidebarModule
           authState={authState}
+          registerError={registerError}
           requestAuthAC={requestAuthAC}
+          requestRegAC={requestRegAC}
         />
       }
       <PageTagsSidebarModule

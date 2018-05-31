@@ -42,8 +42,21 @@ function* callRequestAuth(action) {
   }
 }
 
+function fetchRegister(){
+  const URL = `${HOST}/actions/oauth/register`;
+  console.log('not implement yet');
+}
+
 function* callRequestReg(action) {
   yield put(genericStartAC(REQUEST_REG));
+
+  const regData = yield fetchRegister(action.payload);
+  if (regData){
+    yield put(genericSuccessAC(REQUEST_REG, { regData }));
+    yield put(closeDialogAC());
+  } else {
+    yield put(genericFailAC(REQUEST_REG, { regData }));
+  }
 }
 
 function requestLogout(){

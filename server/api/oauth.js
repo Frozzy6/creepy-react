@@ -44,25 +44,45 @@ router.route("/oauth/register").post(async function( req, res, next ){
   const loginRE = /^([a-zA-Z0-9 _-]+)$/;
   const login = data.login;
   if ( !login || !loginRE.test(login) || login.length < 4 || login.length > 20 ) {
-    return res.status(403).send({ 'error': true, 'msg': 'login_bad' });
+    return res.status(403).send({ 'error': true, data: {
+        type: 'login',
+        code: 'login_bad',
+      },
+    });
   }
 
   const emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if ( !emailRE.test(data.email) ) {
-    return res.status(403).send({ 'error': true, 'msg': 'email_bad' });
+    return res.status(403).send({ 'error': true, data: {
+        type: 'email',
+        code: 'email_bad',
+      }
+    });
   }
 
   const password = data.password;
   if ( !password || password.length < 4 || password.length > 20 ) {
-    return res.status(403).send({ 'error': true, 'msg': 'password_bad' });
+    return res.status(403).send({ 'error': true, data: {
+        type: 'password',
+        code: 'password_bad',
+      }
+    });
   }
 
   if ( data.passwordRepeat != password ) {
-    return res.status(403).send({ 'error': true, 'msg': 'repassword_empty' });
+    return res.status(403).send({ 'error': true, data: {
+        type: 'passwordRepeat',
+        code: 'repassword_empty',
+      }
+    });
   }
 
   if ( !data.gRecaptchaResponse ) {
-    return res.status(403).send({ 'error': true, 'msg': 'recapthca_bad' });
+    return res.status(403).send({ 'error': true, data: {
+        type: 'gRecaptchaResponse',
+        code: 'recapthca_bad',
+      }
+    });
   }
 
   /* Check recaptcha */
@@ -70,7 +90,11 @@ router.route("/oauth/register").post(async function( req, res, next ){
 
   /* Bad news for robots */
   if ( !recaptchaAnwer.success ) {
-    res.status(403).send({ 'error': true, 'msg': 'recapthca_bad' });
+    res.status(403).send({ 'error': true, data: {
+      type: 'gRecaptchaResponse',
+      code: 'recapthca_bad'
+      }
+    });
     return false;
   }
 
@@ -102,8 +126,7 @@ router.route("/oauth/register").post(async function( req, res, next ){
     })
 });
 
-router.route("/oauth/refresh").post(function( req, res, next ){
-  res.status(403).send('reserved');
-});
+//TODO: make it works
+router.route("/oauth/refresh").post((req, res) => res.sendStatus(400));
 
 export default router;
