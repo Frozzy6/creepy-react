@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class TagItem extends React.PureComponent {
   constructor(props){
@@ -8,7 +8,7 @@ class TagItem extends React.PureComponent {
 
   render() {
     const { tag } = this.props;
-    return <Link to={"/tags/" + tag} className="tag">{tag}</Link>;
+    return <Link to={"/tags/" + tag} className="tag">{ tag }</Link>;
   }
 }
 
