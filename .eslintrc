@@ -3,6 +3,28 @@
   "rules": {
     "consistent-return": 0,
     "no-underscore-dangle": 0,
-    "no-param-reassign": [2, { "props": false }]
-  }
+    "import/no-extraneous-dependencies": 0,
+    "no-param-reassign": [2, { "props": false }],
+    max-len: ["error", { "code": 120 }]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  overrides: [
+    {
+      files: "gulpfile.js",
+      rules: {
+        "no-console": 0
+      }
+    },
+    {
+      files: "webpack*.js",
+      rules: {
+        "no-console": 0,
+        "quote-props": 0
+      }
+    }
+  ]
 }
