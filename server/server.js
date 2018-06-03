@@ -1,73 +1,73 @@
-var express = require('express');
-var expressRouter = express.Router();
-var compression = require('compression');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var favicon = require('serve-favicon');
-var path = require('path');
-var React = require('react');
-var ReactDOM = require('react-dom/server');
-var Router = require('react-router');
-var Helmet = require("react-helmet").default;
-var swig  = require('swig-templates');
-// var patchRouteHooks = require('react-router-hooks-patch').default;
-var ip = require('ip');
-var device = require('express-device');
-var session = require('express-session');
-var request = require('superagent');
-var config = require('../config').default;
-var routes = require('../app/routes');
-var NotFoundComponent = require("../app/components/NotFound").default;
-var ErrorComponent = require("../app/components/Error").default;
+import express from 'express';
+import compression from 'compression';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import path from 'path';
+import swig from 'swig-templates';
+import device from 'express-device';
+import session from 'express-session';
 
-const fetchComponentData = require("./fetchComponentData").default;
-const tokenManager = require('./tokenManager').default;
+import { getEnvVaribale } from '../app/utils/env';
+import tokenManager from './tokenManager';
+import apiOauthRouter from './api/oauth';
 
-const apiOauthRouter = require('./api/oauth').default;
-
-const API_HOST = config.API_HOST;
+const ENV = getEnvVaribale();
+const app = express();
 
 tokenManager.getAppToken();
 
-const app = express();
+if (ENV === 'development') {
+  /* eslint-disable */
+  const webpack = require('webpack');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackConfig = require('../webpack.config.js');
+  /* eslint-enable */
+
+  const compiler = webpack(webpackConfig);
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: path.join(__dirname, '../', 'public'),
+    writeToDisk: filePath => filePath.endsWith('bundle.js'),
+  }));
+}
 
 /* TODO: change to getEnv from utils */
 app.set('port', process.env.PORT || 3000);
 app.enable('trust proxy');
 app.use(compression());
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(session({
   secret: 'sXuPBOkmgBsXDcKW',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
 }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
-app.use(express.static(path.join(__dirname, '../','public')));
-app.set('view engine','html');
+app.use(express.static(path.join(__dirname, '../', 'public')));
+app.set('view engine', 'html');
 app.use(device.capture());
 
 /* Middleware section */
 const cors = require('./middleware/cors');
 const debug = require('./middleware/debug');
-app.use( cors );
-app.use( debug );
+
+app.use(cors);
+app.use(debug);
 
 /*
   Site internal api and server side proxy
   Example flow:
     client auth -> [server internal auth] -> api auth -> [server] -> client
 */
-app.use( '/actions/', apiOauthRouter );
+app.use('/actions/', apiOauthRouter);
 
-app.use( async function(req, res, next ) {
+app.use((req, res) => {
   const page = swig.renderFile('views/index.html', {
-    css: "main"
+    css: 'main',
   });
   res.status(200).send(page);
-})
+});
 //
 // app.use(async function(req, res, next) {
 //   const usrSession = req.session;
@@ -142,19 +142,25 @@ app.use( async function(req, res, next ) {
 //         if ( process.env.NODE_ENV == 'production' ) {
 //           // Send html shutter
 //           const html = ReactDOM.renderToString(React.createElement(ErrorComponent));
-//           const page = swig.renderFile( __dirname + '/../views/error_prod.html', { html: html, css: cssFileame });
+//           const page = swig.renderFile(
+//              __dirname + '/../views/error_prod.html',
+//              { html: html, css: cssFileame });
 //           res.status(500).send(page);
 //         } else {
 //           // Detalize server error
 //           console.log(err);
-//           const page = swig.renderFile(__dirname + '/../views/error_dev.html', { error: err.toString(), stack: err.stack.toString() });
+//           const page = swig.renderFile(
+//              __dirname + '/../views/error_dev.html',
+//              { error: err.toString(), stack: err.stack.toString() });
 //           res.status(200).send(page);
 //         }
 //       }
 //     } else {
 //       /* Not found error 404 */
 //       const html = ReactDOM.renderToString(React.createElement(NotFoundComponent));
-//       const page = swig.renderFile( __dirname + '/../views/index.html', { html: html, css: cssFileame });
+//       const page = swig.renderFile(
+//          __dirname + '/../views/index.html',
+//           { html: html, css: cssFileame });
 //       res.status(404).send(page);
 //     }
 //   }
@@ -167,39 +173,39 @@ app.use( async function(req, res, next ) {
 //   );
 // });
 
-console.log('Starting creepy-web with NODE_ENV: ', process.env.NODE_ENV);
-var server = require('http').createServer(app);
 
-server.listen(app.get('port'), function() {
- console.log('creepy-web listening on port ' + app.get('port'));
+console.log('Starting creepy-web with NODE_ENV: ', process.env.NODE_ENV);
+const server = require('http').createServer(app);
+
+server.listen(app.get('port'), () => {
+  console.log(`creepy-web listening on port ${app.get('port')}`);
 });
 
-
-app.use(function(err, req, res, next) {
+app.use((err, req, res) => {
   console.log('\nThis error shows when express app has bad configuration');
   console.log('-OR-');
   console.log('In case of serious backend error.\n');
-  console.log( err );
+  console.log(err);
 
-  var page = swig.renderFile(
-    __dirname + '/../views/error_dev.html',
-    {error: err,stack: err.stack }
+  const page = swig.renderFile(
+    `${__dirname}/../views/error_dev.html`,
+    { error: err, stack: err.stack },
   );
 
-  res.status(err.status || 500).send(page)
+  res.status(err.status || 500).send(page);
 });
 
 /* sockets test section */
-var io = require('socket.io')(server);
-var onlineUsers = 0;
+const io = require('socket.io')(server);
 
-io.sockets.on('connection', function(socket) {
-  onlineUsers++;
+let onlineUsers = 0;
+io.sockets.on('connection', (socket) => {
+  onlineUsers += 1;
 
-  io.sockets.emit('onlineUsers', { onlineUsers: onlineUsers });
+  io.sockets.emit('onlineUsers', { onlineUsers });
 
-  socket.on('disconnect', function() {
-    onlineUsers--;
-    io.sockets.emit('onlineUsers', { onlineUsers: onlineUsers });
+  socket.on('disconnect', () => {
+    onlineUsers -= 1;
+    io.sockets.emit('onlineUsers', { onlineUsers });
   });
 });
