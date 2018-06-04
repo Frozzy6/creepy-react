@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class AuthForm extends Component {
-  constructor( props ){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -46,7 +46,7 @@ class AuthForm extends Component {
       target.querySelector('[name=password]').focus()
       return false;
     }
-    
+
     handleAuthClick(login, password);
   }
 

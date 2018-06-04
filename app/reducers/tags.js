@@ -1,12 +1,6 @@
 import Immutable, { fromJS } from 'immutable';
-import {
-  REQUEST_STORIES_BY_TAG,
-} from '../actions';
-import {
-  START,
-  SUCCESS,
-  FAIL,
-} from '../actions/baseActions';
+import { REQUEST_STORIES_BY_TAG } from '../actions';
+import { SUCCESS } from '../actions/baseActions';
 
 const initState = Immutable.Map(fromJS({
   tags: [],
