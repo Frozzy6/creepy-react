@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "plugin:react/recommended"],
   "rules": {
     "consistent-return": 0,
     "no-underscore-dangle": 0,
@@ -12,6 +12,14 @@
     "node": true,
     "es6": true
   },
+  "plugins": [
+    "react"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   overrides: [
     {
       files: "gulpfile.js",
@@ -20,7 +28,7 @@
       }
     },
     {
-      files: "webpack*.js",
+      files: "webpack.*.js",
       rules: {
         "no-console": 0,
         "quote-props": 0
