@@ -4,39 +4,39 @@ import request from 'superagent';
 import tokenManager from '../tokenManager';
 import config from '../../config';
 
-const API_HOST = config.API_HOST;
+const { API_HOST } = config;
 
 const router = express.Router();
 
-router.route("/oauth/token").post(async function( req, res, next ){
+router.route('/oauth/token').post(async (req, res) => {
   try {
     const token = await tokenManager.getUserToken(req.body.login, req.body.password);
-    const userInfo = await tokenManager.getUserInfo( token.token );
+    const userInfo = await tokenManager.getUserInfo(token.token);
 
     token.user = userInfo.user;
     req.session.oauth = token;
 
     res.status(200).send(token);
-  } catch( e ) {
+  } catch (e) {
     console.log(e);
     res.sendStatus(400);
   }
 });
 
-router.route("/oauth/logout").post(function( req, res, next ){
+router.route('/oauth/logout').post((req, res) => {
   req.session.oauth = {};
   res.sendStatus(200);
 });
 
-router.route("/oauth/register").post(async function( req, res, next ){
-  const data = req.body.data;
-  console.log(data);
-  const checkRecaptcha = function(){
-    return new Promise( ( resolve, reject ) => {
+router.route('/oauth/register').post(async (req, res) => {
+  const { data } = req.body;
+  console.log(`reg data: ${data}`);
+  const checkRecaptcha = () => {
+    return new Promise((resolve, reject) => {
       request.post(`${API_HOST}/recaptcha/verify`)
         .send({ response: data.gRecaptchaResponse })
-        .then( result => resolve( result.body ) )
-        .catch( err => reject( err ) );
+        .then(result => resolve(result.body))
+        .catch(err => reject(err));
     });
   };
 
@@ -117,7 +117,7 @@ router.route("/oauth/register").post(async function( req, res, next ){
 
           token.user = userInfo.user;
           req.session.oauth = token;
-
+          token.isNewUser = true;
           res.status(200).send(token);
         } catch( e ) {
           res.sendStatus(400);

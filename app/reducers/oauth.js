@@ -3,14 +3,15 @@ import { fromJS } from 'immutable';
 import {
   REQUEST_AUTH,
   REQUEST_LOGOUT,
-} from '../actions' ;
+  REQUEST_REG,
+} from '../actions';
 import {
   START,
   SUCCESS,
   FAIL,
 } from '../actions/baseActions';
 
-const state = {
+const loadingState = {
   loading: false,
   success: false,
   fail: false,
@@ -19,25 +20,21 @@ const state = {
 const initState = fromJS({
   auth: {
     user: null,
-    state: {...state},
+    state: { ...loadingState },
   },
   register: {
     registerError: null,
-    state: {...state},
-  }
+    state: { ...loadingState },
+  },
 });
 
 export default function oauthReducer(state = initState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case REQUEST_AUTH:
       return state.merge({
         auth: {
-          state: {
-            loading: false,
-            success: false,
-            fail: false,
-          }
-        }
+          state: { ...loadingState },
+        },
       });
     case REQUEST_AUTH + START:
       return state
@@ -55,6 +52,11 @@ export default function oauthReducer(state = initState, action) {
     case REQUEST_LOGOUT + SUCCESS:
       return state
         .setIn(['auth', 'user'], null);
+    case REQUEST_REG + SUCCESS: {
+      const { regData } = action.payload;
+      return state
+        .setIn(['auth', 'user'], fromJS(regData));
+    }
     default:
       return state;
   }

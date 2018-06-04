@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
@@ -12,18 +12,19 @@ import {
   genericSuccessAC,
   genericFailAC,
 } from '../actions/utils/actionGeneric';
-import config from '../../config.js';
+import config from '../../config';
 
-const API_HOST = config.API_HOST;
-const HOST = config.HOST;
+const { HOST } = config;
 
 function fetchAuth(login, password) {
   const URL = `${HOST}/actions/oauth/token`;
 
   return axios.post(URL, { login, password })
     .then(response => response.data)
-    //TODO: should to make normal logging
-    .catch(e => {console.log('something going wrong', e);});
+    // TODO: should to make normal logging
+    .catch((e) => {
+      console.log('something going wrong', e);
+    });
 }
 
 function* callRequestAuth(action) {
@@ -34,7 +35,7 @@ function* callRequestAuth(action) {
   yield put(genericStartAC(REQUEST_AUTH));
 
   const authData = yield fetchAuth(login, password);
-  if (authData){
+  if (authData) {
     yield put(genericSuccessAC(REQUEST_AUTH, { authData }));
     yield put(closeDialogAC());
   } else {
@@ -42,16 +43,19 @@ function* callRequestAuth(action) {
   }
 }
 
-function fetchRegister(){
+function fetchRegister(data) {
   const URL = `${HOST}/actions/oauth/register`;
-  console.log('not implement yet');
+
+  return axios.post(URL, { data })
+    .then(response => response.data)
+    .catch((e) => { console.log(e); });
 }
 
 function* callRequestReg(action) {
   yield put(genericStartAC(REQUEST_REG));
 
   const regData = yield fetchRegister(action.payload);
-  if (regData){
+  if (regData) {
     yield put(genericSuccessAC(REQUEST_REG, { regData }));
     yield put(closeDialogAC());
   } else {
@@ -59,11 +63,12 @@ function* callRequestReg(action) {
   }
 }
 
-function requestLogout(){
+function requestLogout() {
   const URL = `${HOST}/actions/oauth/logout`;
 
-  return axios.post( URL )
-    .catch( err => console.log( err ) )
+  return axios
+    .post(URL)
+    .catch(err => console.log(err));
 }
 
 function* callRequestLogout() {
