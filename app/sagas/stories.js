@@ -1,27 +1,29 @@
-import { take, put, call, fork, select, takeEvery, all } from 'redux-saga/effects';
+import { put, takeEvery, all } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
   REQUEST_STORY,
-  REQUEST_RANDOM_STORY,
   REQUEST_STORIES,
   SHOW_PAGINATION,
+  REQUEST_STORIES_BY_TAG,
 } from '../actions';
 import {
   genericStartAC,
   genericSuccessAC,
   genericFailAC,
 } from '../actions/utils/actionGeneric';
-import config from '../../config.js';
+import config from '../../config';
 
-const API_HOST = config.API_HOST;
+const { API_HOST } = config;
 
-function fetchStory(token, id){
+function fetchStory(token, id) {
   const url = `${API_HOST}/stories/${token === 'random' ? token : id}`;
   return axios(url)
     .then(response => response.data)
-    //TODO: should to make normal logging
-    .catch(e => {console.log('something going wrong');});
+    // TODO: should to make normal logging
+    .catch((e) => {
+      console.log('something going wrong', e);
+    });
 }
 
 function fetchStoriesCount() {
@@ -29,18 +31,22 @@ function fetchStoriesCount() {
 
   return axios(url)
     .then(response => response.data.count)
-    //TODO: should to make normal logging
-    .catch(e => { console.log('something going wrong'); });
+    // TODO: should to make normal logging
+    .catch((e) => {
+      console.log('something going wrong', e);
+    });
 }
 
 function fetchStories(query, offset) {
-  const token = (query == 'stories' ? 'latest' : 'scary');
+  const token = (query === 'stories' ? 'latest' : 'scary');
 
   const url = `${API_HOST}/stories/${token}/${offset}`;
 
   return axios(url)
     .then(response => response.data)
-    .catch(e => { console.log('something going wrong'); });
+    .catch((e) => {
+      console.log('something going wrong', e);
+    });
 }
 
 function* callFetchStories(action) {
@@ -53,11 +59,11 @@ function* callFetchStories(action) {
 
   const [stories, count] = yield all([
     fetchStories(query, offset),
-    fetchStoriesCount()
+    fetchStoriesCount(),
   ]);
   if (stories && count) {
     yield put({ type: SHOW_PAGINATION });
-    yield put(genericSuccessAC(REQUEST_STORIES, {stories, count}));
+    yield put(genericSuccessAC(REQUEST_STORIES, { stories, count }));
   } else {
     yield put(genericFailAC(REQUEST_STORIES));
   }
@@ -74,7 +80,31 @@ function* callFetchStory(action) {
   }
 }
 
+function fetchStoriesByTag(tag) {
+  const url = `${API_HOST}/stories/tag/${tag}`;
+
+  return axios(url)
+    .then(response => response.data)
+    .catch((e) => {
+      console.log('something going wrong', e);
+    });
+}
+
+function* callFetchStoriesByTag(action) {
+  const { tag } = action.payload;
+
+  yield put(genericStartAC(REQUEST_STORIES_BY_TAG));
+
+  const stories = yield fetchStoriesByTag(tag);
+  if (stories) {
+    yield put(genericSuccessAC(REQUEST_STORIES_BY_TAG, { stories }));
+  } else {
+    yield put(genericFailAC(REQUEST_STORIES_BY_TAG));
+  }
+}
+
 export default [
   takeEvery(REQUEST_STORIES, callFetchStories),
   takeEvery(REQUEST_STORY, callFetchStory),
+  takeEvery(REQUEST_STORIES_BY_TAG, callFetchStoriesByTag),
 ];

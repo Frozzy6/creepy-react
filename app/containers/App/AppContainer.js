@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { getLogoNumber } from '../../actions/index';
 import App from '../../components/App/App';
 import About from '../../components/About';
-import ContentContainer from '../Content/ContentContainer';
 
 import StoriesPage from '../../pages/stories';
 import ScaryPage from '../../pages/scary';
 import StoryPage from '../../pages/story';
 import RandomPage from '../../pages/random';
-
+import TagContentContainer from '../TagContent/TagContentContainer';
 /*
   There is old routes
   <App>
@@ -41,13 +40,9 @@ import RandomPage from '../../pages/random';
 */
 
 class AppContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render(){
+  render() {
     const {
-      logoNumber
+      logoNumber,
     } = this.props;
 
     return (
@@ -93,20 +88,22 @@ class AppContainer extends Component {
             path='/about/'
             component={About}
           />
+          <Route
+            path="/tags/:tag"
+            component={TagContentContainer}
+          />
         </Switch>
       </App>
-    )
+    );
   }
 }
 
 AppContainer.propTypes = {
   logoNumber: PropTypes.number,
-}
+};
 
-function mapStateToProps(state) {
-  return {
-    logoNumber: getLogoNumber(state),
-  }
-}
+const mapStateToProps = state => ({
+  logoNumber: getLogoNumber(state),
+});
 
 export default withRouter(connect(mapStateToProps)(AppContainer));

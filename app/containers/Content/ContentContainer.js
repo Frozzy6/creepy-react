@@ -14,7 +14,7 @@ class ContentContainer extends Component {
     super(props);
   }
 
-  componentWillMount(){
+  componentDidMount(){
     const {
       token,
       offset,
