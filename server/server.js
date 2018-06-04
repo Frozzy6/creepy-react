@@ -26,7 +26,7 @@ if (ENV === 'development') {
   const compiler = webpack(webpackConfig);
   app.use(webpackDevMiddleware(compiler, {
     publicPath: path.join(__dirname, '../', 'public'),
-    writeToDisk: filePath => filePath.endsWith('bundle.js'),
+    writeToDisk: filePath => filePath.endsWith('bundle.js') || filePath.endsWith('bundle.map'),
   }));
 }
 
