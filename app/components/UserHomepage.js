@@ -1,32 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 class UserHomepage extends React.Component {
-  constructor(props){
-    super(props);
-    const flux = this.props.flux;
-
-    this.appActions = flux.getActions('AppActions');
-    this.appStore = flux.getStore('AppStore');
-
-    this.state = this.appStore.getState();
-    this.onChange = this.onChange.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-  }
-
-  componentDidMount() {
-    this.appStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    this.appStore.unlisten(this.onChange);
-  }
-
-  onChange(state) {
-    this.setState(state);
-  }
-
   handleLogout( event ) {
     event.preventDefault();
     this.appActions.doLogout();
@@ -35,10 +11,9 @@ class UserHomepage extends React.Component {
   }
 
   render() {
-    let resultHTML = null;
-    const user = this.state.user;
+    const { user } = this.props;
 
-    const emptyHTML = (
+    return (
       <div className="wrap">
         <Helmet>
           <title>Мой профиль</title>
@@ -71,14 +46,6 @@ class UserHomepage extends React.Component {
         </div>
       </div>
     );
-
-    if ( !user ) {
-      resultHTML = emptyHTML;
-    } else {
-      resultHTML = profileHTML;
-    }
-
-    return resultHTML;
   }
 }
 
