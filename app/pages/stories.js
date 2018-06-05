@@ -18,7 +18,7 @@ const ScaryPage = (props) => {
 ScaryPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      page: PropTypes.string.isRequired,
+      page: PropTypes.string,
     }).isRequired,
   }).isRequired,
 };
