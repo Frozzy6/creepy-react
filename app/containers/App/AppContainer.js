@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { renderRoutes } from 'react-router-config';
 
 import { getLogoNumber } from '../../actions/index';
-import App from '../../components/App/App';
-import About from '../../components/About';
+import routes from '../../routes';
 
-import StoriesPage from '../../pages/stories';
-import ScaryPage from '../../pages/scary';
-import StoryPage from '../../pages/story';
-import RandomPage from '../../pages/random';
-import TagContentContainer from '../TagContent/TagContentContainer';
-import UserPageContainer from '../UserPage/UserPageContainer';
+import App from '../../components/App/App';
 
 class AppContainer extends Component {
   render() {
@@ -25,54 +19,7 @@ class AppContainer extends Component {
       <App
         logoNumber={logoNumber}
       >
-        <Switch>
-          <Route
-            path='/'
-            exact
-            component={StoriesPage}
-          />
-          <Route
-            path='/stories/'
-            exact
-            component={StoriesPage}
-          />
-          <Route
-            path='/stories/:page'
-            component={StoriesPage}
-          />
-          <Route
-            path='/scary/'
-            exact
-            component={ScaryPage}
-          />
-          <Route
-            path='/scary/:page'
-            exact
-            component={ScaryPage}
-          />
-          <Route
-            path='/story/:id'
-            exact
-            component={StoryPage}
-          />
-          <Route
-            path='/random/'
-            exact
-            component={RandomPage}
-          />
-          <Route
-            path='/about/'
-            component={About}
-          />
-          <Route
-            path="/tags/:tag"
-            component={TagContentContainer}
-          />
-          <Route
-            path="/user/:username"
-            component={UserPageContainer}
-          />
-        </Switch>
+        {renderRoutes(routes)}
       </App>
     );
   }
@@ -82,8 +29,6 @@ AppContainer.propTypes = {
   logoNumber: PropTypes.number,
 };
 
-const mapStateToProps = state => ({
+export default withRouter(connect(state => ({
   logoNumber: getLogoNumber(state),
-});
-
-export default withRouter(connect(mapStateToProps)(AppContainer));
+}))(AppContainer));
