@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 class UserSidebarModule extends React.Component {
-  render(){
+  render() {
     const {
       user,
       requestLogoutAC,
@@ -12,9 +12,11 @@ class UserSidebarModule extends React.Component {
       <div className="sidebar-item sidebar-user" ref="userSidebarPanel">
         <div className="sidebar-item-body sidebar-item-body__white">
           <div className="sidebar-user-greeting">
-            <span className="bold">
-              {user.get('user')}
-            </span>
+            <Link to={`/user/${user.get('user')}`}>
+              <span className="bold">
+                {user.get('user')}
+              </span>
+            </Link>
             <i onClick={requestLogoutAC} title="Выйти" className="fa fa-sign-out logout"></i>
           </div>
           <ul className="user-menu-list">

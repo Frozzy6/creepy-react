@@ -5,6 +5,7 @@ import oauth from './oauth';
 import stories from './stories';
 import dialog from './dialog';
 import tags from './tags';
+import users from './users';
 
 const rootReducer = combineReducers({
   app,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   stories,
   tags,
   dialog,
+  users,
 });
 
 export default rootReducer;

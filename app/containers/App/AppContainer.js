@@ -13,31 +13,7 @@ import ScaryPage from '../../pages/scary';
 import StoryPage from '../../pages/story';
 import RandomPage from '../../pages/random';
 import TagContentContainer from '../TagContent/TagContentContainer';
-/*
-  There is old routes
-  <App>
-    <Route exact path='/' query='stories' component={Content} helloMessage={true}/>
-    <Route path='/stories' query='stories' component={Content}/>
-    <Route path='/stories/:page' query='stories' component={Content}/>
-
-    <Route path='/scary' query='scary' component={Content}/>
-    <Route path='/scary/:page' query='scary' component={Content}/>
-
-    <Route path='/story/:id' query='story' component={Content}/>
-    <Route path='/random' query='random' component={Content}/>
-
-    <Route path="/tags" component={Tags}/>
-    <Route path="/tags/:tag" component={TagContent}/>
-
-    <Route path='/new' component={UsersStory}/>
-    <Route path="/about" component={About}/>
-    <Route path="/feedback" component={Feedback}/>
-
-    <Route path="/my" component={UserHomepage}/>
-    Login is not implimented yet
-    <Route path="/login" component={Login}/>
-  </App>
-*/
+import UserPageContainer from '../UserPage/UserPageContainer';
 
 class AppContainer extends Component {
   render() {
@@ -91,6 +67,10 @@ class AppContainer extends Component {
           <Route
             path="/tags/:tag"
             component={TagContentContainer}
+          />
+          <Route
+            path="/user/:username"
+            component={UserPageContainer}
           />
         </Switch>
       </App>

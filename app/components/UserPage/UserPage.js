@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-class UserHomepage extends React.Component {
-  handleLogout( event ) {
+class UserPage extends Component {
+  handleLogout(event) {
     event.preventDefault();
-    this.appActions.doLogout();
+    // this.appActions.doLogout();
 
-    this.props.router.push('/');
+    // this.props.router.push('/');
   }
 
   render() {
-    const { user } = this.props;
+    const {
+      currentUser,
+      username,
+    } = this.props;
 
     return (
       <div className="wrap">
@@ -49,5 +52,13 @@ class UserHomepage extends React.Component {
   }
 }
 
+UserPage.propTypes = {
+  username: PropTypes.string.isRequired,
+  user: PropTypes.instanceOf(Map),
+};
 
-export default UserHomepage;
+UserPage.defaultProps = {
+  user: null,
+};
+
+export default UserPage;

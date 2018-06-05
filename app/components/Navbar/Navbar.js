@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import NavItem from './NavItem';
 
 class Navbar extends Component {
-  handleAuthClick( e ){
+  handleAuthClick(e) {
     e.preventDefault();
     this.props.openDialogAC();
   }
@@ -18,16 +18,6 @@ class Navbar extends Component {
     } = this.props;
 
     const currentLocation = location.pathname;
-
-    const account = ( user ? (
-      <NavItem currentLocation={currentLocation} className="profile" to="/my">
-        <i title={user} className="fa fa-user-circle-o"></i>
-      </NavItem>
-    ) : (
-      <NavItem currentLocation={currentLocation} className="profile" onClick={this.handleAuthClick} to="/login">
-        <i title="Войти" className="fa fa-sign-in"></i>Войти
-      </NavItem>
-    ));
 
     return (
       <div className="nav">
@@ -52,19 +42,22 @@ class Navbar extends Component {
                   <i className="pencil-icon"></i>
                   Прислать историю
                 </NavItem>
-                <NavItem currentLocation={currentLocation} className="profile" to="/my">
+                <NavItem currentLocation={currentLocation} className="profile" to={`/user/${user.get('user')}`}>
                   <i title={user.get('user')} className="fa fa-user-circle-o"></i>
                 </NavItem>
               </Fragment> :
-              <NavItem currentLocation={currentLocation} className="profile" onClick={this.handleAuthClick.bind(this)} to="/login">
+              <NavItem
+                currentLocation={currentLocation}
+                className="profile"
+                onClick={this.handleAuthClick.bind(this)} to="/login">
                 <i title="Войти" className="fa fa-sign-in"></i>Войти
               </NavItem>
             }
-            <div style={{clear:"both"}}></div>
+            <div style={{ clear: 'both' }}></div>
           </ul>
         </div>
       </div>
-    )
+    );
   }
 }
 
