@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import StoryItem from './StoryItem/StoryItem';
 
 class StoriesList extends React.Component {
-  render(){
+  render() {
     const {
       stories,
     } = this.props;
@@ -16,11 +16,11 @@ class StoriesList extends React.Component {
     let html = null;
     let helmet = null;
 
-    if ( stories.size > 0 ) {
-      html = stories.map( (story, index) => {
+    if (stories.size > 0) {
+      html = stories.map((story, index) => {
         return ( <StoryItem story={story} key={story.get('uID')}/> );
       });
-    } else if ( !isLoading ){
+    } else if (!isLoading){
       html = (
         <div className="panel-top">
           <h1>Ничего нет</h1>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable'
+import { Map } from 'immutable';
+import { isEqual } from 'lodash';
 
 import {
   requestStoriesAC,
@@ -10,37 +11,48 @@ import {
 import Content from '../../components/Content/Content';
 
 class ContentContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
+  state = {
+    page: this.props.page,
+    stories: new Map(),
+  };
 
-  componentDidMount(){
-    const {
-      token,
-      offset,
-    } = this.props;
-
-    this.props.requestStoriesAC(token, offset);
-  }
-
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
     const {
       token,
       page,
-    } = nextProps;
+    } = this.props;
 
-    if ( page !== this.props.page ) {
-      this.props.requestStoriesAC(token, page);
+    this.props.requestStoriesAC(token, page);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.page !== nextProps.page) {
+      nextProps.requestStoriesAC(nextProps.token, nextProps.page);
+      return {
+        page: nextProps.page,
+      };
     }
+    const prevEntries = prevState.stories.get('entries');
+    const nextEntries = nextProps.stories.get('entries');
+
+    if (!isEqual(prevEntries, nextEntries)) {
+      return {
+        stories: nextProps.stories,
+      };
+    }
+
+    return null;
   }
 
-  render(){
+  render() {
     const {
       token,
-      stories,
       helloMessage,
-      page,
     } = this.props;
+    const {
+      stories,
+      page,
+    } = this.state;
 
     return (
       <Content
@@ -51,20 +63,23 @@ class ContentContainer extends Component {
         currentPage={parseInt(page, 10)}
         token={token}
       />
-    )
+    );
   }
 }
 
 ContentContainer.propTypes = {
   requestStoriesAC: PropTypes.func.isRequired,
   stories: PropTypes.instanceOf(Map).isRequired,
+  token: PropTypes.string.isRequired,
+  page: PropTypes.string.isRequired,
+  helloMessage: PropTypes.string,
 };
 
 
 function mapStateToProps(state) {
   return {
     stories: state.stories,
-  }
+  };
 }
 
 export default connect(
@@ -72,5 +87,5 @@ export default connect(
   {
     requestStoriesAC,
     requestStoryAC,
-  }
+  },
 )(ContentContainer);
