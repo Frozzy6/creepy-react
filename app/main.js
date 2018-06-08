@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import axios from 'axios';
 
 import configureStore from './utils/configureStore';
 import rootSaga from './sagas';
@@ -14,7 +13,7 @@ const store = configureStore();
 
 store.runSaga(rootSaga);
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <Provider store={store}>
     <BrowserRouter>
       <AppContainer />
@@ -22,9 +21,6 @@ ReactDOM.render(
   </Provider>,
   mountNode,
 );
-
-//
-// import { ReduxAsyncConnect } from 'redux-async-connect';
 
 /*
 if ( window.__snapshot__ ) {
@@ -111,15 +107,6 @@ function hashLinkScroll() {
     scroll();
   }
 }
-
-RouterMatch({ history: browserHistory, routes: patchedRoutes }, async (error, redirectLocation, renderProps) => {
-  if (redirectLocation) {
-      window.location.pathname = redirectLocation.pathname;
-  } else if (renderProps) {
-    const element = <Router {...renderProps} createElement={passFluxToComponent} onUpdate={hashLinkScroll} history={browserHistory}/>;
-    ReactDOM.render(element, mountNode);
-  }
-});
 */
 
 /* Preload images for message box */
@@ -127,7 +114,3 @@ RouterMatch({ history: browserHistory, routes: patchedRoutes }, async (error, re
 //   '/images/bg/6-min-extra.jpg',
 //   '/images/bg/4.jpg'
 // ].forEach( url => (new Image()).src = url);
-//
-// const component = (
-//   <Roter render={(props) => props } />
-// );

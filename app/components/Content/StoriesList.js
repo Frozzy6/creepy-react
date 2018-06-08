@@ -1,5 +1,6 @@
 import React from 'react';
-import { Helmet } from "react-helmet";
+import PropTypes from 'prop-types';
+import { List } from 'immutable';
 
 import StoryItem from './StoryItem/StoryItem';
 
@@ -10,30 +11,29 @@ class StoriesList extends React.Component {
     } = this.props;
 
     // const isLoading = this.state.loading;
-    const isLoading = false;
-    const isSingle = stories.length === 1;
-
-    let html = null;
-    let helmet = null;
-
-    if (stories.size > 0) {
-      html = stories.map((story, index) => {
-        return ( <StoryItem story={story} key={story.get('uID')}/> );
-      });
-    } else if (!isLoading){
-      html = (
-        <div className="panel-top">
-          <h1>Ничего нет</h1>
-          <p>По данной ссылке нет историй.</p>
-        </div>
-      );
-    }
 
     return (
       <div className={'content'}>
-        {html}
+        {stories.size > 0 ?
+          stories.map(story => (
+            <StoryItem story={story} key={story.get('uID')}/>
+          )) :
+          <div className="panel-top">
+            <h1>Ничего нет</h1>
+            <p>По данной ссылке нет историй.</p>
+          </div>
+        }
       </div>
-  );}
+    );
+  }
 }
+
+StoriesList.propTypes = {
+  stories: PropTypes.instanceOf(List),
+};
+
+StoriesList.defaultProps = {
+  stories: new List(),
+};
 
 export default StoriesList;

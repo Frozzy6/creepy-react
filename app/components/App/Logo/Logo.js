@@ -13,7 +13,7 @@ const Logo = (props) => {
         <Link to="/" title="Страшные истории">
           <img className="scary-label" src="/images/logo.png"/>
         </Link>
-        <Link to="#">
+        <Link to="/">
           <img src={`/images/lg/${logoNumber}.png`} className="ghost-logo"/>
         </Link>
       </div>

@@ -1,4 +1,4 @@
-import { put, takeEvery, all } from 'redux-saga/effects';
+import { put, takeEvery, all, call } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
@@ -54,7 +54,6 @@ function* callFetchStories(action) {
     query,
     offset = 1,
   } = action.payload;
-
   yield put(genericStartAC(REQUEST_STORIES));
 
   const [stories, count] = yield all([
@@ -72,7 +71,7 @@ function* callFetchStories(action) {
 function* callFetchStory(action) {
   yield put(genericStartAC(REQUEST_STORY));
 
-  const story = yield fetchStory(action.payload.token, action.payload.id);
+  const story = yield call(fetchStory, action.payload.token, action.payload.id);
   if (story) {
     yield put(genericSuccessAC(REQUEST_STORY, { story }));
   } else {
@@ -103,8 +102,8 @@ function* callFetchStoriesByTag(action) {
   }
 }
 
-export default [
-  takeEvery(REQUEST_STORIES, callFetchStories),
-  takeEvery(REQUEST_STORY, callFetchStory),
-  takeEvery(REQUEST_STORIES_BY_TAG, callFetchStoriesByTag),
-];
+export default function* watchStories() {
+  yield takeEvery(REQUEST_STORIES, callFetchStories);
+  yield takeEvery(REQUEST_STORY, callFetchStory);
+  yield takeEvery(REQUEST_STORIES_BY_TAG, callFetchStoriesByTag);
+}

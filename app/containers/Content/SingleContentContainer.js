@@ -10,7 +10,8 @@ import {
 import Content from '../../components/Content/Content';
 
 class SingleContentContainer extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
     const {
       id,
       token,

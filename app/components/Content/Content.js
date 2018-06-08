@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 import { Map, List } from 'immutable';
 
 import Pagination from './Pagination';
@@ -30,10 +30,10 @@ class Content extends Component {
     } = this.props;
 
     // TODO: please no literals
-    let maxPages = Math.ceil(storiesTotal / 10 );
+    const maxPages = Math.ceil(storiesTotal / 10);
 
     return (
-      <div ref="content">
+      <div>
         <Helmet>
           <title>Страшные истории</title>
           <meta name='Description' content={getDescriptionByToken(token)}/>
@@ -58,7 +58,7 @@ class Content extends Component {
             story={story}
           />
         }
-        <div style={{clear:"both"}}></div>
+        <div style={{ clear: 'both' }}></div>
         {/* // TODO: make without query param. withRouter may helps alot */}
         {showPagination &&
           <Pagination maxPages={maxPages} currentPage={currentPage} query={token}/>

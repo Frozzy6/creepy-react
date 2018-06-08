@@ -4,7 +4,7 @@ import AuthSidebarModule from './AuthSidebarModule';
 import UserSidebarModule from './UserSidebarModule';
 import PageTagsSidebarModule from './PageTagsSidebarModule';
 
-export default function Sidebar(props){
+export default function Sidebar(props) {
   const {
     user,
     tags,

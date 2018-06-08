@@ -6,29 +6,42 @@ import path from 'path';
 import swig from 'swig-templates';
 import device from 'express-device';
 import session from 'express-session';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { hydrate } from 'react-dom';
+import { Provider } from 'react-redux';
+import StaticRouter from 'react-router-dom/StaticRouter';
+import Helmet from 'react-helmet';
 
+import configureStore from '../app/utils/configureStore';
+import { AppContainer } from '../app/containers';
 import { getEnvVaribale } from '../app/utils/env';
+import rootSaga from '../app/sagas';
+import { REQUEST_AUTH, SET_LOGO_NUM } from '../app/actions';
+import { SUCCESS } from '../app/actions/baseActions';
+
 import tokenManager from './tokenManager';
 import apiOauthRouter from './api/oauth';
 
+const LOGOS_COUNT = 6;
 const ENV = getEnvVaribale();
 const app = express();
 
 tokenManager.getAppToken();
 
-if (ENV === 'development') {
-  /* eslint-disable */
-  const webpack = require('webpack');
-  const webpackDevMiddleware = require('webpack-dev-middleware');
-  const webpackConfig = require('../webpack.config.js');
-  /* eslint-enable */
-
-  const compiler = webpack(webpackConfig);
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: path.join(__dirname, '../', 'public'),
-    writeToDisk: filePath => filePath.endsWith('bundle.js') || filePath.endsWith('bundle.map'),
-  }));
-}
+// if (ENV === 'development') {
+//   /* eslint-disable */
+//   const webpack = require('webpack');
+//   const webpackDevMiddleware = require('webpack-dev-middleware');
+//   const webpackConfig = require('../webpack.config.js');
+//   /* eslint-enable */
+//
+//   const compiler = webpack(webpackConfig);
+//   app.use(webpackDevMiddleware(compiler, {
+//     publicPath: path.join(__dirname, '../', 'public'),
+//     writeToDisk: filePath => filePath.endsWith('bundle.js') || filePath.endsWith('bundle.js.map'),
+//   }));
+// }
 
 /* TODO: change to getEnv from utils */
 app.set('port', process.env.PORT || 3000);
@@ -62,11 +75,50 @@ app.use(debug);
 */
 app.use('/actions/', apiOauthRouter);
 
+const render = (store, url) => renderToString(
+    <Provider store={store}>
+      <StaticRouter location={url} context={{}}>
+        <AppContainer />
+      </StaticRouter>
+    </Provider>
+);
+
 app.use((req, res) => {
-  const page = swig.renderFile('views/index.html', {
-    css: 'main',
+  const usrSession = req.session;
+
+  const store = configureStore();
+  const sagasPromise = store.runSaga(rootSaga).done;
+  render(store, req.url);
+
+  /* if user already have session */
+  if (usrSession.oauth) {
+    store.dispatch({
+      type: REQUEST_AUTH + SUCCESS,
+      payload: { authData: usrSession.oauth },
+    });
+  }
+
+  store.dispatch({
+    type: SET_LOGO_NUM,
+    payload: { number: Math.round(Math.random() * LOGOS_COUNT) },
   });
-  res.status(200).send(page);
+  console.log(store.getState().app.toJS());
+  sagasPromise.then(() => {
+    /* dispatch oauth event if data exist */
+    const html = render(store, req.url);
+    const helmet = Helmet.renderStatic();
+    const snapshot = new Buffer.from(JSON.stringify(store.getState()), 'utf-8').toString('base64');
+
+    const page = swig.renderFile('views/index.html', {
+      css: 'main',
+      snapshot,
+      html,
+      helmet,
+    });
+
+    res.status(200).send(page);
+  });
+  store.close();
 });
 //
 // app.use(async function(req, res, next) {

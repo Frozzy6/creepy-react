@@ -1,3 +1,5 @@
+/* App */
+export const SET_LOGO_NUM = 'SET_LOGO_NUM';
 /* Stories */
 export const REQUEST_STORIES = 'REQUEST_STORIES';
 export const REQUEST_STORY = 'REQUEST_STORY';
@@ -25,6 +27,7 @@ export const openDialogAC = content => ({
   payload: { content },
 });
 
+export const setLogoNumAC = number => ({ type: SET_LOGO_NUM, payload: { number } });
 export const closeDialogAC = () => ({ type: HIDE_DIALOG });
 export const requestAuthAC = (login, password) => ({ type: REQUEST_AUTH, payload: { login, password } });
 export const requestRegAC = payload => ({ type: REQUEST_REG, payload });
@@ -39,7 +42,7 @@ export const getCurrentUser = state => state.oauth.getIn(['auth', 'user']);
 export const getAuthState = state => state.oauth.getIn(['auth', 'state']);
 export const getRegisterError = state => state.oauth.getIn(['register', 'registerError']);
 export const getRegisterState = state => state.oauth.getIn(['register', 'state']);
-export const getTagsPerPage = state => state.stories.get('entries').flatMap(story => story.get('tags')).toSet();
+export const getTagsPerPage = state => state.stories.get('entries').flatMap(story => story.get('tags'));
 export const getDialogIsOpen = state => state.dialog.get('isOpen');
 export const getDialogContent = state => state.dialog.get('content');
 export const getStoriesByTag = state => state.tags.get('stories');

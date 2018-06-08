@@ -1,9 +1,8 @@
 import { fromJS } from 'immutable';
-
-const LOGOS_COUNT = 6;
+import { SET_LOGO_NUM } from '../actions';
 
 const initState = fromJS({
-  logoNumber: Math.round(Math.random() * LOGOS_COUNT),
+  logoNumber: -1,
   emv: null,
   deviceType: null,
   loading: false,
@@ -11,6 +10,8 @@ const initState = fromJS({
 
 export default function appReducer(state = initState, action) {
   switch (action.type) {
+    case SET_LOGO_NUM:
+      return state.set('logoNumber', action.payload.number);
     default:
       return state;
   }

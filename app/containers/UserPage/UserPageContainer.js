@@ -10,27 +10,33 @@ import {
 import UserPage from '../../components/UserPage/UserPage';
 
 class UserPageContainer extends Component {
-  static state = {
+  state = {
     requestUser: null,
   };
 
-  static getDerivedStateFromProps(nextProps, prevState, prevProps) {
-    console.log('getDerivedStateFromProps');
-    console.log(nextProps, prevState, prevProps);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { username } = nextProps.match.params;
+    if (username === prevState.requestUser) {
+      // TODO: request user data
+      return {
+        requestUser: username,
+      };
+    }
+
+    return null;
   }
 
   render() {
     const { username } = this.props.match.params;
     const {
-      currentUser,
+      oauth,
       requestUser,
     } = this.props;
-
     return (
       <UserPage
         username={username}
-        currentUser={currentUser}
         requestUser={requestUser}
+        isCurrentUser={oauth.get('user') === requestUser}
       />
     );
   }
@@ -41,11 +47,12 @@ UserPageContainer.propTypes = {
       username: PropTypes.string.isRequired,
     }),
   }),
-  currentUser: PropTypes.instanceOf(Map),
+  oauth: PropTypes.instanceOf(Map),
   requestUser: PropTypes.instanceOf(Map),
 };
 
 export default connect(state => ({
-  currentUser: getCurrentUser(state),
+  // TODO: rename to getOAuthData  and create another on method with current name
+  oauth: getCurrentUser(state) || new Map(),
   requestUser: getRequestUser(state),
 }))(UserPageContainer);

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-import Recaptcha from 'react-recaptcha';
 
 import AuthForm from '../../Common/AuthForm';
 import RegisterForm from '../../Common/RegisterForm';
 
 class AuthSidebarModule extends Component {
-  constructor( props ){
+  constructor(props) {
     super(props);
     this.state = {
       currentTab: 'auth',

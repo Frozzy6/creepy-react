@@ -6,7 +6,7 @@
     "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js ./app/**",
     "eslint:report": "node ./node_modules/eslint/bin/eslint.js --ext .js -f html -o ./reports/eslint.html ./app/**",
     "dev": "cross-env NODE_ENV=development nodemon",
-    "dev:inspect": "cross-env NODE_ENV=development nodemon --inspect",
+    "dev:inspect": "cross-env NODE_ENV=development node --inspect node bin/creepy-web.js",
     "pm2:dev": "pm2 start bin/process.yml --env development",
     "pm2:prod": "pm2 start bin/process.yml --env production",
     "gulp:dev": "gulp build-dev",

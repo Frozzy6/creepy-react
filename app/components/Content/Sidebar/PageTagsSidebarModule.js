@@ -9,7 +9,7 @@ export default function PageTagsSidebarModule(props) {
   return (
     <div className="sidebar-item sidebar-item__tags">
       <h2>
-        <Link to='tags'>Теги на странице</Link>
+        <Link to='/tags'>Теги на странице</Link>
       </h2>
       <div className="sidebar-item-body">
         {

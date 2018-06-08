@@ -11,12 +11,9 @@ import {
 import Content from '../../components/Content/Content';
 
 class ContentContainer extends Component {
-  state = {
-    page: this.props.page,
-    stories: new Map(),
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
     const {
       token,
       page,
@@ -24,6 +21,11 @@ class ContentContainer extends Component {
 
     this.props.requestStoriesAC(token, page);
   }
+
+  state = {
+    page: this.props.page,
+    stories: new Map(),
+  };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.page !== nextProps.page) {

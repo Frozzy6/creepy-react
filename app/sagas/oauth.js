@@ -82,8 +82,8 @@ function* callRequestLogout() {
   }
 }
 
-export default [
-  takeEvery(REQUEST_AUTH, callRequestAuth),
-  takeEvery(REQUEST_REG, callRequestReg),
-  takeEvery(REQUEST_LOGOUT, callRequestLogout),
-];
+export default function* watchOauth() {
+  yield takeEvery(REQUEST_AUTH, callRequestAuth);
+  yield takeEvery(REQUEST_REG, callRequestReg);
+  yield takeEvery(REQUEST_LOGOUT, callRequestLogout);
+}

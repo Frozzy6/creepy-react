@@ -12,13 +12,13 @@ import {
 //  payload { a: 1}
 // })
 // It's make call generic clean with or without concat types
-const genericAC = function() {
-  const [type, actionType, payload] = arguments;
+const genericAC = (...args) => {
+  const [type, actionType, payload] = args;
   const baseAction = {
-    type: actionType + type
+    type: actionType + type,
   };
-  return ( payload ? { ...baseAction, payload } : baseAction );
-}
+  return (payload ? { ...baseAction, payload } : baseAction);
+};
 
 export const genericStartAC = (...args) => genericAC(START, ...args);
 export const genericSuccessAC = (...args) => genericAC(SUCCESS, ...args);
