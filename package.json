@@ -12,7 +12,8 @@
     "gulp:dev": "gulp build-dev",
     "gulp:prod": "gulp build-prod",
     "gulp:watch": "gulp watch-styles",
-    "webpack": "webpack --progress --colors"
+    "webpack": "webpack --progress --colors",
+    "webpack:watch": "webpack --watch --progress --colors"
   },
   "nodemonConfig": {
     "exec": "node bin/creepy-web.js",
