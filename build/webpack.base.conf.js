@@ -4,7 +4,7 @@ const chalk = require('chalk');
 
 const ENV = process.env.NODE_ENV || 'development';
 
-console.log(`${chalk.cyan('Webpack building for')}:${chalk.bold.red(ENV)}`);
+console.log(`${chalk.cyan('Webpack building for')}: ${chalk.bold.red(ENV)}`);
 
 module.exports = {
   mode: 'development',
