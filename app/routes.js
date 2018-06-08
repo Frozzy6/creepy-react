@@ -1,3 +1,5 @@
+import React from 'react';
+import PrivateRoute from './containers/PrivateRoute/privateRoute';
 import StoriesPage from './pages/stories';
 import ScaryPage from './pages/scary';
 import StoryPage from './pages/story';
@@ -6,6 +8,7 @@ import About from './components/About';
 import TagContentContainer from './containers/TagContent/TagContentContainer';
 import UserPageContainer from './containers/UserPage/UserPageContainer';
 
+// https://github.com/ReactTraining/react-router/blob/master/packages/react-router-config/modules/renderRoutes.js
 export default [
   {
     path: '/',
@@ -54,6 +57,11 @@ export default [
   {
     path: '/user/:username',
     component: UserPageContainer,
+    exact: true,
+  },
+  {
+    path: '/private',
+    component: props => ( <PrivateRoute component={About}/> ),
     exact: true,
   },
 ];
