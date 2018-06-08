@@ -5,7 +5,8 @@
     "no-underscore-dangle": 0,
     "import/no-extraneous-dependencies": 0,
     "no-param-reassign": [2, { "props": false }],
-    max-len: ["error", { "code": 120 }]
+    "max-len": ["error", { "code": 120 }],
+    "function-paren-newline": ["error", "consistent"]
   },
   "env": {
     "browser": true,
