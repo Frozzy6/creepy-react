@@ -8,7 +8,6 @@ import device from 'express-device';
 import session from 'express-session';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import StaticRouter from 'react-router-dom/StaticRouter';
 import Helmet from 'react-helmet';
@@ -29,19 +28,19 @@ const app = express();
 
 tokenManager.getAppToken();
 
-// if (ENV === 'development') {
-//   /* eslint-disable */
-//   const webpack = require('webpack');
-//   const webpackDevMiddleware = require('webpack-dev-middleware');
-//   const webpackConfig = require('../webpack.config.js');
-//   /* eslint-enable */
-//
-//   const compiler = webpack(webpackConfig);
-//   app.use(webpackDevMiddleware(compiler, {
-//     publicPath: path.join(__dirname, '../', 'public'),
-//     writeToDisk: filePath => filePath.endsWith('bundle.js') || filePath.endsWith('bundle.js.map'),
-//   }));
-// }
+if (ENV === 'development') {
+  /* eslint-disable */
+  const webpack = require('webpack');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackConfig = require('../webpack.config.babel.js');
+  /* eslint-enable */
+
+  const compiler = webpack(webpackConfig);
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: path.join(__dirname, '../', 'public'),
+    writeToDisk: filePath => filePath.endsWith('bundle.js') || filePath.endsWith('bundle.js.map'),
+  }));
+}
 
 /* TODO: change to getEnv from utils */
 app.set('port', process.env.PORT || 3000);

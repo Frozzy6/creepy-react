@@ -19,6 +19,8 @@ export const ADD_REGISTER_ERROR = 'ADD_REGISTER_ERROR';
 export const REQUEST_STORIES_BY_TAG = 'REQUEST_STORIES_BY_TAG';
 /* USERS */
 export const REQUEST_USER_INFO = 'REQUEST_USER_INFO';
+export const REQUEST_USER_ADD_STORY = 'REQUEST_USER_ADD_STORY';
+
 
 export const requestStoriesAC = (query, offset) => ({ type: REQUEST_STORIES, payload: { query, offset } });
 export const requestStoryAC = (token, id) => ({ type: REQUEST_STORY, payload: { token, id } });
@@ -35,6 +37,7 @@ export const requestLogoutAC = () => ({ type: REQUEST_LOGOUT });
 export const addRegisterErrorAC = error => ({ type: ADD_REGISTER_ERROR, payload: { error } });
 export const requestStoriesByTagAC = tag => ({ type: REQUEST_STORIES_BY_TAG, payload: { tag } });
 export const requestUserInfo = username => ({ type: REQUEST_USER_INFO, payload: { username } });
+export const requestAddStoryAC = payload => ({ type: REQUEST_USER_ADD_STORY, payload });
 
 export const getLogoNumber = state => state.app.get('logoNumber');
 export const getIsAppLoading = state => state.oauth.get('isLoading');
@@ -48,3 +51,4 @@ export const getDialogContent = state => state.dialog.get('content');
 export const getStoriesByTag = state => state.tags.get('stories');
 export const getRequestUser = state => state.users.get('user');
 export const getStory = state => state.stories.get('story');
+export const getUserStoryState = state => state.users.getIn(['userStory', 'state']);

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const html = `
  <!--LiveInternet counter--><script type="text/javascript"><!--
@@ -65,31 +65,6 @@ const html = `
 `;
 
 export default class Footer extends React.Component {
-  constructor(props) {
-    super(props);
-    // const flux = props.flux;
-
-    // this.appStore = flux.getStore('AppStore');
-    // this.state = {
-      // appState: flux.getStore('AppStore').getState()
-    // };
-    // this.onAppDataChange = this.onAppDataChange.bind(this);
-  }
-
-  componentDidMount() {
-    // this.appStore.listen(this.onAppDataChange);
-  }
-
-  componentWillUnmount() {
-    // this.appStore.unlisten(this.onAppDataChange);
-  }
-
-  onAppDataChange(state) {
-    // if ( this.refs.footer ) {
-      // this.setState({appState: state})
-    // }
-  }
-
   render() {
     // let counters = null;
 

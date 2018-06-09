@@ -25,14 +25,6 @@ ReactDOM.hydrate(
 /*
 if ( window.__snapshot__ ) {
   flux.bootstrap(decodeURIComponent(window.escape(atob(window.__snapshot__))));
-  /* Set access token to request head */
-  /*
-  delete axios.defaults.headers.common["Authorization"];
-  // debugger;
-  // setTimeout(()=>{
-    axios.defaults.headers.common.Authorization = 'Bearer ' + flux.getStore('AppStore').state.token;
-    console.log(axios.defaults.headers.common.Authorization)
-  // })
 
   /* Check for extend token */
   /* Do something before request is sent */
@@ -83,10 +75,6 @@ if ( window.__snapshot__ ) {
 // flux.getActions('AppActions').setDeviceType(window.__DEV_TYPE__);
 // flux.getActions('AppActions').setEnv(process.env.NODE_ENV || window.__ENV__);
 
-// const passFluxToComponent = (Component, props) => {
-//     return <Component flux={flux} {...props} />;
-// };
-
 /*
   https://stackoverflow.com/questions/40280369/use-anchors-with-react-router
 function hashLinkScroll() {
@@ -108,9 +96,3 @@ function hashLinkScroll() {
   }
 }
 */
-
-/* Preload images for message box */
-// [
-//   '/images/bg/6-min-extra.jpg',
-//   '/images/bg/4.jpg'
-// ].forEach( url => (new Image()).src = url);

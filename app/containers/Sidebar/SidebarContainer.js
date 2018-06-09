@@ -1,6 +1,4 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
 
 import {
   getCurrentUser,
@@ -13,8 +11,6 @@ import {
 } from '../../actions';
 import Sidebar from '../../components/Content/Sidebar/Sidebar';
 
-const SidebarContainer = props => <Sidebar {...props} />;
-
 export default connect(state => ({
   user: getCurrentUser(state),
   authState: getAuthState(state),
@@ -24,4 +20,4 @@ export default connect(state => ({
   requestAuthAC,
   requestRegAC,
   requestLogoutAC,
-})(SidebarContainer);
+})(Sidebar);

@@ -1,68 +1,13 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import moment from 'moment';
-import 'moment/locale/ru';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
+import StoryContent from './StoryContent';
 import CommentsBlockContainer from '../../../containers/CommentsBlock/CommentsBlockContainer';
 
-class TagItem extends React.Component {
-  constructor(props){
-    super(props)
-  }
 
-  render(){
-    const tag = this.props.tag;
-    const active = this.props.active;
-    let className = 'tag';
-    if ( active ) {
-      className += ' tag_highlight'
-    }
-    return (
-      <li className={className}>
-        <Link to={"/tags/" + tag }>{tag}</Link>
-      </li>
-    )
-  }
-}
-
-class Story extends React.Component {
-  constructor(props){
-    super(props);
-  }
-
-  render(){
-    const { story, activeTag } = this.props;
-    let tags = story.get('tags') || [];
-
-    tags = tags.map( (tag, index) => {
-      var active = tag === activeTag
-      return ( <TagItem tag={tag} key={index} active={active}/>);
-    });
-
-
-    return (
-      <div className="story">
-        <div className="story__heading">
-          <span className="story-icon"></span>
-          <h2>
-            <Link to={"/story/" + story.get('uID')}>{story.getIn(['data', 'title'])}</Link>
-            <div className="publish-date">{moment(story.get('datePublished')).format('DD MMMM YYYY в HH:mm')}</div>
-          </h2>
-        </div>
-        <ul className="tags">{tags}</ul>
-        <div className="text" dangerouslySetInnerHTML={{__html: story.get('content')}}></div>
-      </div>
-    )
-  }
-}
-
-class StoryItem extends React.Component {
-  constructor(props){
-    super(props)
-    this.handleLike = this.handleLike.bind(this);
-  }
-
-  handleLike(){
+class StoryItem extends Component {
+  handleLike = () => {
     // if ( !this.state.app.user ) {
     //   const actions = this.flux.getActions('AuthMessageBoxActions');
     //
@@ -74,21 +19,17 @@ class StoryItem extends React.Component {
     // this.contentActions.toggleLikeTo({uID: story.uID, shouldInc: !story.wasLiked})
   }
 
-  handleClick(e){
+  handleClick = (e) => {
     const link = e.target.parentElement;
     const href = link.getAttribute('href');
 
-    window.open(href, 'Поделиться','left=50,top=50,width=500,height=500,toolbar=1,resizable=1')
+    window.open(href, 'Поделиться', 'left=50,top=50,width=500,height=500,toolbar=1,resizable=1');
     e.preventDefault();
     e.stopPropagation();
     return false;
   }
 
-  onChange(name, state) {
-    this.setState({[name]:state});
-  }
-
-  render(){
+  render() {
     const {
       openAuthModal,
       openRegisterModal,
@@ -110,7 +51,7 @@ class StoryItem extends React.Component {
       </span>
     ) : null );
 
-    const likeIcon = ( wasLiked ? "fa-heart" : "fa-heart-o");
+    const likeIcon = (wasLiked ? "fa-heart" : "fa-heart-o");
 
     const controlsBlock = (
       <div className="story_footer">
@@ -136,7 +77,7 @@ class StoryItem extends React.Component {
 
     return (
       <div className="story-item">
-        <Story story={story} activeTag={activeTag}/>
+        <StoryContent story={story} activeTag={activeTag}/>
         {controlsBlock}
         { verbose &&
           <CommentsBlockContainer
@@ -144,7 +85,8 @@ class StoryItem extends React.Component {
           />
         }
       </div>
-  )}
+    );
+  }
 }
 
 export default StoryItem;
