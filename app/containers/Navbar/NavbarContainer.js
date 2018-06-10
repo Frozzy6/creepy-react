@@ -36,8 +36,12 @@ NavbarContainer.propTypes = {
   location: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isAuth: PropTypes.bool.isRequired,
-  user: PropTypes.string.isRequired,
   openDialogAC: PropTypes.func.isRequired,
+  user: PropTypes.string,
+};
+
+NavbarContainer.defaultProps = {
+  user: null,
 };
 
 export default withRouter(connect(state => ({

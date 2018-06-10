@@ -69,11 +69,15 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   location: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
   isAuth: PropTypes.bool.isRequired,
-  user: PropTypes.string.isRequired,
   openDialogAC: PropTypes.func.isRequired,
+  user: PropTypes.string,
+  isLoading: PropTypes.bool,
 };
 
+Navbar.defaultProps = {
+  isLoading: false,
+  user: null,
+};
 
 export default Navbar;

@@ -41,7 +41,7 @@ export const requestUserInfo = username => ({ type: REQUEST_USER_INFO, payload: 
 export const requestAddStoryAC = payload => ({ type: REQUEST_USER_ADD_STORY, payload });
 
 export const getLogoNumber = state => state.app.get('logoNumber');
-export const getIsAppLoading = state => state.oauth.get('isLoading');
+export const getIsAppLoading = state => state.oauth.get('isLoading', false);
 export const getCurrentUser = state => state.oauth.getIn(['auth', 'user', 'user'], null);
 export const getCurrentOauthData = state => state.oauth.getIn(['auth', 'user'], null);
 export const getAuthState = state => state.oauth.getIn(['auth', 'state']);

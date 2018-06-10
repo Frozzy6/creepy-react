@@ -10,7 +10,7 @@ import withCurrentUser from '../../../containers/withCurrentUser/withCurrentUser
 
 class StoryItem extends Component {
   handleLike = () => {
-    console.log('like!');
+    console.log(this.props.user);
     // if ( !this.state.app.user ) {
     //   const actions = this.flux.getActions('AuthMessageBoxActions');
     //
@@ -29,7 +29,6 @@ class StoryItem extends Component {
       verbose,
       user,
     } = this.props;
-    console.log(user);
 
     const isLikeWasSet = story.get('wasLiked') || false;
     const uID = story.get('uID');
@@ -64,8 +63,15 @@ class StoryItem extends Component {
 
 StoryItem.propTypes = {
   story: PropTypes.instanceOf(Map).isRequired,
-  activeTag: PropTypes.string.isRequired,
-  verbose: PropTypes.bool.isRequired,
+  user: PropTypes.string,
+  activeTag: PropTypes.string,
+  verbose: PropTypes.bool,
+};
+
+StoryItem.defaultProps = {
+  activeTag: null,
+  verbose: false,
+  user: null,
 };
 
 export default withCurrentUser(StoryItem);
