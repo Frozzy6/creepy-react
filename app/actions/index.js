@@ -1,3 +1,4 @@
+import { isNull } from 'lodash';
 /* App */
 export const SET_LOGO_NUM = 'SET_LOGO_NUM';
 /* Stories */
@@ -41,8 +42,10 @@ export const requestAddStoryAC = payload => ({ type: REQUEST_USER_ADD_STORY, pay
 
 export const getLogoNumber = state => state.app.get('logoNumber');
 export const getIsAppLoading = state => state.oauth.get('isLoading');
-export const getCurrentUser = state => state.oauth.getIn(['auth', 'user']);
+export const getCurrentUser = state => state.oauth.getIn(['auth', 'user', 'user'], null);
+export const getCurrentOauthData = state => state.oauth.getIn(['auth', 'user'], null);
 export const getAuthState = state => state.oauth.getIn(['auth', 'state']);
+export const isUserAuthorized = state => !isNull(state.oauth.getIn(['auth', 'user'], null));
 export const getRegisterError = state => state.oauth.getIn(['register', 'registerError']);
 export const getRegisterState = state => state.oauth.getIn(['register', 'state']);
 export const getTagsPerPage = state => state.stories.get('entries').flatMap(story => story.get('tags'));

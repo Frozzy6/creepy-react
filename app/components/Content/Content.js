@@ -12,7 +12,7 @@ import StoryDetails from './StoryDetails';
 const DESC = {
   stories: 'Собрание страшилок и страшных историй на основе реальных событий из разных уголков мира.',
   scary: 'Собрание страшилок и страшных историй на основе реальных событий из разных уголков мира, показаные по популярности.',
-  random: 'Случайная страшилка или страшная история. Каждый раз новая.'
+  random: 'Случайная страшилка или страшная история. Каждый раз новая.',
 };
 
 const getDescriptionByToken = token => DESC[token];
@@ -71,11 +71,11 @@ class Content extends Component {
 Content.propTypes = {
   stories: PropTypes.instanceOf(List),
   story: PropTypes.instanceOf(Map),
-}
+};
 
 Content.defaultProps = {
   stories: new List(),
   story: null,
-}
+};
 
 export default Content;
