@@ -138,21 +138,23 @@
 }
 
 
-.story h2 {
+.story .story__heading--information {
   margin-left: 10px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
+  align-items: flex-start;
+}
+
+.story .story__heading--information h2 {
   font: normal 22px/27px "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-.story h2 a {
+.story .story__heading--information a {
   color: black;
   text-decoration: none;
 }
 
-.story h2 a:hover {
+.story .story__heading--information a:hover {
   color: #ff6868;
 }
 
@@ -160,6 +162,11 @@
   font-size: 14px;
 }
 
+.story .author-name {
+  text-align: right;
+  margin-top: 10px;
+  font-weight: bold;
+}
 
 
 ul.tags {

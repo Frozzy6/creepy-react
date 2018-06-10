@@ -29,14 +29,14 @@ class UserPageContainer extends Component {
   render() {
     const { username } = this.props.match.params;
     const {
-      oauth,
+      user,
       requestUser,
     } = this.props;
     return (
       <UserPage
         username={username}
         requestUser={requestUser}
-        isCurrentUser={oauth.get('user') === requestUser}
+        sisCurrentUser={user === requestUser}
       />
     );
   }
@@ -47,12 +47,12 @@ UserPageContainer.propTypes = {
       username: PropTypes.string.isRequired,
     }),
   }),
-  oauth: PropTypes.instanceOf(Map),
+  user: PropTypes.string,
   requestUser: PropTypes.instanceOf(Map),
 };
 
 export default connect(state => ({
   // TODO: rename to getOAuthData  and create another on method with current name
-  oauth: getCurrentUser(state) || new Map(),
+  user: getCurrentUser(state) || new Map(),
   requestUser: getRequestUser(state),
 }))(UserPageContainer);

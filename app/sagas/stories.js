@@ -6,6 +6,8 @@ import {
   REQUEST_STORIES,
   SHOW_PAGINATION,
   REQUEST_STORIES_BY_TAG,
+  REQUEST_LIKE,
+  REQUEST_DISLIKE,
 } from '../actions';
 import {
   genericStartAC,
@@ -15,6 +17,7 @@ import {
 import config from '../../config';
 
 const { API_HOST } = config;
+const HTTP_NO_CONTENT = 204;
 
 function fetchStory(token, id) {
   const url = `${API_HOST}/stories/${token === 'random' ? token : id}`;
@@ -102,8 +105,43 @@ function* callFetchStoriesByTag(action) {
   }
 }
 
+function requestStoryLike(uID, action) {
+  const url = `${API_HOST}/stories/${action}/${uID}`;
+
+  return axios.post(url)
+    .catch((e) => {
+      console.log('something going wrong', e);
+    });
+}
+
+function* callRequsetLike(action) {
+  const { uID } = action.payload;
+  yield put(genericStartAC(REQUEST_LIKE));
+
+  const response = yield call(requestStoryLike, uID, 'like');
+  if (response.status === HTTP_NO_CONTENT) {
+    yield put(genericSuccessAC(REQUEST_LIKE, { uID }));
+  } else {
+    yield put(genericFailAC(REQUEST_LIKE));
+  }
+}
+
+function* callRequsetDislike(action) {
+  const { uID } = action.payload;
+  yield put(genericStartAC(REQUEST_DISLIKE));
+
+  const response = yield call(requestStoryLike, uID, 'unlike');
+  if (response.status === HTTP_NO_CONTENT) {
+    yield put(genericSuccessAC(REQUEST_DISLIKE, { uID }));
+  } else {
+    yield put(genericFailAC(REQUEST_DISLIKE));
+  }
+}
+
 export default function* watchStories() {
   yield takeEvery(REQUEST_STORIES, callFetchStories);
   yield takeEvery(REQUEST_STORY, callFetchStory);
   yield takeEvery(REQUEST_STORIES_BY_TAG, callFetchStoriesByTag);
+  yield takeEvery(REQUEST_LIKE, callRequsetLike);
+  yield takeEvery(REQUEST_DISLIKE, callRequsetDislike);
 }

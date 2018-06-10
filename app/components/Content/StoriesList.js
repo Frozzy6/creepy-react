@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import StoryItem from './StoryItem/StoryItem';
+import StoryItemContainer from '../../containers/StoryItem/StoryItemContainer';
 
 class StoriesList extends React.Component {
   render() {
@@ -10,13 +10,14 @@ class StoriesList extends React.Component {
       stories,
     } = this.props;
 
-    // const isLoading = this.state.loading;
-
     return (
       <div className={'content'}>
         {stories.size > 0 ?
           stories.map(story => (
-            <StoryItem story={story} key={story.get('uID')}/>
+            <StoryItemContainer
+              story={story}
+              key={story.get('uID')}
+            />
           )) :
           <div className="panel-top">
             <h1>Ничего нет</h1>

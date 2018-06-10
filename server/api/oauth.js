@@ -24,7 +24,7 @@ router.route('/oauth/token').post(async (req, res) => {
 });
 
 router.route('/oauth/logout').post((req, res) => {
-  req.session.oauth = {};
+  delete req.session.oauth;
   res.sendStatus(200);
 });
 

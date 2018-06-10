@@ -69,13 +69,22 @@ class Content extends Component {
 }
 
 Content.propTypes = {
+  token: PropTypes.string.isRequired,
+  helloMessage: PropTypes.bool,
   stories: PropTypes.instanceOf(List),
   story: PropTypes.instanceOf(Map),
+  showPagination: PropTypes.bool,
+  storiesTotal: PropTypes.number,
+  currentPage: PropTypes.number,
 };
 
 Content.defaultProps = {
   stories: new List(),
   story: null,
+  helloMessage: null,
+  showPagination: false,
+  storiesTotal: -1,
+  currentPage: -1,
 };
 
 export default Content;

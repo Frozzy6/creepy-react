@@ -77,17 +77,10 @@ ContentContainer.propTypes = {
   helloMessage: PropTypes.string,
 };
 
-
-function mapStateToProps(state) {
-  return {
-    stories: state.stories,
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  {
-    requestStoriesAC,
-    requestStoryAC,
-  },
-)(ContentContainer);
+export default connect(state => ({
+  stories: state.stories,
+}),
+{
+  requestStoriesAC,
+  requestStoryAC,
+})(ContentContainer);

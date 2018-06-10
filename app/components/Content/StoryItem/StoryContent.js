@@ -12,6 +12,7 @@ const StoryContent = (props) => {
   const uID = story.get('uID');
   const content = story.get('content');
   const title = story.getIn(['data', 'title']);
+  const author = story.getIn(['author', 'username']);
   const datePublished = moment(story.get('datePublished')).format('DD MMMM YYYY в HH:mm');
   let tags = story.get('tags') || [];
 
@@ -24,10 +25,17 @@ const StoryContent = (props) => {
     <div className="story">
       <div className="story__heading">
         <span className="story-icon"></span>
-        <h2>
-          <Link to={`/story/${uID}`}>{title}</Link>
-          <div className="publish-date">{datePublished}</div>
-        </h2>
+        <div className="story__heading--information">
+          <h2><Link to={`/story/${uID}`}>{title}</Link></h2>
+          <div>
+            <div className="publish-date">{datePublished}</div>
+            <div className="author-name">
+              <Link to={`/users/${author}`}>
+                {author}
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
       <ul className="tags">{tags}</ul>
       <div

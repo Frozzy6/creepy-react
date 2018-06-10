@@ -5,6 +5,8 @@ export const SET_LOGO_NUM = 'SET_LOGO_NUM';
 export const REQUEST_STORIES = 'REQUEST_STORIES';
 export const REQUEST_STORY = 'REQUEST_STORY';
 export const REQUEST_RANDOM_STORY = 'REQUEST_RANDOM_STORY';
+export const REQUEST_LIKE = 'REQUEST_LIKE';
+export const REQUEST_DISLIKE = 'REQUEST_DISLIKE';
 /* Pagination */
 export const SHOW_PAGINATION = 'SHOW_PAGINATION';
 export const HIDE_PAGINATION = 'SHOW_PAGINATION';
@@ -39,6 +41,8 @@ export const addRegisterErrorAC = error => ({ type: ADD_REGISTER_ERROR, payload:
 export const requestStoriesByTagAC = tag => ({ type: REQUEST_STORIES_BY_TAG, payload: { tag } });
 export const requestUserInfo = username => ({ type: REQUEST_USER_INFO, payload: { username } });
 export const requestAddStoryAC = payload => ({ type: REQUEST_USER_ADD_STORY, payload });
+export const requestLikeAC = uID => ({ type: REQUEST_LIKE, payload: { uID } });
+export const requestDislikeAC = uID => ({ type: REQUEST_DISLIKE, payload: { uID } });
 
 export const getLogoNumber = state => state.app.get('logoNumber');
 export const getIsAppLoading = state => state.oauth.get('isLoading', false);

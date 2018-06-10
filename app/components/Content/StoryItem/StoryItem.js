@@ -6,20 +6,30 @@ import StoryContent from './StoryContent';
 import StoryControls from './StoryControls';
 import CommentsBlockContainer from '../../../containers/CommentsBlock/CommentsBlockContainer';
 import withCurrentUser from '../../../containers/withCurrentUser/withCurrentUser';
-
+import { AUTH_MODAL_ITEM } from '../../AuthModal/AuthModal';
 
 class StoryItem extends Component {
   handleLike = () => {
-    console.log(this.props.user);
-    // if ( !this.state.app.user ) {
-    //   const actions = this.flux.getActions('AuthMessageBoxActions');
-    //
-    //   actions.changeTab('register');
-    //   return actions.show();
-    // }
-    //
-    // const story = this.props.story;
-    // this.contentActions.toggleLikeTo({uID: story.uID, shouldInc: !story.wasLiked})
+    const {
+      isAuth,
+      requestLikeAC,
+      requestDislikeAC,
+      openDialogAC,
+      story,
+    } = this.props;
+
+    const uID = story.get('uID');
+    const isLikeWasSet = story.get('wasLiked') || false;
+
+    if (!isAuth) {
+      return openDialogAC(AUTH_MODAL_ITEM);
+    }
+
+    if (!isLikeWasSet) {
+      requestLikeAC(uID);
+    } else {
+      requestDislikeAC(uID);
+    }
   }
 
   render() {
@@ -27,8 +37,11 @@ class StoryItem extends Component {
       story,
       activeTag,
       verbose,
-      user,
     } = this.props;
+
+    if (!story) {
+      return null;
+    }
 
     const isLikeWasSet = story.get('wasLiked') || false;
     const uID = story.get('uID');
@@ -63,6 +76,10 @@ class StoryItem extends Component {
 
 StoryItem.propTypes = {
   story: PropTypes.instanceOf(Map).isRequired,
+  isAuth: PropTypes.bool.isRequired,
+  requestLikeAC: PropTypes.func.isRequired,
+  requestDislikeAC: PropTypes.func.isRequired,
+  openDialogAC: PropTypes.func.isRequired,
   user: PropTypes.string,
   activeTag: PropTypes.string,
   verbose: PropTypes.bool,

@@ -101,10 +101,10 @@ app.use((req, res) => {
     type: SET_LOGO_NUM,
     payload: { number: Math.round(Math.random() * LOGOS_COUNT) },
   });
-  console.log(store.getState().app.toJS());
+
   sagasPromise.then(() => {
     /* dispatch oauth event if data exist */
-    const html = render(store, req.url);
+    const html = render(store, decodeURIComponent(req.url));
     const helmet = Helmet.renderStatic();
     const snapshot = new Buffer.from(JSON.stringify(store.getState()), 'utf-8').toString('base64');
 

@@ -26,6 +26,10 @@ class SingleContentContainer extends Component {
       story,
     } = this.props;
 
+    if (!story) {
+      return null;
+    }
+
     return (
       <Content
         story={story}
@@ -39,13 +43,14 @@ class SingleContentContainer extends Component {
 
 SingleContentContainer.propTypes = {
   requestStoryAC: PropTypes.func.isRequired,
-  story: PropTypes.instanceOf(Map).isRequired,
+  story: PropTypes.instanceOf(Map),
   token: PropTypes.string.isRequired,
   id: PropTypes.string,
 };
 
 SingleContentContainer.defaultProps = {
   id: '-1',
+  story: null,
 };
 
 

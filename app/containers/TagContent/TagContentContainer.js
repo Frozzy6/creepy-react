@@ -10,23 +10,30 @@ import {
 import TagContent from '../../components/TagContent/TagContent';
 
 class TagContentContainer extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
     const { tag } = this.props.match.params;
+
     this.props.requestStoriesByTagAC(tag);
   }
 
-  componentWillReceiveProps(nextProps){
-    const { tag } = this.props.match.params;
-    const { tag: nextTag } = nextProps.match.params;
+  state = {
+    tag: this.props.match.params.tag,
+  };
 
-    if (tag !== nextTag) {
-      this.props.requestStoriesByTagAC(nextTag);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { tag } = nextProps.match.params;
+    if (tag !== prevState.tag) {
+      nextProps.requestStoriesByTagAC(tag);
       window.scrollTo(0, 0);
+      return { tag };
     }
+
+    return null;
   }
 
   render() {
-    const { tag } = this.props.match.params;
+    const { tag } = this.state;
     const { stories } = this.props;
 
     return (
@@ -36,6 +43,28 @@ class TagContentContainer extends Component {
       />
     );
   }
+  //
+  // componentWillReceiveProps(nextProps){
+  //   const { tag } = this.props.match.params;
+  //   const { tag: nextTag } = nextProps.match.params;
+  //
+  //   if (tag !== nextTag) {
+  //     this.props.requestStoriesByTagAC(nextTag);
+  //     window.scrollTo(0, 0);
+  //   }
+  // }
+  //
+  // render() {
+  //   const { tag } = this.props.match.params;
+  //   const { stories } = this.props;
+  //
+  //   return (
+  //     <TagContent
+  //       tag={tag}
+  //       stories={stories}
+  //     />
+  //   );
+  // }
 }
 
 TagContentContainer.propTypes = {

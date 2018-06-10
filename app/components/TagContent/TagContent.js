@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-import StoryItem from '../Content/StoryItem/StoryItem';
+import StoryItemContainer from '../../containers/StoryItem/StoryItemContainer';
 
 class TagContent extends Component {
   render() {
@@ -21,8 +21,11 @@ class TagContent extends Component {
 
     if (stories.size > 0) {
       storiesHTML = stories.map(story =>
-        <StoryItem story={story} key={story.get('uID')} activeTag={tag}/>
-      );
+        <StoryItemContainer
+          story={story}
+          key={story.get('uID')}
+          activeTag={tag}
+        />);
     } else {
       storiesHTML = (
         <div className="story">

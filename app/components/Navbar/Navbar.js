@@ -48,7 +48,7 @@ class Navbar extends Component {
                   <i className="pencil-icon"></i>
                   Прислать историю
                 </NavItem>
-                <NavItem currentLocation={currentLocation} className="profile" to={`/user/${user.get('user')}`}>
+                <NavItem currentLocation={currentLocation} className="profile" to={`/user/${user}`}>
                   <i title={user} className="fa fa-user-circle-o"></i>
                 </NavItem>
               </Fragment> :

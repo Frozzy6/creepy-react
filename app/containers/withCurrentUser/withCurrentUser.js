@@ -14,6 +14,6 @@ const withCurrentUserWrapper = Component =>
 export default compose(
   connect(state => ({
     user: getCurrentUser(state),
-  })),
+  }), {}),
   withCurrentUserWrapper,
 );
