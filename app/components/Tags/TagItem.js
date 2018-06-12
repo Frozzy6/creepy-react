@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-class TagItem extends React.PureComponent {
-  constructor(props){
-    super(props);
-  }
-
+class TagItem extends PureComponent {
   render() {
     const { tag } = this.props;
-    return <Link to={"/tags/" + tag} className="tag">{ tag }</Link>;
+    return <Link to={`/tags/${tag}`} className='tag'>{ tag }</Link>;
   }
 }
+
+TagItem.propTypes = {
+  tag: PropTypes.string.isRequired,
+};
 
 export default TagItem;
