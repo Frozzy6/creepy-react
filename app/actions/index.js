@@ -19,6 +19,7 @@ export const REQUEST_REG = 'REQUEST_REG';
 export const REQUEST_LOGOUT = 'REQUEST_LOGOUT';
 export const ADD_REGISTER_ERROR = 'ADD_REGISTER_ERROR';
 /* TAGS */
+export const REQUEST_ALL_TAGS = 'REQUEST_ALL_TAGS';
 export const REQUEST_STORIES_BY_TAG = 'REQUEST_STORIES_BY_TAG';
 /* USERS */
 export const REQUEST_USER_INFO = 'REQUEST_USER_INFO';
@@ -38,6 +39,7 @@ export const requestAuthAC = (login, password) => ({ type: REQUEST_AUTH, payload
 export const requestRegAC = payload => ({ type: REQUEST_REG, payload });
 export const requestLogoutAC = () => ({ type: REQUEST_LOGOUT });
 export const addRegisterErrorAC = error => ({ type: ADD_REGISTER_ERROR, payload: { error } });
+export const requestTags = () => ({ type: REQUEST_ALL_TAGS });
 export const requestStoriesByTagAC = tag => ({ type: REQUEST_STORIES_BY_TAG, payload: { tag } });
 export const requestUserInfo = username => ({ type: REQUEST_USER_INFO, payload: { username } });
 export const requestAddStoryAC = payload => ({ type: REQUEST_USER_ADD_STORY, payload });

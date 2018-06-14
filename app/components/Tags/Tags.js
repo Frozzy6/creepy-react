@@ -1,73 +1,84 @@
-import React, {PropTypes} from 'react';
-import {Helmet} from "react-helmet";
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
+import { List } from 'immutable';
 
 import TagItem from './TagItem';
 
-class Tags extends React.Component {
-  static fetch = [
-    {
-      storeName: 'TagsStore',
-      fetch: 'fetchTags',
-      args: ['flux']
-    }
-  ];
-
-  constructor(props){
+class Tags extends PureComponent {
+  constructor(props) {
     super(props);
-    const flux = props.flux;
 
-    this.tagsStore = flux.getStore('TagsStore');
-    this.tagsActions = flux.getActions('TagsActions');
-
-    this.state = this.tagsStore.getState();
-    this.onChange = this.onChange.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.onQueryChange = this.onQueryChange.bind(this);
   }
 
-  componentDidMount() {
-    this.tagsStore.listen(this.onChange);
-    this.tagsStore.fetchTags( this.props.flux );
+  state = {
+    query: '',
+    list: [],
+    filteredTags: [],
+  };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.list !== prevState.list) {
+      return {
+        filteredTags: nextProps.list,
+      };
+    }
   }
 
-  componentWillUnmount() {
-    this.tagsStore.unlisten(this.onChange);
+  onQueryChange(event) {
+    const { value } = event.target;
+    const filteredTags = this.props.list
+      .filter(tag => tag.indexOf(value) !== -1);
+
+    this.setState({ query: value, filteredTags });
   }
 
-  handleChange( event ) {
-    let value = event.target.value;
+  renderTagItems() {
+    const { filteredTags } = this.state;
 
-    this.tagsActions.updateSearchQuery( value );
+    return (
+      <div className='taglist'>
+        { filteredTags.map(tag => (<TagItem tag={tag} key={tag} />)) }
+      </div>
+    );
   }
 
-  onChange(state) {
-    this.setState(state);
+  renderSearchField() {
+    return (
+      <div>
+        <h1>Темы историй:</h1>
+        <input
+          type='text'
+          className='tag-list__search'
+          value={this.state.query}
+          onChange={this.onQueryChange}
+          placeholder='Поиск по тегам'
+        />
+      </div>
+    );
   }
 
   render() {
-    const tags = this.state.filteredTags;
-    var tagsHTML = null;
-
-    if ( tags.length > 0 ) {
-      tagsHTML = tags.map( ( tag, index ) => {
-        return ( <TagItem tag={tag} key={index}/>);
-      });
-    }
-
     return (
-      <div className="content wide">
-         <Helmet>
-           <title>Список тем</title>
-         </Helmet>
-        <div className="tags-list">
-          <h1>Темы историй:</h1>
-          <input className="tag-list__search" type="text" value={this.state.query} onChange={this.handleChange} placeholder="Поиск по тегам" />
-          <div className="taglist">
-            {tagsHTML}
-          </div>
+      <div className='content wide'>
+         <Helmet><title>Список тем</title></Helmet>
+
+        <div className='tags-list'>
+          {this.renderSearchField()}
+          {this.renderTagItems()}
         </div>
       </div>
     );
   }
 }
+
+Tags.propTypes = {
+  list: PropTypes.instanceOf(List),
+};
+
+Tags.defaultProps = {
+  list: [],
+};
 
 export default Tags;

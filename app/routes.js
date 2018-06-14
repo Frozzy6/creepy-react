@@ -4,6 +4,7 @@ import ScaryPage from './pages/scary';
 import StoryPage from './pages/story';
 import RandomPage from './pages/random';
 import About from './components/About';
+import TagsContainer from './containers/Tags/TagsContainer';
 import TagContentContainer from './containers/TagContent/TagContentContainer';
 import UserPageContainer from './containers/UserPage/UserPageContainer';
 import UserStoryContainer from './containers/UserStory/UserStoryContainer';
@@ -47,6 +48,11 @@ export default [
   {
     path: '/about/',
     component: About,
+    exact: true,
+  },
+  {
+    path: '/tags/',
+    component: TagsContainer,
     exact: true,
   },
   {
