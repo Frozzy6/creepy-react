@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import axios from 'axios';
 
 import configureStore from './utils/configureStore';
 import rootSaga from './sagas';
@@ -14,29 +13,29 @@ const store = configureStore();
 
 store.runSaga(rootSaga);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <AppContainer />
-    </BrowserRouter>
-  </Provider>,
-  mountNode
-);
-
-//
-// import { ReduxAsyncConnect } from 'redux-async-connect';
+if (window.__SSR__) {
+  ReactDOM.hydrate(
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppContainer />
+      </BrowserRouter>
+    </Provider>,
+    mountNode,
+  );
+} else {
+  ReactDOM.render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppContainer />
+      </BrowserRouter>
+    </Provider>,
+    mountNode,
+  );
+}
 
 /*
 if ( window.__snapshot__ ) {
   flux.bootstrap(decodeURIComponent(window.escape(atob(window.__snapshot__))));
-  /* Set access token to request head */
-  /*
-  delete axios.defaults.headers.common["Authorization"];
-  // debugger;
-  // setTimeout(()=>{
-    axios.defaults.headers.common.Authorization = 'Bearer ' + flux.getStore('AppStore').state.token;
-    console.log(axios.defaults.headers.common.Authorization)
-  // })
 
   /* Check for extend token */
   /* Do something before request is sent */
@@ -87,10 +86,6 @@ if ( window.__snapshot__ ) {
 // flux.getActions('AppActions').setDeviceType(window.__DEV_TYPE__);
 // flux.getActions('AppActions').setEnv(process.env.NODE_ENV || window.__ENV__);
 
-// const passFluxToComponent = (Component, props) => {
-//     return <Component flux={flux} {...props} />;
-// };
-
 /*
   https://stackoverflow.com/questions/40280369/use-anchors-with-react-router
 function hashLinkScroll() {
@@ -111,23 +106,4 @@ function hashLinkScroll() {
     scroll();
   }
 }
-
-RouterMatch({ history: browserHistory, routes: patchedRoutes }, async (error, redirectLocation, renderProps) => {
-  if (redirectLocation) {
-      window.location.pathname = redirectLocation.pathname;
-  } else if (renderProps) {
-    const element = <Router {...renderProps} createElement={passFluxToComponent} onUpdate={hashLinkScroll} history={browserHistory}/>;
-    ReactDOM.render(element, mountNode);
-  }
-});
 */
-
-/* Preload images for message box */
-// [
-//   '/images/bg/6-min-extra.jpg',
-//   '/images/bg/4.jpg'
-// ].forEach( url => (new Image()).src = url);
-//
-// const component = (
-//   <Roter render={(props) => props } />
-// );

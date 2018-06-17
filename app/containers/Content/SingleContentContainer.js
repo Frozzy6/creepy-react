@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
 import {
-  requestStoriesAC,
   requestStoryAC,
+  getStory,
 } from '../../actions';
 import Content from '../../components/Content/Content';
 
 class SingleContentContainer extends Component {
-  componentWillMount(){
+  constructor(props) {
+    super(props);
     const {
       id,
       token,
@@ -19,11 +20,15 @@ class SingleContentContainer extends Component {
     this.props.requestStoryAC(token, id);
   }
 
-  render(){
+  render() {
     const {
       token,
       story,
     } = this.props;
+
+    if (!story) {
+      return null;
+    }
 
     return (
       <Content
@@ -32,27 +37,28 @@ class SingleContentContainer extends Component {
         helloMessage={false}
         showPagination={false}
       />
-    )
+    );
   }
 }
 
 SingleContentContainer.propTypes = {
   requestStoryAC: PropTypes.func.isRequired,
-  requestStoriesAC: PropTypes.func.isRequired,
-  story: PropTypes.object.isRequired,
+  story: PropTypes.instanceOf(Map),
+  token: PropTypes.string.isRequired,
+  id: PropTypes.string,
+};
+
+SingleContentContainer.defaultProps = {
+  id: '-1',
+  story: null,
 };
 
 
-function mapStateToProps(state) {
-  return {
-    story: state.stories.get('story'),
-  }
-}
-
 export default connect(
-  mapStateToProps,
+  state => ({
+    story: getStory(state),
+  }),
   {
-    requestStoriesAC,
     requestStoryAC,
-  }
+  },
 )(SingleContentContainer);

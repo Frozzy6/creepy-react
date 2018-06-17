@@ -1,0 +1,48 @@
+#add-story {
+  p {
+    margin-bottom: 15px;
+  }
+
+  .user-story {
+    .submit-btn {
+      display: block;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-align: center;
+      width: 120px;
+      font-weight: bold;
+      padding: 7px 5px;
+      border: 1px solid #415367;
+      border-radius: 1px;
+      position: relative;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+      color: #415367;
+      text-decoration: none;
+      transition: 0.2s ease all;
+      background: transparent;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .submit-btn:not(:disabled):hover {
+      color: white;
+      background: #415367;
+      box-shadow: 0 2px 10px rgba(65, 83, 103, 0.5), 0 3px 6px rgba(65, 83, 103, 0.2);
+    }
+
+    &__row {
+      margin-bottom: 15px;
+      p {
+        margin-bottom: 5px;
+      }
+      input {
+        width: 100%;
+        box-sizing: border-box;
+      }
+      textarea {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  }
+}

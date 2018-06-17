@@ -4,12 +4,14 @@ import AuthSidebarModule from './AuthSidebarModule';
 import UserSidebarModule from './UserSidebarModule';
 import PageTagsSidebarModule from './PageTagsSidebarModule';
 
-export default function Sidebar(props){
+export default function Sidebar(props) {
   const {
     user,
     tags,
     authState,
+    registerError,
     requestAuthAC,
+    requestRegAC,
     requestLogoutAC,
   } = props;
 
@@ -22,7 +24,9 @@ export default function Sidebar(props){
         /> :
         <AuthSidebarModule
           authState={authState}
+          registerError={registerError}
           requestAuthAC={requestAuthAC}
+          requestRegAC={requestRegAC}
         />
       }
       <PageTagsSidebarModule

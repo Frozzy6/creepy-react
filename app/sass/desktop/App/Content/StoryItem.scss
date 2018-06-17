@@ -24,8 +24,14 @@
   background: white;
 }
 
-.text {
+.text, .article {
   font: normal 16px/25px "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.article h2 {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 
 .text a {
@@ -138,28 +144,41 @@
 }
 
 
-.story h2 {
+.story .story__heading--information {
   margin-left: 10px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
+  align-items: flex-start;
+}
+
+.story .story__heading--information h2 {
   font: normal 22px/27px "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-.story h2 a {
+.story .story__heading--information a {
   color: black;
   text-decoration: none;
 }
 
-.story h2 a:hover {
+.story .story__heading--information a:hover {
   color: #ff6868;
+  text-decoration: underline;
 }
 
 .story .publish-date {
   font-size: 14px;
 }
 
+.story .author-name {
+  text-align: right;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.story .author-icon {
+  width: 16px;
+  height: 16px;
+}
 
 
 ul.tags {

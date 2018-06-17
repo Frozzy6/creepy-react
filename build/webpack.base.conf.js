@@ -2,18 +2,18 @@ const webpack = require('webpack');
 const path = require('path');
 const chalk = require('chalk');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ENV = process.env.NODE_ENV || 'development'
+const ENV = process.env.NODE_ENV || 'development';
 
-console.log('\n'+ chalk.cyan('Webpack building for ') + chalk.bold.red(ENV));
+console.log(`${chalk.cyan('Webpack building for')}: ${chalk.bold.red(ENV)}`);
 
 module.exports = {
+  mode: 'development',
   entry: {
     main: ['./app/main.js'],
   },
   output: {
     path: path.resolve(__dirname, '../public'),
-    filename: 'js/[name].bundle.js'
+    filename: 'js/[name].bundle.js',
   },
   module: {
     rules: [
@@ -22,14 +22,14 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          "presets": [ "env", "es2015", "stage-0", "stage-2", "react" ],
-          "plugins": [ "transform-runtime", "transform-object-assign", "transform-object-rest-spread" ]
-        }
-      }
-    ]
+          presets: ['env', 'es2015', 'stage-0', 'stage-2', 'react'],
+          plugins: ['transform-runtime', 'transform-object-assign', 'transform-object-rest-spread'],
+        },
+      },
+    ],
   },
   plugins: [
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/, /axios$/ )
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/, /axios$/),
   ],
-  stats: { colors: true }
+  stats: { colors: true },
 };

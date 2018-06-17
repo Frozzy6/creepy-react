@@ -74,10 +74,29 @@ textarea {
   margin: 0 auto;
 }
 
+.button.danger {
+  background: #883f3f;
+  color: white;
+}
+
+.button.danger:hover {
+  background: #c34545;
+  color: white;
+}
+
 .button:hover {
   color: white;
   background: $button-color;
   box-shadow: 0 2px 10px rgba(65, 83, 103, 0.5), 0 3px 6px rgba(65, 83, 103, 0.2);
+}
+
+.button[disabled] {
+  color: grey;
+}
+.button[disabled]:hover {
+  color: grey;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .loading {
@@ -120,6 +139,10 @@ input {
 
 
 /* Auth form */
+.auth-form {
+  margin: 0 10px;
+}
+
 .auth-form .controls-block {
   display: flex;
   justify-content: space-around;
@@ -207,7 +230,7 @@ input {
   box-sizing: border-box;
   font-size: 1em;
   padding: 0.4em 0.4em;
-  width: 99%;
+  width: 100%;
   border-radius: 4px;
   border: 1px solid #BABABA;
 }
@@ -268,4 +291,5 @@ input {
 .auth-bad {
   padding-top: 20px;
   color: red;
+  text-align: center;
 }

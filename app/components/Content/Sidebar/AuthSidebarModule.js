@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-import Recaptcha from 'react-recaptcha';
 
 import AuthForm from '../../Common/AuthForm';
 import RegisterForm from '../../Common/RegisterForm';
 
 class AuthSidebarModule extends Component {
-  constructor( props ){
+  constructor(props) {
     super(props);
     this.state = {
       currentTab: 'auth',
@@ -20,7 +18,9 @@ class AuthSidebarModule extends Component {
   render() {
     const {
       authState,
+      registerError,
       requestAuthAC,
+      requestRegAC,
     } = this.props;
 
     const isLoginTabShow = this.state.currentTab == 'auth';
@@ -33,6 +33,8 @@ class AuthSidebarModule extends Component {
     ),(
       <RegisterForm
         handleAuthClick={this.switchTab.bind(this, 'auth')}
+        handleRegisterClick={requestRegAC}
+        registerError={registerError}
       />
     )];
 

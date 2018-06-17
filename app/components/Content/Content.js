@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 import { Map, List } from 'immutable';
 
 import Pagination from './Pagination';
@@ -12,7 +12,7 @@ import StoryDetails from './StoryDetails';
 const DESC = {
   stories: 'Собрание страшилок и страшных историй на основе реальных событий из разных уголков мира.',
   scary: 'Собрание страшилок и страшных историй на основе реальных событий из разных уголков мира, показаные по популярности.',
-  random: 'Случайная страшилка или страшная история. Каждый раз новая.'
+  random: 'Случайная страшилка или страшная история. Каждый раз новая.',
 };
 
 const getDescriptionByToken = token => DESC[token];
@@ -30,10 +30,9 @@ class Content extends Component {
     } = this.props;
 
     // TODO: please no literals
-    let maxPages = Math.ceil(storiesTotal / 10 );
-
+    const maxPages = Math.ceil(storiesTotal / 10);
     return (
-      <div ref="content">
+      <div>
         <Helmet>
           <title>Страшные истории</title>
           <meta name='Description' content={getDescriptionByToken(token)}/>
@@ -46,19 +45,19 @@ class Content extends Component {
           <Pagination maxPages={maxPages} currentPage={currentPage} query={token}/>
         }
         { stories.size !== 0 &&
-          <Fragment>
+          <div className="page-content">
             <StoriesList
               stories={stories}
             />
             <SidebarContainer />
-          </Fragment>
+          </div>
         }
         { story &&
           <StoryDetails
             story={story}
           />
         }
-        <div style={{clear:"both"}}></div>
+        <div style={{ clear: 'both' }}></div>
         {/* // TODO: make without query param. withRouter may helps alot */}
         {showPagination &&
           <Pagination maxPages={maxPages} currentPage={currentPage} query={token}/>
@@ -69,13 +68,22 @@ class Content extends Component {
 }
 
 Content.propTypes = {
+  token: PropTypes.string.isRequired,
+  helloMessage: PropTypes.bool,
   stories: PropTypes.instanceOf(List),
   story: PropTypes.instanceOf(Map),
-}
+  showPagination: PropTypes.bool,
+  storiesTotal: PropTypes.number,
+  currentPage: PropTypes.number,
+};
 
 Content.defaultProps = {
   stories: new List(),
   story: null,
-}
+  helloMessage: null,
+  showPagination: false,
+  storiesTotal: -1,
+  currentPage: -1,
+};
 
 export default Content;

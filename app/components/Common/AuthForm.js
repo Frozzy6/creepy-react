@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 class AuthForm extends Component {
-  constructor( props ){
+  constructor(props) {
     super(props);
-
+    this.loginRef = React.createRef();
     this.state = {
       login: '',
       password: '',
-    }
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
@@ -31,26 +30,30 @@ class AuthForm extends Component {
       login,
       password,
     } = this.state;
-    const {
-      handleAuthClick
-    } = this.props;
+    const { handleAuthClick } = this.props;
 
     event.preventDefault();
 
-    if ( login.length === 0 ) {
+    if (login.length === 0) {
       target.querySelector('[name=login]').focus()
       return false;
     }
 
-    if ( password.length === 0 ) {
-      target.querySelector('[name=password]').focus()
+    if (password.length === 0) {
+      target.querySelector('[name=password]').focus();
       return false;
     }
-    
+
     handleAuthClick(login, password);
   }
 
-  render(){
+  componentDidMount() {
+    if (this.props.forceFocus) {
+      this.loginRef.current.focus();
+    }
+  }
+
+  render() {
     const {
       user,
       authState,
@@ -60,17 +63,17 @@ class AuthForm extends Component {
     const isAuthFail = false;
     const isSendingData = false;
 
-    const wrongAuthHtml = ( authState.get('fail') ? (
+    const wrongAuthHtml = (authState.get('fail') ? (
       <div className="controls-block">
         <div className="auth-bad">Ошибка. Неверные данные авторизации</div>
       </div>
-    ) : null );
+    ) : null);
 
-    const loadingHTML = ( authState.get('loading') ? (
+    const loadingHTML = (authState.get('loading') ? (
         <div className="loading auth-loading">
           <img src="/images/spinner.svg"/>
         </div>
-    ) : null );
+    ) : null);
 
     this.exitCallback = (e) => {
       e.preventDefault();
@@ -78,8 +81,25 @@ class AuthForm extends Component {
     return (
       <form className="auth-form" onSubmit={this.handleSubmitForm}>
         <div className="controls-block">
-          <input placeholder="Логин" name="login" type="text" autoComplete="off" maxLength="50" value={this.state.login} onChange={this.handleChange}/>
-          <input placeholder="Пароль" name="password" type="password" autoComplete="off" maxLength="50" value={this.state.password} onChange={this.handleChange}/>
+          <input
+            ref={this.loginRef}
+            placeholder="Логин"
+            name="login"
+            type="text"
+            autoComplete="off"
+            maxLength="50"
+            value={this.state.login}
+            onChange={this.handleChange}
+          />
+          <input
+            placeholder="Пароль"
+            name="password"
+            type="password"
+            autoComplete="off"
+            maxLength="50"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
         </div>
         <div className="controls-block">
           <button
@@ -90,11 +110,7 @@ class AuthForm extends Component {
           </button>
           <div className="wanna-register">
             <p>Нет аккаунта?</p>
-            <a
-              onClick={( e ) => {
-                handleRegisterClick();
-              }}
-            >
+            <a onClick={handleRegisterClick}>
               Регистрация
             </a>
           </div>

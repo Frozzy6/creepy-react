@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import NavItem from './NavItem';
 
 class Navbar extends Component {
-  handleAuthClick( e ){
+  handleAuthClick = (e) => {
     e.preventDefault();
     this.props.openDialogAC();
   }
@@ -14,26 +15,21 @@ class Navbar extends Component {
       location,
       isLoading,
       user,
-      openDialogAC,
+      isAuth,
     } = this.props;
 
     const currentLocation = location.pathname;
-
-    const account = ( user ? (
-      <NavItem currentLocation={currentLocation} className="profile" to="/my">
-        <i title={user} className="fa fa-user-circle-o"></i>
-      </NavItem>
-    ) : (
-      <NavItem currentLocation={currentLocation} className="profile" onClick={this.handleAuthClick} to="/login">
-        <i title="Войти" className="fa fa-sign-in"></i>Войти
-      </NavItem>
-    ));
 
     return (
       <div className="nav">
         <div className="wrap">
           <ul className="head-menu">
-            <li className={"spinner" + ( isLoading ? "" : " hide") }></li>
+            <li
+              className={classNames(
+                'spinner',
+                { hide: !isLoading },
+              )}
+            />
             <NavItem to="/stories" currentLocation={currentLocation}>
               Новые
             </NavItem>
@@ -46,27 +42,42 @@ class Navbar extends Component {
             >
               Случайная история
             </NavItem>
-            { user ?
+            { isAuth ?
               <Fragment>
                 <NavItem currentLocation={currentLocation} className="submit" to="/new">
                   <i className="pencil-icon"></i>
                   Прислать историю
                 </NavItem>
-                <NavItem currentLocation={currentLocation} className="profile" to="/my">
-                  <i title={user.get('user')} className="fa fa-user-circle-o"></i>
+                <NavItem currentLocation={currentLocation} className="profile" to={`/user/${user}`}>
+                  <i title={user} className="fa fa-user-circle-o"></i>
                 </NavItem>
               </Fragment> :
-              <NavItem currentLocation={currentLocation} className="profile" onClick={this.handleAuthClick.bind(this)} to="/login">
+              <NavItem
+                currentLocation={currentLocation}
+                className="profile"
+                onClick={this.handleAuthClick.bind(this)} to="/login">
                 <i title="Войти" className="fa fa-sign-in"></i>Войти
               </NavItem>
             }
-            <div style={{clear:"both"}}></div>
+            <div style={{ clear: 'both' }}></div>
           </ul>
         </div>
       </div>
-    )
+    );
   }
 }
 
+Navbar.propTypes = {
+  location: PropTypes.object.isRequired,
+  isAuth: PropTypes.bool.isRequired,
+  openDialogAC: PropTypes.func.isRequired,
+  user: PropTypes.string,
+  isLoading: PropTypes.bool,
+};
+
+Navbar.defaultProps = {
+  isLoading: false,
+  user: null,
+};
 
 export default Navbar;

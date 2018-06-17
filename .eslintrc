@@ -1,8 +1,41 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "plugin:react/recommended"],
   "rules": {
     "consistent-return": 0,
     "no-underscore-dangle": 0,
-    "no-param-reassign": [2, { "props": false }]
-  }
+    "import/no-extraneous-dependencies": 0,
+    "no-param-reassign": [2, { "props": false }],
+    "max-len": ["error", { "code": 120 }],
+    "function-paren-newline": ["error", "consistent"],
+    "no-shadow": ["warn", { "builtinGlobals": false, "hoist": "functions", "allow": [] }]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  overrides: [
+    {
+      files: "gulpfile.js",
+      rules: {
+        "no-console": 0
+      }
+    },
+    {
+      files: "webpack.*.js",
+      rules: {
+        "no-console": 0,
+        "quote-props": 0
+      }
+    }
+  ]
 }

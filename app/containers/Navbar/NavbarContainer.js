@@ -1,45 +1,53 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import {
   getIsAppLoading,
-  getCurrentUser,
+  isUserAuthorized,
   openDialogAC,
+  getCurrentUser,
 } from '../../actions';
 
 import Navbar from '../../components/Navbar/Navbar';
 import { AUTH_MODAL_ITEM } from '../../components/AuthModal/AuthModal';
 
-class NavbarContainer extends Component {
-  static propTypes = {
-    location: PropTypes.object.isRequired,
-  }
+const NavbarContainer = (props) => {
+  const {
+    location,
+    isLoading,
+    isAuth,
+    user,
+  } = props;
 
-  render(){
-    const {
-      location,
-      isLoading,
-      user,
-      openDialogAC,
-    } = this.props;
+  return (
+    <Navbar
+      isLoading={isLoading}
+      user={user}
+      isAuth={isAuth}
+      openDialogAC={props.openDialogAC.bind(null, AUTH_MODAL_ITEM)}
+      location={location}
+    />
+  );
+};
 
-    return (
-      <Navbar
-        isLoading={isLoading}
-        user={user}
-        openDialogAC={openDialogAC.bind(null, AUTH_MODAL_ITEM)}
-        location={location}
-      />
-    )
-  }
-}
+NavbarContainer.propTypes = {
+  location: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isAuth: PropTypes.bool.isRequired,
+  openDialogAC: PropTypes.func.isRequired,
+  user: PropTypes.string,
+};
 
-export default withRouter(connect(
-  (state) => ({
-    isLoading: getIsAppLoading(state),
-    user: getCurrentUser(state),
-  }), {
-    openDialogAC,
-  })(NavbarContainer));
+NavbarContainer.defaultProps = {
+  user: null,
+};
+
+export default withRouter(connect(state => ({
+  isLoading: getIsAppLoading(state),
+  isAuth: isUserAuthorized(state),
+  user: getCurrentUser(state),
+}), {
+  openDialogAC,
+})(NavbarContainer));
