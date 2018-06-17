@@ -8,6 +8,8 @@ import {
   REQUEST_STORIES_BY_TAG,
   REQUEST_LIKE,
   REQUEST_DISLIKE,
+  REQUEST_INITIAL_DATA_FOR_USER,
+  APPEND_COMMENT,
 } from '../actions';
 import {
   genericStartAC,
@@ -119,7 +121,7 @@ function* callRequsetLike(action) {
   yield put(genericStartAC(REQUEST_LIKE));
 
   const response = yield call(requestStoryLike, uID, 'like');
-  if (response.status === HTTP_NO_CONTENT) {
+  if (response && response.status === HTTP_NO_CONTENT) {
     yield put(genericSuccessAC(REQUEST_LIKE, { uID }));
   } else {
     yield put(genericFailAC(REQUEST_LIKE));
@@ -138,10 +140,58 @@ function* callRequsetDislike(action) {
   }
 }
 
+
+function requestInitialData(uIDs) {
+  const url = `${API_HOST}/stories/initial`;
+
+  return axios.post(url, { uIDs })
+    .then(response => response.data)
+    .catch((e) => {
+      console.log('something going wrong', e);
+    });
+}
+
+function* callRequestInitialData(action) {
+  const { uIDs } = action.payload;
+  yield put(genericStartAC(REQUEST_INITIAL_DATA_FOR_USER));
+
+  const initialData = yield call(requestInitialData, uIDs);
+  if (initialData) {
+    yield put(genericSuccessAC(REQUEST_INITIAL_DATA_FOR_USER, { initialData }));
+  } else {
+    yield put(genericFailAC(REQUEST_INITIAL_DATA_FOR_USER));
+  }
+}
+
+
+function appenComment(uID, content) {
+  const url = `${API_HOST}/comments/`;
+
+  return axios.put(url, { uID, content })
+    .then(response => response.data)
+    .catch((e) => {
+      console.log('something going wrong', e);
+    });
+}
+
+function* callAppendComment(action) {
+  const { uID, msg } = action.payload;
+  yield put(genericStartAC(APPEND_COMMENT));
+
+  const comment = yield call(appenComment, uID, msg);
+  if (comment) {
+    yield put(genericSuccessAC(APPEND_COMMENT, { comment, uID }));
+  } else {
+    yield put(genericFailAC(APPEND_COMMENT));
+  }
+}
+
 export default function* watchStories() {
   yield takeEvery(REQUEST_STORIES, callFetchStories);
   yield takeEvery(REQUEST_STORY, callFetchStory);
   yield takeEvery(REQUEST_STORIES_BY_TAG, callFetchStoriesByTag);
   yield takeEvery(REQUEST_LIKE, callRequsetLike);
   yield takeEvery(REQUEST_DISLIKE, callRequsetDislike);
+  yield takeEvery(REQUEST_INITIAL_DATA_FOR_USER, callRequestInitialData);
+  yield takeEvery(APPEND_COMMENT, callAppendComment);
 }

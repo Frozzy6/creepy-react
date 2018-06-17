@@ -81,6 +81,9 @@ export default class Footer extends React.Component {
               <Link to="/about">О проекте</Link>
             </span>
             <span style={{marginLeft: "10px"}} className="bold">
+              <Link to="/faq">Часто задаваемые вопросы</Link>
+            </span>
+            <span style={{marginLeft: "10px"}} className="bold">
               <Link to="/feedback">Обратная связь</Link>
             </span>
           </p>

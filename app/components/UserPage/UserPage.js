@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
+import { Map, List } from 'immutable';
+import { Link } from 'react-router-dom';
+
+import Header from './Header';
+
+const getNoPublicationsMessage = isCurrentUser => (isCurrentUser ?
+  <p>Вы пока не сделали ни одной публикации</p> :
+  <p>Автор пока не сделал ни одной публикации</p>
+);
+
+const getPublicationItem = publication => (
+  <li key={publication.get('uID')}>
+    <Link to={`/story/${publication.get('uID')}`}>
+      {publication.get('title')}
+    </Link>
+  </li>
+);
 
 class UserPage extends Component {
-  handleLogout(event) {
+  handleUpload = (event) => {
+    console.log(event.target.files);
     event.preventDefault();
     // this.appActions.doLogout();
 
@@ -12,40 +30,33 @@ class UserPage extends Component {
 
   render() {
     const {
-      currentUser,
-      username,
+      isCurrentUser,
+      requestUser,
+      pubInfo,
+      openDialogAC,
     } = this.props;
 
     return (
       <div className="wrap">
         <Helmet>
-          <title>Мой профиль</title>
+          <title>{requestUser.get('username')} профиль</title>
           <meta name='Description' content="В данном разделе отображается информация о профиле пользователя"/>
         </Helmet>
+        <Header
+          isCurrentUser={isCurrentUser}
+          requestUser={requestUser}
+          openDialogAC={openDialogAC}
+        />
         <div className="content wide white padding">
-          Чтобы увидеть информацию о своем профиле необходимо войти, либо зарегистрироваться.
-        </div>
-      </div>
-    );
-
-    const profileHTML = (
-      <div className="wrap">
-        <Helmet>
-          <title>Мой профиль</title>
-          <meta name='Description' content="В данном разделе отображается информация о профиле пользователя"/>
-        </Helmet>
-        <div className="message message-info">
-          <i className="fa fa-info-circle"></i>
-          В текущее время данный развел находится в разработке.
-        </div>
-        <div className="content wide white padding homepage">
-          <h1>{user}</h1>
-          <ul className="user-menu-list">
-            <li><i className="fa fa-star"></i>Рейтинг: 0</li>
-            <li><i className="fa fa-heart"></i><a href="#">Оценки</a></li>
-            <li><i className="fa fa-comment"></i><a href="#">Комментарии</a></li>
-            <li><i className="fa fa-sign-out"></i><a onClick={this.handleLogout}>Выйти</a></li>
-          </ul>
+          { pubInfo.size === 0 ?
+            getNoPublicationsMessage(isCurrentUser) :
+            <div>
+              <h2>Публикации:</h2>
+              <ul>
+                {pubInfo.map(item => getPublicationItem(item))}
+              </ul>
+            </div>
+          }
         </div>
       </div>
     );
@@ -53,12 +64,10 @@ class UserPage extends Component {
 }
 
 UserPage.propTypes = {
-  username: PropTypes.string.isRequired,
-  user: PropTypes.instanceOf(Map),
-};
-
-UserPage.defaultProps = {
-  user: null,
+  requestUser: PropTypes.instanceOf(Map).isRequired,
+  pubInfo: PropTypes.instanceOf(List).isRequired,
+  isCurrentUser: PropTypes.bool.isRequired,
+  openDialogAC: PropTypes.func.isRequired,
 };
 
 export default UserPage;

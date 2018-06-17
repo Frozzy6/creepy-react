@@ -24,13 +24,14 @@ const StoryContent = (props) => {
   return (
     <div className="story">
       <div className="story__heading">
-        <span className="story-icon"></span>
+        <span className="story-icon"/>
         <div className="story__heading--information">
           <h2><Link to={`/story/${uID}`}>{title}</Link></h2>
           <div>
             <div className="publish-date">{datePublished}</div>
             <div className="author-name">
-              <Link to={`/users/${author}`}>
+              <img className="author-icon" src="/images/author-icon.png"/>
+              <Link to={`/user/${author}`}>
                 {author}
               </Link>
             </div>
@@ -41,7 +42,7 @@ const StoryContent = (props) => {
       <div
         className="text"
         dangerouslySetInnerHTML={{ __html: content }}
-      ></div>
+      />
     </div>
   );
 };

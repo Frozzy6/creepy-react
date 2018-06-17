@@ -24,8 +24,14 @@
   background: white;
 }
 
-.text {
+.text, .article {
   font: normal 16px/25px "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.article h2 {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 
 .text a {
@@ -156,6 +162,7 @@
 
 .story .story__heading--information a:hover {
   color: #ff6868;
+  text-decoration: underline;
 }
 
 .story .publish-date {
@@ -166,6 +173,11 @@
   text-align: right;
   margin-top: 10px;
   font-weight: bold;
+}
+
+.story .author-icon {
+  width: 16px;
+  height: 16px;
 }
 
 

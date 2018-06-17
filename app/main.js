@@ -13,14 +13,25 @@ const store = configureStore();
 
 store.runSaga(rootSaga);
 
-ReactDOM.hydrate(
-  <Provider store={store}>
-    <BrowserRouter>
-      <AppContainer />
-    </BrowserRouter>
-  </Provider>,
-  mountNode,
-);
+if (window.__SSR__) {
+  ReactDOM.hydrate(
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppContainer />
+      </BrowserRouter>
+    </Provider>,
+    mountNode,
+  );
+} else {
+  ReactDOM.render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppContainer />
+      </BrowserRouter>
+    </Provider>,
+    mountNode,
+  );
+}
 
 /*
 if ( window.__snapshot__ ) {

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { partial } from 'lodash';
 
@@ -6,35 +7,35 @@ import {
   openDialogAC,
   requestAuthAC,
   getAuthState,
-  getCurrentUser,
 } from '../../actions';
 import AuthModal from '../../components/AuthModal/AuthModal';
 import { REGISTER_MODAL_ITEM } from '../../components/RegisterModal/RegisterModal';
 
-class AuthModalContainer extends Component {
-  render(){
-    const {
-      user,
-      authState,
-      openDialogAC,
-      requestAuthAC,
-    } = this.props;
-
-    return (
-      <AuthModal
-        authState={authState}
-        handleAuthClick={requestAuthAC}
-        handleRegisterClick={partial(openDialogAC, REGISTER_MODAL_ITEM)}
-      />
-    )
-  }
-}
-
-export default connect(
-  (state) => ({
-    user: getCurrentUser(state),
-    authState: getAuthState(state),
-  }), {
+const AuthModalContainer = (props) => {
+  const {
+    authState,
     openDialogAC,
     requestAuthAC,
-  })(AuthModalContainer);
+  } = props;
+
+  return (
+    <AuthModal
+      authState={authState}
+      handleAuthClick={requestAuthAC}
+      handleRegisterClick={partial(openDialogAC, REGISTER_MODAL_ITEM)}
+    />
+  );
+};
+
+AuthModalContainer.propTypes = {
+  authState: PropTypes.instanceOf(Map).isRequired,
+  openDialogAC: PropTypes.func.isRequired,
+  requestAuthAC: PropTypes.func.isRequired,
+};
+
+export default connect(state => ({
+  authState: getAuthState(state),
+}), {
+  openDialogAC,
+  requestAuthAC,
+})(AuthModalContainer);

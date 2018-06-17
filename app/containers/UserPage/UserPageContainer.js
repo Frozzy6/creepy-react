@@ -1,42 +1,63 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
+import { partial } from 'lodash';
 
 import {
   getCurrentUser,
   getRequestUser,
+  requestUserInfo,
+  requestUserPubInfo,
+  getPubInfoOfUser,
+  openDialogAC,
 } from '../../actions';
 import UserPage from '../../components/UserPage/UserPage';
+import { AVATAR_UPLOAD_MODAL } from '../../components/AvatarUploadModal/AvatarUploadModal';
 
 class UserPageContainer extends Component {
-  state = {
-    requestUser: null,
-  };
+  constructor(props) {
+    super(props);
+    const { username } = props.match.params;
+
+    this.props.requestUserInfo(username);
+    this.props.requestUserPubInfo(username);
+    this.state = {
+      requestUsername: username,
+    };
+  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { username } = nextProps.match.params;
-    if (username === prevState.requestUser) {
-      // TODO: request user data
-      return {
-        requestUser: username,
-      };
+    const { requestUsername } = prevState;
+    if (username !== requestUsername) {
+      nextProps.requestUserInfo(username);
+      nextProps.requestUserPubInfo(username);
+      return { requestUsername: username };
     }
 
     return null;
   }
 
   render() {
-    const { username } = this.props.match.params;
     const {
-      user,
+      currentUser,
       requestUser,
+      pubInfo,
+      openDialogAC,
     } = this.props;
+    const { requestUsername } = this.state;
+
+    if (!requestUser) {
+      return null;
+    }
+
     return (
       <UserPage
-        username={username}
         requestUser={requestUser}
-        sisCurrentUser={user === requestUser}
+        isCurrentUser={currentUser === requestUsername}
+        pubInfo={pubInfo}
+        openDialogAC={partial(openDialogAC, AVATAR_UPLOAD_MODAL)}
       />
     );
   }
@@ -47,12 +68,25 @@ UserPageContainer.propTypes = {
       username: PropTypes.string.isRequired,
     }),
   }),
-  user: PropTypes.string,
+  currentUser: PropTypes.string,
   requestUser: PropTypes.instanceOf(Map),
+  pubInfo: PropTypes.instanceOf(List).isRequired,
+  requestUserInfo: PropTypes.func.isRequired,
+  requestUserPubInfo: PropTypes.func.isRequired,
+  openDialogAC: PropTypes.func.isRequired,
+};
+
+UserPageContainer.defaultProps = {
+  requestUser: '',
 };
 
 export default connect(state => ({
   // TODO: rename to getOAuthData  and create another on method with current name
-  user: getCurrentUser(state) || new Map(),
+  currentUser: getCurrentUser(state),
   requestUser: getRequestUser(state),
-}))(UserPageContainer);
+  pubInfo: getPubInfoOfUser(state),
+}), {
+  requestUserInfo,
+  requestUserPubInfo,
+  openDialogAC,
+})(UserPageContainer);

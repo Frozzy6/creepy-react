@@ -10,6 +10,6 @@ module.exports = {
       '__DEBUG': true,
     }),
     new FriendlyErrors(),
-    // new BundleAnalyzerPlugin({analyzerMode: 'static'})
+    // new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
   ],
 };

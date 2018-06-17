@@ -110,6 +110,7 @@ app.use((req, res) => {
 
     const page = swig.renderFile('views/index.html', {
       css: 'main',
+      ssr: false,
       snapshot,
       html,
       helmet,

@@ -1,13 +1,18 @@
+.page-content {
+  display: flex;
+  justify-content: space-between;
+}
+
 .content {
-  width: 670px;
+  box-sizing: border-box;
+  width: 700px;
   /* background: white; */
   /* padding: 15px 40px; */
   margin-top: 15px;
-  float:left;
 }
 
 .content.wide {
-  width: 920px;
+  width: 1000px;
 }
 
 .content.white {

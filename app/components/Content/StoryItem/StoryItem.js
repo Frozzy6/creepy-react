@@ -30,7 +30,7 @@ class StoryItem extends Component {
     } else {
       requestDislikeAC(uID);
     }
-  }
+  };
 
   render() {
     const {

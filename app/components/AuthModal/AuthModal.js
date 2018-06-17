@@ -1,16 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import { partial } from 'lodash';
+import React, { Fragment } from 'react';
 
 import AuthForm from '../Common/AuthForm';
 
-function AuthModal(props){
-  return (
-    <Fragment>
-      <h1>С возвращением</h1>
-      <AuthForm {...props}/>
-    </Fragment>
-  );
-}
+const AuthModal = props => (
+  <Fragment>
+    <h1>С возвращением</h1>
+    <AuthForm {...props} forceFocus={true} />
+  </Fragment>
+);
 
 export const AUTH_MODAL_ITEM = 'AUTH_MODAL_ITEM';
 

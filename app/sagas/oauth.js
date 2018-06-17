@@ -1,11 +1,17 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import {
+  put,
+  select,
+  takeEvery,
+} from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
   REQUEST_AUTH,
   REQUEST_REG,
   REQUEST_LOGOUT,
+  requestInitialAC,
   closeDialogAC,
+  getUIDsOfStories,
 } from '../actions';
 import {
   genericStartAC,
@@ -37,6 +43,14 @@ function* callRequestAuth(action) {
   const authData = yield fetchAuth(login, password);
   if (authData) {
     yield put(genericSuccessAC(REQUEST_AUTH, { authData }));
+    const uIDs = yield select(getUIDsOfStories);
+    if (authData.token) {
+      axios.defaults.headers.common.Authorization = `Bearer ${authData.token}`;
+      console.log('set token', axios.defaults.headers.common.Authorization);
+    }
+    if (uIDs.size > 0) {
+      yield put(requestInitialAC(uIDs.toJS()));
+    }
     yield put(closeDialogAC());
   } else {
     yield put(genericFailAC(REQUEST_AUTH));
@@ -65,6 +79,7 @@ function* callRequestReg(action) {
 
 function requestLogout() {
   const URL = `${HOST}/actions/oauth/logout`;
+  delete axios.defaults.headers.common.Authorization;
 
   return axios
     .post(URL)

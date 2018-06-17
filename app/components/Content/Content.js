@@ -31,7 +31,6 @@ class Content extends Component {
 
     // TODO: please no literals
     const maxPages = Math.ceil(storiesTotal / 10);
-
     return (
       <div>
         <Helmet>
@@ -46,12 +45,12 @@ class Content extends Component {
           <Pagination maxPages={maxPages} currentPage={currentPage} query={token}/>
         }
         { stories.size !== 0 &&
-          <Fragment>
+          <div className="page-content">
             <StoriesList
               stories={stories}
             />
             <SidebarContainer />
-          </Fragment>
+          </div>
         }
         { story &&
           <StoryDetails

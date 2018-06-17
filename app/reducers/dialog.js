@@ -9,8 +9,8 @@ const initState = fromJS({
   isOpen: false,
 });
 
-export default function shots(state = initState, action) {
-  switch(action.type) {
+export default function dialogReducer(state = initState, action) {
+  switch (action.type) {
     case SHOW_DIALOG:
       return state
         .set('isOpen', true)
