@@ -1,12 +1,10 @@
 import request from 'superagent';
 import config from '../config';
 
-const NODE_ENV = process.env.NODE_ENV;
-
 const CLIENT_ID = 'scary-react';
 const CLIENT_SECRET = 'jnugr3sfjjc5wsxc';
 
-const API_HOST = config[NODE_ENV].API_HOST;
+const API_HOST = config.API_HOST;
 
 class TokenManager {
   constructor(){

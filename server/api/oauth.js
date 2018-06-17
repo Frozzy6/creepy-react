@@ -4,40 +4,39 @@ import request from 'superagent';
 import tokenManager from '../tokenManager';
 import config from '../../config';
 
-const NODE_ENV = process.env.NODE_ENV;
-const API_HOST = config[NODE_ENV].API_HOST;
+const { API_HOST } = config;
 
 const router = express.Router();
 
-router.route("/oauth/token").post(async function( req, res, next ){
+router.route('/oauth/token').post(async (req, res) => {
   try {
     const token = await tokenManager.getUserToken(req.body.login, req.body.password);
-    const userInfo = await tokenManager.getUserInfo( token.token );
+    const userInfo = await tokenManager.getUserInfo(token.token);
 
     token.user = userInfo.user;
     req.session.oauth = token;
 
     res.status(200).send(token);
-  } catch( e ) {
+  } catch (e) {
     console.log(e);
     res.sendStatus(400);
   }
 });
 
-router.route("/oauth/logout").post(function( req, res, next ){
-  req.session.oauth = {};
+router.route('/oauth/logout').post((req, res) => {
+  delete req.session.oauth;
   res.sendStatus(200);
 });
 
-router.route("/oauth/register").post(async function( req, res, next ){
-  const data = req.body.data;
-  console.log(data);
-  const checkRecaptcha = function(){
-    return new Promise( ( resolve, reject ) => {
+router.route('/oauth/register').post(async (req, res) => {
+  const { data } = req.body;
+  console.log(`reg data: ${data}`);
+  const checkRecaptcha = () => {
+    return new Promise((resolve, reject) => {
       request.post(`${API_HOST}/recaptcha/verify`)
         .send({ response: data.gRecaptchaResponse })
-        .then( result => resolve( result.body ) )
-        .catch( err => reject( err ) );
+        .then(result => resolve(result.body))
+        .catch(err => reject(err));
     });
   };
 
@@ -45,25 +44,45 @@ router.route("/oauth/register").post(async function( req, res, next ){
   const loginRE = /^([a-zA-Z0-9 _-]+)$/;
   const login = data.login;
   if ( !login || !loginRE.test(login) || login.length < 4 || login.length > 20 ) {
-    return res.status(403).send({ 'error': true, 'msg': 'login_bad' });
+    return res.status(403).send({ 'error': true, data: {
+        type: 'login',
+        code: 'login_bad',
+      },
+    });
   }
 
   const emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if ( !emailRE.test(data.email) ) {
-    return res.status(403).send({ 'error': true, 'msg': 'email_bad' });
+    return res.status(403).send({ 'error': true, data: {
+        type: 'email',
+        code: 'email_bad',
+      }
+    });
   }
 
   const password = data.password;
   if ( !password || password.length < 4 || password.length > 20 ) {
-    return res.status(403).send({ 'error': true, 'msg': 'password_bad' });
+    return res.status(403).send({ 'error': true, data: {
+        type: 'password',
+        code: 'password_bad',
+      }
+    });
   }
 
   if ( data.passwordRepeat != password ) {
-    return res.status(403).send({ 'error': true, 'msg': 'repassword_empty' });
+    return res.status(403).send({ 'error': true, data: {
+        type: 'passwordRepeat',
+        code: 'repassword_empty',
+      }
+    });
   }
 
   if ( !data.gRecaptchaResponse ) {
-    return res.status(403).send({ 'error': true, 'msg': 'recapthca_bad' });
+    return res.status(403).send({ 'error': true, data: {
+        type: 'gRecaptchaResponse',
+        code: 'recapthca_bad',
+      }
+    });
   }
 
   /* Check recaptcha */
@@ -71,7 +90,11 @@ router.route("/oauth/register").post(async function( req, res, next ){
 
   /* Bad news for robots */
   if ( !recaptchaAnwer.success ) {
-    res.status(403).send({ 'error': true, 'msg': 'recapthca_bad' });
+    res.status(403).send({ 'error': true, data: {
+      type: 'gRecaptchaResponse',
+      code: 'recapthca_bad'
+      }
+    });
     return false;
   }
 
@@ -94,7 +117,7 @@ router.route("/oauth/register").post(async function( req, res, next ){
 
           token.user = userInfo.user;
           req.session.oauth = token;
-
+          token.isNewUser = true;
           res.status(200).send(token);
         } catch( e ) {
           res.sendStatus(400);
@@ -103,8 +126,7 @@ router.route("/oauth/register").post(async function( req, res, next ){
     })
 });
 
-router.route("/oauth/refresh").post(function( req, res, next ){
-  res.status(403).send('reserved');
-});
+//TODO: make it works
+router.route("/oauth/refresh").post((req, res) => res.sendStatus(400));
 
 export default router;

@@ -53,6 +53,7 @@ ul.head-menu li a {
   padding:10px;
   font-family:'Trebuchet MS';
   font-size:17px;
+  outline: none;
 }
 
 ul.head-menu span {
@@ -76,6 +77,16 @@ ul.head-menu  li a:hover ~ span {
  	 animation: all 0.3s ease-out;
    /*background:#0088CC;*/
    background: #ff6868;
+}
+
+.pencil-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  vertical-align: top;
+  background: url(../images/pencil.svg);
+  background-size: cover;
 }
 
 @keyframes ul {

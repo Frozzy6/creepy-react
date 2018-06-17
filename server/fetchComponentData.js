@@ -1,3 +1,4 @@
+/* ~DEPRECATED~ */
 const FETCH_KEY = 'fetch';
 
 export default async function( alt, components, params, route ){
