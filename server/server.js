@@ -10,8 +10,11 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import StaticRouter from 'react-router-dom/StaticRouter';
+import proxy from 'express-http-proxy';
+import { parse } from 'url';
 import Helmet from 'react-helmet';
 
+import config from '../config';
 import configureStore from '../app/utils/configureStore';
 import { AppContainer } from '../app/containers';
 import { getEnvVaribale } from '../app/utils/env';
@@ -24,23 +27,24 @@ import apiOauthRouter from './api/oauth';
 
 const LOGOS_COUNT = 6;
 const ENV = getEnvVaribale();
+const { API_HOST } = config;
 const app = express();
 
 tokenManager.getAppToken();
 
-if (ENV === 'development') {
-  /* eslint-disable */
-  const webpack = require('webpack');
-  const webpackDevMiddleware = require('webpack-dev-middleware');
-  const webpackConfig = require('../webpack.config.babel.js');
-  /* eslint-enable */
-
-  const compiler = webpack(webpackConfig);
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: path.join(__dirname, '../', 'public'),
-    writeToDisk: filePath => filePath.endsWith('bundle.js') || filePath.endsWith('bundle.js.map'),
-  }));
-}
+// if (ENV === 'development') {
+//   /* eslint-disable */
+//   const webpack = require('webpack');
+//   const webpackDevMiddleware = require('webpack-dev-middleware');
+//   const webpackConfig = require('../webpack.config.babel.js');
+//   /* eslint-enable */
+//
+//   const compiler = webpack(webpackConfig);
+//   app.use(webpackDevMiddleware(compiler, {
+//     publicPath: path.join(__dirname, '../', 'public'),
+//     writeToDisk: filePath => filePath.endsWith('bundle.js') || filePath.endsWith('bundle.js.map'),
+//   }));
+// }
 
 /* TODO: change to getEnv from utils */
 app.set('port', process.env.PORT || 3000);
@@ -67,6 +71,11 @@ const debug = require('./middleware/debug');
 app.use(cors);
 app.use(debug);
 
+/* proxy static to api server users files */
+app.use('/data/', proxy(API_HOST, {
+  proxyReqPathResolver: req => `/data/${parse(req.url).path}`,
+}));
+
 /*
   Site internal api and server side proxy
   Example flow:
@@ -79,7 +88,7 @@ const render = (store, url) => renderToString(
       <StaticRouter location={url} context={{}}>
         <AppContainer />
       </StaticRouter>
-    </Provider>
+    </Provider>,
 );
 
 app.use((req, res) => {
@@ -104,16 +113,16 @@ app.use((req, res) => {
 
   sagasPromise.then(() => {
     /* dispatch oauth event if data exist */
-    const html = render(store, decodeURIComponent(req.url));
-    const helmet = Helmet.renderStatic();
+    // const html = render(store, decodeURIComponent(req.url));
+    // const helmet = Helmet.renderStatic();
     const snapshot = new Buffer.from(JSON.stringify(store.getState()), 'utf-8').toString('base64');
 
     const page = swig.renderFile('views/index.html', {
       css: 'main',
       ssr: false,
       snapshot,
-      html,
-      helmet,
+      // html,
+      // helmet,
     });
 
     res.status(200).send(page);

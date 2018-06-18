@@ -52,10 +52,6 @@ export default function usersReducer(state = initState, action) {
       return state
         .set('userPubInfo', fromJS(userPubInfo));
     }
-    case UPLOAD_AVATAR_IMAGE: {
-      console.log(action.payload.file);
-      return state;
-    }
     default:
       return state;
   }

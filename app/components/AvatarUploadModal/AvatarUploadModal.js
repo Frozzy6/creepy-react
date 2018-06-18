@@ -70,8 +70,8 @@ class AvatarUploadModal extends Component {
         </ul>
           { image ?
             <div className="resolve-btn-wrapper">
-              <button className="button danger" onClick={this.handleClearUpload}>Отменить</button>
               <button className="button" onClick={this.handleUploadClick}>Отправить</button>
+              <button className="button danger" onClick={this.handleClearUpload}>Отменить</button>
             </div> :
             <div className="upload-btn-wrapper">
               <button className="button">Загрузить</button>
