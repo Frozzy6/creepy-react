@@ -7,6 +7,7 @@ import {
   REQUEST_DISLIKE,
   REQUEST_INITIAL_DATA_FOR_USER,
   APPEND_COMMENT,
+  REQUEST_LOGOUT,
 } from '../actions';
 import { SUCCESS } from '../actions/baseActions';
 
@@ -96,6 +97,11 @@ export default function storiesReducer(state = initState, action) {
       const { comment } = action.payload;
       return state
         .updateIn(['story', 'comments'], comments => comments.push(fromJS(comment)));
+    }
+    case REQUEST_LOGOUT + SUCCESS: {
+      return state
+        .update('entries', list => list.map(story => story.set('wasLiked', false)))
+        .update('story', story => story && story.set('wasLiked', false));
     }
     default:
       return state;

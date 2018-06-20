@@ -12,8 +12,10 @@ router.route('/oauth/token').post(async (req, res) => {
   try {
     const token = await tokenManager.getUserToken(req.body.login, req.body.password);
     const userInfo = await tokenManager.getUserInfo(token.token);
+    console.log(userInfo);
 
     token.user = userInfo.user;
+    token.data = userInfo.data;
     req.session.oauth = token;
 
     res.status(200).send(token);
