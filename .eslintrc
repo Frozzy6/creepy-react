@@ -7,7 +7,7 @@
     "no-param-reassign": [2, { "props": false }],
     "max-len": ["error", { "code": 120 }],
     "function-paren-newline": ["error", "consistent"],
-    "no-shadow": ["warn", { "builtinGlobals": false, "hoist": "functions", "allow": [] }]
+    "no-shadow": "off",
   },
   "env": {
     "browser": true,
