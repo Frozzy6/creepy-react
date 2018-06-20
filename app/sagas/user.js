@@ -1,7 +1,10 @@
 import { put, takeEvery, call } from 'redux-saga/effects';
 import axios from 'axios';
 
-import { UPLOAD_AVATAR_IMAGE } from '../actions';
+import {
+  UPLOAD_AVATAR_IMAGE,
+  closeDialogAC,
+} from '../actions';
 import {
   genericStartAC,
   genericSuccessAC,
@@ -34,9 +37,10 @@ function* callUploadAvatarImage(action) {
   yield put(genericStartAC(UPLOAD_AVATAR_IMAGE));
   const { file } = action.payload;
 
-  const answer = yield call(uploadAvatarImage, file);
-  if (answer) {
-    yield put(genericSuccessAC(UPLOAD_AVATAR_IMAGE));
+  const accountImage = yield call(uploadAvatarImage, file);
+  if (accountImage) {
+    yield put(genericSuccessAC(UPLOAD_AVATAR_IMAGE, { accountImage }));
+    yield put(closeDialogAC());
   } else {
     yield put(genericFailAC(UPLOAD_AVATAR_IMAGE));
   }

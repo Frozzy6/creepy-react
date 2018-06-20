@@ -4,6 +4,7 @@ import {
   REQUEST_USER_ADD_STORY,
   REQUEST_USER_PUB_INFO,
   UPLOAD_AVATAR_IMAGE,
+  REFRESH_USER_UPLOAD_STATE,
 } from '../actions';
 import {
   START,
@@ -26,6 +27,9 @@ const initState = fromJS({
       content: '',
     },
     state: { ...loadingState },
+  },
+  upload: {
+    error: false,
   },
 });
 
@@ -52,6 +56,14 @@ export default function usersReducer(state = initState, action) {
       return state
         .set('userPubInfo', fromJS(userPubInfo));
     }
+    case UPLOAD_AVATAR_IMAGE + SUCCESS: {
+      const { accountImage } = action.payload;
+      return state.setIn(['user', 'accountImage'], accountImage);
+    }
+    case UPLOAD_AVATAR_IMAGE + FAIL:
+      return state.setIn(['upload', 'error'], true);
+    case REFRESH_USER_UPLOAD_STATE:
+      return state.setIn(['upload', 'error'], false);
     default:
       return state;
   }

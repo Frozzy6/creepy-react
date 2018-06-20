@@ -28,6 +28,7 @@ export const REQUEST_USER_INFO = 'REQUEST_USER_INFO';
 export const REQUEST_USER_ADD_STORY = 'REQUEST_USER_ADD_STORY';
 export const REQUEST_USER_PUB_INFO = 'REQUEST_USER_PUB_INFO';
 export const UPLOAD_AVATAR_IMAGE = 'UPLOAD_AVATAR_IMAGE';
+export const REFRESH_USER_UPLOAD_STATE = 'REFRESH_USER_UPLOAD_STATE';
 
 export const requestStoriesAC = (query, offset) => ({ type: REQUEST_STORIES, payload: { query, offset } });
 export const requestStoryAC = (token, id) => ({ type: REQUEST_STORY, payload: { token, id } });
@@ -52,10 +53,12 @@ export const requestUserPubInfo = username => ({ type: REQUEST_USER_PUB_INFO, pa
 export const requestInitialAC = uIDs => ({ type: REQUEST_INITIAL_DATA_FOR_USER, payload: { uIDs } });
 export const appendCommentAC = (uID, msg) => ({ type: APPEND_COMMENT, payload: { uID, msg } });
 export const uploadAvatarImageAC = file => ({ type: UPLOAD_AVATAR_IMAGE, payload: { file } });
+export const refreshUserUploadStateAC = () => ({ type: REFRESH_USER_UPLOAD_STATE });
 
 export const getLogoNumber = state => state.app.get('logoNumber');
 export const getIsAppLoading = state => state.oauth.get('isLoading', false);
-export const getCurrentUser = state => state.oauth.getIn(['auth', 'user', 'user'], null);
+export const getCurrentUserUsername = state => state.oauth.getIn(['auth', 'user', 'user'], null);
+export const getCurrentUserRating = state => state.oauth.getIn(['auth', 'user', 'data', 'rating'], 0);
 export const getCurrentOauthData = state => state.oauth.getIn(['auth', 'user'], null);
 export const getAuthState = state => state.oauth.getIn(['auth', 'state']);
 export const isUserAuthorized = state => !isNull(state.oauth.getIn(['auth', 'user'], null));
@@ -80,3 +83,4 @@ export const getUIDsOfStories = (state) => {
 
 export const getUserStoryState = state => state.users.getIn(['userStory', 'state']);
 export const getPubInfoOfUser = state => state.users.get('userPubInfo');
+export const getUserUploadError = state => state.users.getIn(['upload', 'error']);

@@ -12,15 +12,22 @@ const UserPageHeader = (props) => {
     openDialogAC,
   } = props;
   const firstPubDate = requestUser.get('firstPubDate');
+  const accountImage = requestUser.get('accountImage');
 
   return (
       <div className="content wide user-page--header">
         <div className="account-info">
           <div className="account-portrait">
-            <img
-              className="account-portrait-image account-portrait-question"
-              src="/images/question-sign.svg"
-            />
+            { accountImage ?
+              <img
+                className="account-portrait-image"
+                src={accountImage}
+              /> :
+              <img
+                className="account-portrait-image account-portrait-question"
+                src="/images/question-sign.svg"
+              />
+            }
             {isCurrentUser &&
               <div
                 className="account-portrait--upload-btn"
