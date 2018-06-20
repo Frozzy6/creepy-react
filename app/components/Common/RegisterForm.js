@@ -173,7 +173,7 @@ class RegisterForm extends React.Component {
     }
   }
 
-  render(){
+  render() {
     const {
       handleAuthClick,
       registerError,

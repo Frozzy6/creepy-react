@@ -4,7 +4,7 @@ import { partial } from 'lodash';
 
 import {
   openDialogAC,
-  getCurrentUser,
+  getCurrentUserUsername,
   requestRegAC,
 } from '../../actions';
 import RegisterModal from '../../components/RegisterModal/RegisterModal';
@@ -29,7 +29,7 @@ class RegisterModalContainer extends Component {
 }
 
 export default connect(state => ({
-  user: getCurrentUser(state),
+  user: getCurrentUserUsername(state),
 }), {
   openDialogAC,
   requestRegAC,

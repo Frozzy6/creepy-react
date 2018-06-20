@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import { getCurrentUser } from '../../actions';
+import { getCurrentUserUsername } from '../../actions';
 
 const withCurrentUserWrapper = Component =>
   function withCurrentUser(props) {
@@ -13,7 +13,7 @@ const withCurrentUserWrapper = Component =>
 
 export default compose(
   connect(state => ({
-    user: getCurrentUser(state),
+    user: getCurrentUserUsername(state),
   }), {}),
   withCurrentUserWrapper,
 );

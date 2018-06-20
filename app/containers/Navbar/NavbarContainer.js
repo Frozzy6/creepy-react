@@ -7,7 +7,7 @@ import {
   getIsAppLoading,
   isUserAuthorized,
   openDialogAC,
-  getCurrentUser,
+  getCurrentUserUsername,
 } from '../../actions';
 
 import Navbar from '../../components/Navbar/Navbar';
@@ -47,7 +47,7 @@ NavbarContainer.defaultProps = {
 export default withRouter(connect(state => ({
   isLoading: getIsAppLoading(state),
   isAuth: isUserAuthorized(state),
-  user: getCurrentUser(state),
+  user: getCurrentUserUsername(state),
 }), {
   openDialogAC,
 })(NavbarContainer));

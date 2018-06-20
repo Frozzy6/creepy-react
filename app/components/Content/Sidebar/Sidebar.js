@@ -1,12 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { List, Map } from 'immutable';
 
 import AuthSidebarModule from './AuthSidebarModule';
 import UserSidebarModule from './UserSidebarModule';
 import PageTagsSidebarModule from './PageTagsSidebarModule';
 
-export default function Sidebar(props) {
+const Sidebar = (props) => {
   const {
-    user,
+    username,
+    rating,
     tags,
     authState,
     registerError,
@@ -17,9 +20,10 @@ export default function Sidebar(props) {
 
   return (
     <div className="sidebar">
-      { user ?
+      { username ?
         <UserSidebarModule
-          user={user}
+          username={username}
+          rating={rating}
           requestLogoutAC={requestLogoutAC}
         /> :
         <AuthSidebarModule
@@ -34,4 +38,17 @@ export default function Sidebar(props) {
       />
     </div>
   );
-}
+};
+
+Sidebar.propTypes = {
+  tags: PropTypes.instanceOf(List).isRequired,
+  authState: PropTypes.instanceOf(Map).isRequired,
+  requestAuthAC: PropTypes.func.isRequired,
+  requestRegAC: PropTypes.func.isRequired,
+  requestLogoutAC: PropTypes.func.isRequired,
+  username: PropTypes.string,
+  rating: PropTypes.number,
+  registerError: PropTypes.string,
+};
+
+export default Sidebar;

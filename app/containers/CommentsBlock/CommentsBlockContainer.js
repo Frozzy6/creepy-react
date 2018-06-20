@@ -6,7 +6,7 @@ import { partial } from 'lodash';
 
 import {
   openDialogAC,
-  getCurrentUser,
+  getCurrentUserUsername,
   requestRegAC,
   appendCommentAC,
 } from '../../actions';
@@ -44,7 +44,7 @@ CommentsBlockContainer.propTypes = {
 };
 
 export default connect(state => ({
-  user: getCurrentUser(state),
+  user: getCurrentUserUsername(state),
 }), {
   openDialogAC,
   requestRegAC,

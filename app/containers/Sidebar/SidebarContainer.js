@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 
 import {
-  getCurrentUser,
+  getCurrentUserUsername,
+  getCurrentUserRating,
   getAuthState,
   getTagsPerPage,
   requestAuthAC,
@@ -12,7 +13,8 @@ import {
 import Sidebar from '../../components/Content/Sidebar/Sidebar';
 
 export default connect(state => ({
-  user: getCurrentUser(state),
+  username: getCurrentUserUsername(state),
+  rating: getCurrentUserRating(state),
   authState: getAuthState(state),
   tags: getTagsPerPage(state),
   registerError: getRegisterError(state),

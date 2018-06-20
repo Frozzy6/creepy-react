@@ -5,7 +5,7 @@ import { Map, List } from 'immutable';
 import { partial } from 'lodash';
 
 import {
-  getCurrentUser,
+  getCurrentUserUsername,
   getRequestUser,
   requestUserInfo,
   requestUserPubInfo,
@@ -82,7 +82,7 @@ UserPageContainer.defaultProps = {
 
 export default connect(state => ({
   // TODO: rename to getOAuthData  and create another on method with current name
-  currentUser: getCurrentUser(state),
+  currentUser: getCurrentUserUsername(state),
   requestUser: getRequestUser(state),
   pubInfo: getPubInfoOfUser(state),
 }), {

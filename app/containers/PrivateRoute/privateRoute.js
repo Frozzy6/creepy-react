@@ -4,9 +4,8 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { isNull } from 'lodash';
-import { Map } from 'immutable';
 
-import { getCurrentUser } from '../../actions';
+import { getCurrentUserUsername } from '../../actions';
 
 const privateRoute = (Component, redirrectLocation = '/') => {
   const renderOrRedirect = (user, ...props) => (
@@ -23,7 +22,7 @@ const privateRoute = (Component, redirrectLocation = '/') => {
   );
 
   Private.propTypes = {
-    user: PropTypes.instanceOf(Map),
+    user: PropTypes.string.isRequired,
   };
 
   return Private;
@@ -31,7 +30,7 @@ const privateRoute = (Component, redirrectLocation = '/') => {
 
 export default compose(
   connect(state => ({
-    user: getCurrentUser(state),
+    user: getCurrentUserUsername(state),
   })),
   privateRoute,
 );
