@@ -4,20 +4,28 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru';
 
-const drawComment = (comment, key) => (
-  <div className="comment-item" key={key}>
-    <div className="comment-item-head">
-      <span className="comment-item-username">
-        {comment.getIn(['author', 'username'])}
-      </span>&nbsp;&nbsp;
-      <span className="comment-date">
-        {moment(comment.get('dateCreated')).format('DD MMMM в HH:mm')}
-      </span>
+const drawComment = (comment, key) => {
+  // question-sign.svg
+  const accountImage = comment.getIn(['author', 'accountImage']);
+  return (
+    <div className="comment-item" key={key}>
+      <div className="comment-item-head">
+        <img
+          className="comment-item-head-account-image"
+          src={accountImage ? accountImage : '/images/question-sign.svg'}
+        />
+        <span className="comment-item-username">
+          {comment.getIn(['author', 'username'])}
+        </span>&nbsp;&nbsp;
+        <span className="comment-date">
+          {moment(comment.get('dateCreated')).format('DD MMMM в HH:mm')}
+        </span>
+      </div>
+      <div className="comment-item-body">{comment.get('content')}</div>
+      {/* <i className="comment-item-like icon-like fa " title="Мне понравилось"></i> */}
     </div>
-    <div className="comment-item-body">{comment.get('content')}</div>
-    {/* <i className="comment-item-like icon-like fa " title="Мне понравилось"></i> */}
-  </div>
-);
+  )
+};
 
 class CommentsBlock extends Component {
   state = {
@@ -40,6 +48,7 @@ class CommentsBlock extends Component {
     const msg = this.state.message.trim();
     if (msg.length > 0) {
       appendCommentAC(this.props.uID, msg);
+      this.setState({ message: '' });
     } else {
       /* Clear all spaces */
       this.handleChange({ target: { value: '' } });

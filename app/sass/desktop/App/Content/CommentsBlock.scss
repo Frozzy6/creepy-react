@@ -16,13 +16,19 @@
 
 .comment-item-head {
   border-bottom: 1px solid #555;
-  padding: 15px 45px 20px;
+  padding: 5px 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.comment-item-head-account-image {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
 }
 
 .comment-item-username {
