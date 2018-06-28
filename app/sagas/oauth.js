@@ -72,6 +72,10 @@ function* callRequestReg(action) {
   if (regData) {
     yield put(genericSuccessAC(REQUEST_REG, { regData }));
     yield put(closeDialogAC());
+    if (regData.token) {
+      axios.defaults.headers.common.Authorization = `Bearer ${regData.token}`;
+      console.log('set token', axios.defaults.headers.common.Authorization);
+    }
   } else {
     yield put(genericFailAC(REQUEST_REG, { regData }));
   }
