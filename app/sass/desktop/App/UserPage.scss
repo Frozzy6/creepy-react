@@ -155,3 +155,41 @@
   margin-top: 10px;
   color: red;
 }
+
+.publication-list {
+  margin-top: 15px;
+  border: 1px solid black;
+}
+.publication-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+.publication-item:last-child {
+  border-bottom: none;
+}
+
+.publication-field-comments,
+.publication-field-status,
+.publication-field-likes {
+  display: inline-block;
+}
+
+.publication-field-comments,
+.publication-field-status {
+  margin-right: 10px;
+}
+
+.publication-field-status_rejected {
+  color: red;
+}
+
+.publication-field-status_aplied {
+  color: green;
+}
+
+.publication-item-info_block {
+
+}
