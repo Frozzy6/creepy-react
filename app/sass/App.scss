@@ -1,4 +1,4 @@
-@import "./../Common.scss";
+@import "./Common.scss";
 
 html, body, #app, .root {
   height: 100%;
@@ -33,6 +33,7 @@ body, td, input, button, li {
 
 @import "./App/Static/Logo.scss";
 @import "./App/Navbar.scss";
+@import "./App/MobileSidebar.scss";
 @import "./App/Footer.scss";
 @import "./App/AuthMessageBox.scss";
 @import "./App/Content/Greeting.scss";

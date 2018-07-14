@@ -1,9 +1,40 @@
 $font-stack: 'Helvetica Neue', 'Tahoma', 'Helvetica', 'Arial', 'Liberation Sans', 'Sans Uralic', 'Droid Sans', sans-serif;
 
-$link-color: #376e90;
 $bg-image: '/images/bg/1.jpg';
 
+$gap: 5px;
+$doubleGap: $gap * 2;
+
+/* Transitions */
+$fast: .2s;
+$medium: .5s;
+$slow: 1s;
+
+/* Colors */
+$control-background: black;
+
+$navbar-background: $control-background;
+$navabar-item-color: white;
+$navabar-item-color_hover: #ff6868;
+$navabar-item-color_active: #ff6868;
+
+$grey: #c9c9c9;
 $button-color: #415367;
+$link-color: #376e90;
+
+$footer-background: $control-background;
+$footer-link-color: white;
+$footer-link-color_hover: $grey;
+
+@mixin flexRow() {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin flexColumn() {
+  display: flex;
+  flex-direction: column;
+}
 
 * {
   margin: 0;

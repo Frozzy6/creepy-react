@@ -1,12 +1,13 @@
 .nav {
-  background: rgba(0,0,0,0.9);
-  padding: 1px 0;
-  padding: 10px 0;
+  background: $navbar-background;
+  padding: $gap*2 0;
+  transition: padding $fast;
 }
 
 .nav li.submit {
   position: absolute;
   right: 90px;
+  transition: right $fast;
 }
 
 .nav li.profile {
@@ -22,10 +23,10 @@
 }
 
 .nav li.profile .active .fa-user-circle-o {
-  color: white;
+  color: $navabar-item-color;
 }
 .nav li.profile .active:hover .fa-user-circle-o {
-  color: red;
+  color: $navabar-item-color_hover;
 }
 
 .nav li.profile .fa-sign-in {
@@ -42,7 +43,6 @@ ul.head-menu {
 }
 
 ul.head-menu li {
-  /*position:relative;*/
   display:inline;
 }
 
@@ -56,21 +56,9 @@ ul.head-menu li a {
   outline: none;
 }
 
-ul.head-menu span {
-  display:block;
-  width:calc(100% - 23px);
-  height:4px;
-  background: white;
-  position:absolute;
-  left:10px;
-  bottom:-10px;
-}
-ul.head-menu  li a.active {
-  color: #ff6868;
-}
-
+ul.head-menu  li a.active,
 ul.head-menu  li a:hover {
-  color: red;
+  color: $navabar-item-color_hover;
 }
 
 ul.head-menu  li a:hover ~ span {
@@ -85,7 +73,7 @@ ul.head-menu  li a:hover ~ span {
   height: 18px;
   margin-right: 5px;
   vertical-align: top;
-  background: url(../images/pencil.svg);
+  background: url(~/../images/pencil.svg);
   background-size: cover;
 }
 
@@ -99,18 +87,48 @@ ul.head-menu  li a:hover ~ span {
 }
 
 
-/* LOADER */
-ul.head-menu li.spinner {
-  position: absolute;
-  left: -36px;
-  width: 36px;
-  height: 36px;
-  text-align: center;
-  background: url('/images/spinner.png');
-  background-size: cover;
-  -webkit-animation: sk-rotate 2.0s infinite linear;
-  animation: sk-rotate 2.0s infinite linear;
+@media (max-width: 650px) {
+  .submit-text,
+  .profile-text {
+    display: none;
+  }
+
+  .nav li.profile .fa-sign-in {
+    position: relative;
+    font-size: 21px;
+    top: -1px;
+    right: inherit;
+  }
+
+  .nav li.submit {
+    right: 40px;
+  }
+
+  .nav li.profile .fa-user-circle-o {
+    position: relative;
+    top: -4px;
+    right: inherit;
+  }
 }
 
-@-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(-360deg) }}
-@keyframes sk-rotate { 100% { transform: rotate(-360deg); -webkit-transform: rotate(-360deg) }}
+@media (max-width: 450px) {
+  .nav-random-additional {
+    display: none;
+  }
+  .nav {
+    padding: 0;
+  }
+  ul.head-menu li a {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 380px) {
+  .nav li.submit {
+    right: $gap;
+  }
+
+  .nav li.profile .fa-sign-in {
+    top: -2px;
+  }
+}
