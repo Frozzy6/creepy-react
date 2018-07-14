@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 const About = () => (
-  <div className="content wide white padding">
+  <div className="content wide white padding page">
     <Helmet>
       <title>О проекте</title>
       <meta name='Description' content="О проекте и о том кто мы и зачем этот сайт."/>

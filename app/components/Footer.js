@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/* eslint-disable */
 const html = `
  <!--LiveInternet counter--><script type="text/javascript"><!--
  document.write("<a href='//www.liveinternet.ru/click' "+
@@ -63,33 +64,25 @@ const html = `
  style="border:0;" height="31" width="80" alt="Рейтинг@Mail.ru" /></a>
  <!-- //Rating@Mail.ru logo -->
 `;
+/* eslint-enable */
 
-export default class Footer extends React.Component {
-  render() {
-    // let counters = null;
+const Footer = () => (
+  <footer className="footer">
+    <div className="wrap">
+      <p><span className="copyright">© 2018 - scary-stories.ru</span></p>
+      <p className="links">
+        <span className="link-item bold">
+          <Link to="/about">О проекте</Link>
+        </span>
+        <span className="link-item bold">
+          <Link to="/faq">Часто задаваемые вопросы</Link>
+        </span>
+        <span className="link-item bold">
+          <Link to="/feedback">Обратная связь</Link>
+        </span>
+      </p>
+    </div>
+  </footer>
+);
 
-    // if ( this.state.appState.env == 'production') {
-    //   counters = ( <div className="counters" dangerouslySetInnerHTML={{__html: html}}></div> );
-    // }
-
-    return (
-      <footer className="footer" ref="footer">
-        <div className="wrap">
-          <p><span className="copyright">© 2017 - scary-stories.ru</span></p>
-          <p style={{marginTop: "5px"}}>
-            <span className="bold">
-              <Link to="/about">О проекте</Link>
-            </span>
-            <span style={{marginLeft: "10px"}} className="bold">
-              <Link to="/faq">Часто задаваемые вопросы</Link>
-            </span>
-            <span style={{marginLeft: "10px"}} className="bold">
-              <Link to="/feedback">Обратная связь</Link>
-            </span>
-          </p>
-          {/* {counters} */}
-        </div>
-      </footer>
-    );
-  }
-};
+export default Footer;

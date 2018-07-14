@@ -53,8 +53,8 @@ const getPublicationItem = (publication, isCurrentUser) => {
         }
         { isPublishedStory &&
           <Fragment>
-            <span className="publication-field-comments"><i className="fa fa-heart" /> {commentsCount}</span>
-            <span className="publication-field-likes"><i className="fa fa-comments" /> {likesCount}</span>
+            <span className="publication-field-comments"><i className="fa fa-heart" /> {likesCount}</span>
+            <span className="publication-field-likes"><i className="fa fa-comments" /> {commentsCount}</span>
           </Fragment>
         }
       </div>
