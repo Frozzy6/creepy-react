@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Logo from './Logo/Logo';
 import Footer from '../Footer';
+import MobileSidebar from '../MobileSidebar/MobileSidebar';
 import NavbarContainer from '../../containers/Navbar/NavbarContainer';
 import DialogContainer from '../../containers/Dialog/DialogContainer';
 
@@ -28,6 +29,7 @@ const App = (props) => {
           {children}
         </div>
         <DialogContainer />
+        <MobileSidebar />
       </div>
       <Footer />
     </div>

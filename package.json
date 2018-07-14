@@ -55,6 +55,7 @@
     "react-modal": "^3.4.4",
     "react-recaptcha": "^2.3.7",
     "react-redux": "^5.0.7",
+    "react-responsive": "^4.1.0",
     "react-router": "^4.2.0",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
