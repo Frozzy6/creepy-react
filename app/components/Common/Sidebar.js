@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const CANCEL_DISTANCE_ON_SCROLL = 20;
 
+// TODO: get rid of css in js
 const defaultStyles = {
   root: {
     position: 'absolute',
@@ -108,7 +109,6 @@ class Sidebar extends Component {
   }
 
   onTouchMove = (ev) => {
-    console.log('debug:onTouchMove', ev);
     if (this.isTouching()) {
       for (let ind = 0; ind < ev.targetTouches.length; ind++) {
         // only care about the finger that we are tracking
@@ -135,12 +135,15 @@ class Sidebar extends Component {
     console.log('debug:onTouchEnd');
     if (this.isTouching()) {
       // trigger a change to open if sidebar has been dragged beyond dragToggleDistance
+
+      // TODO: rewrite
       const touchWidth = this.touchSidebarWidth();
       console.log('touchWidth', touchWidth);
       console.log(this.props.open);
-      console.log(this.getChidlrenWidth());
-      if (this.props.open && touchWidth < this.getChidlrenWidth() - this.props.dragToggleDistance ||
+      if (this.props.open && touchWidth > this.getChidlrenWidth() ||
           !this.props.open && touchWidth > this.props.dragToggleDistance) {
+            console.log('callback to onSetopen', !this.props.open);
+            console.log('current sidebar open prop', this.props.open)
         this.props.onSetOpen(!this.props.open);
       }
 
@@ -227,6 +230,7 @@ class Sidebar extends Component {
 
   componentWillUnmount() {
     const body = document.body;
+    // todo: unsubscribe of document body evetns
   }
 
   render() {
@@ -249,16 +253,11 @@ class Sidebar extends Component {
       sidebarStyle.boxShadow = '2px 2px 4px rgba(0, 0, 0, 0.15)';
     }
 
-    if (isTouching) {
+    if (isTouching && !this.props.open) {
       const percentage = this.touchSidebarWidth() / this.getChidlrenWidth();
-      console.log(this.touchSidebarWidth(),this.getChidlrenWidth());
-      // console.log(percentage);
-      // slide open to what we dragged
       sidebarStyle.transform = `translateX(-${(1 - percentage) * 100}%)`;
       sidebarStyle.WebkitTransform = `translateX(-${(1 - percentage) * 100}%)`;
-      // sidebarStyle.left = this.getChidlrenWidth() - (this.getChidlrenWidth() * percentage);
-      // console.log(sidebarStyle.left)
-      // // fade overlay to match distance of drag
+      // fade overlay to match distance of drag
       overlayStyle.opacity = percentage;
       overlayStyle.visibility = 'visible';
     } else if (this.props.open) {
