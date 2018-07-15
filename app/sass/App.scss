@@ -4,6 +4,11 @@ html, body, #app, .root {
   height: 100%;
 }
 
+.no-scroll {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 .root__wrap {
   min-height: calc(100% - 95px);
 }

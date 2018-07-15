@@ -23,13 +23,13 @@ const App = (props) => {
         <meta name="Keywords" content="страшилки,страшные истории, мистические истории, мистика, на ночь, ужасные истории, страх, ужас, ужастики"/>
       </Helmet>
       <div className="root__wrap">
+        <MobileSidebar />
         <Logo logoNumber={logoNumber} />
         <NavbarContainer />
         <div className="wrap main">
           {children}
         </div>
         <DialogContainer />
-        <MobileSidebar />
       </div>
       <Footer />
     </div>

@@ -19,15 +19,13 @@ class MobileSidebar extends Component {
       <Sidebar
         rootClassName="mobile-sidebar"
         sidebarClassName="mobile-sidebar-presentation"
+        overlayClassName="mobile-sidebar-overlay"
         open={this.state.isOpen}
         onSetOpen={this.onSetOpen}
       >
-        test
-        Middlewared
-        aw
-        da
-        wd
-        Object.assign(wd
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
       </Sidebar>
     );
   }
