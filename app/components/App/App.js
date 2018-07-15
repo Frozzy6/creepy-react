@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Logo from './Logo/Logo';
 import Footer from '../Footer';
-import MobileSidebar from '../MobileSidebar/MobileSidebar';
+import MobileSidebar from '../../containers/MobileSidebar/MobileSidebar';
 import NavbarContainer from '../../containers/Navbar/NavbarContainer';
 import DialogContainer from '../../containers/Dialog/DialogContainer';
 

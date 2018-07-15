@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-// import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 import Sidebar from '../Common/Sidebar';
 
 class MobileSidebar extends Component {
-  state = {
-    isOpen: false,
-  }
-
-  onSetOpen = (isOpen) => {
-    console.log(isOpen);
-    this.setState({ isOpen });
+  onSetOpen = (nextSidebarState) => {
+    const { openSidebarAC, closeSidebarAC } = this.props;
+    if (nextSidebarState) {
+      openSidebarAC();
+    } else {
+      closeSidebarAC();
+    }
   }
 
   render() {
@@ -20,7 +19,7 @@ class MobileSidebar extends Component {
         rootClassName="mobile-sidebar"
         sidebarClassName="mobile-sidebar-presentation"
         overlayClassName="mobile-sidebar-overlay"
-        open={this.state.isOpen}
+        open={this.props.isOpen}
         onSetOpen={this.onSetOpen}
       >
         <p>test</p>
@@ -30,5 +29,11 @@ class MobileSidebar extends Component {
     );
   }
 }
+
+MobileSidebar.propTypes = {
+  openSidebarAC: PropTypes.func.isRequired,
+  closeSidebarAC: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+};
 
 export default MobileSidebar;

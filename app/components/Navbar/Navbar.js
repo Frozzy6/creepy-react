@@ -10,6 +10,22 @@ class Navbar extends Component {
     this.props.openDialogAC();
   }
 
+  toogleSidebar = (e) => {
+    const {
+      isSidebarOpen,
+      openSidebarAC,
+      closeSidebarAC,
+    } = this.props;
+
+    if (!isSidebarOpen) {
+      openSidebarAC();
+    } else {
+      closeSidebarAC();
+    }
+
+    e.preventDefault();
+  }
+
   render() {
     const {
       location,
@@ -23,11 +39,6 @@ class Navbar extends Component {
       <div className="nav">
         <div className="wrap">
           <ul className="head-menu">
-            <MediaQuery maxWidth={380}>
-              <NavItem>
-                <i title="Меню" className="fa fa-bars"/>
-              </NavItem>
-            </MediaQuery>
             <NavItem to="/stories" currentLocation={currentLocation}>
               Новые
             </NavItem>
@@ -40,14 +51,25 @@ class Navbar extends Component {
             >
               Случайная<span className="nav-random-additional"> история</span>
             </NavItem>
-            { isAuth ?
-              <Fragment>
-                <NavItem currentLocation={currentLocation} className="submit" to="/new">
-                  <i className="pencil-icon"/>
-                  <span className="submit-text">Прислать историю</span>
-                </NavItem>
-                {/* Profile icon */}
-                <MediaQuery minWidth={380}>
+            {/* Show burger menu to small devices */}
+            <MediaQuery maxWidth={425}>
+              <NavItem
+                className="nav-burger-menu"
+                onClick={this.toogleSidebar}
+              >
+                <i title="Меню" className="fa fa-bars"/>
+              </NavItem>
+            </MediaQuery>
+            {/* Show expanded menu to large devices */}
+            <MediaQuery minWidth={426}>
+              { isAuth ?
+                <Fragment>
+                  {/* Submit icon */}
+                  <NavItem currentLocation={currentLocation} className="submit" to="/new">
+                    <i className="pencil-icon"/>
+                    <span className="submit-text">Прислать историю</span>
+                  </NavItem>
+                  {/* Profile icon */}
                   <NavItem
                     currentLocation={currentLocation}
                     className="profile"
@@ -55,9 +77,8 @@ class Navbar extends Component {
                   >
                     <i title={user} className="fa fa-user-circle-o"/>
                   </NavItem>
-                </MediaQuery>
-              </Fragment> :
-              <MediaQuery minWidth={380}>
+                </Fragment> :
+                /* Login icon */
                 <NavItem
                   currentLocation={currentLocation}
                   className="profile"
@@ -67,8 +88,8 @@ class Navbar extends Component {
                   <i title="Войти" className="fa fa-sign-in"/>
                   <span className="profile-text">Войти</span>
                 </NavItem>
-              </MediaQuery>
-            }
+              }
+            </MediaQuery>
             <div style={{ clear: 'both' }}></div>
           </ul>
         </div>
@@ -81,6 +102,9 @@ Navbar.propTypes = {
   location: PropTypes.object.isRequired,
   isAuth: PropTypes.bool.isRequired,
   openDialogAC: PropTypes.func.isRequired,
+  isSidebarOpen: PropTypes.bool.isRequired,
+  openSidebarAC: PropTypes.func.isRequired,
+  closeSidebarAC: PropTypes.func.isRequired,
   user: PropTypes.string,
   isLoading: PropTypes.bool,
 };

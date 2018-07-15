@@ -1,6 +1,8 @@
 import { isNull } from 'lodash';
 /* App */
 export const SET_LOGO_NUM = 'SET_LOGO_NUM';
+export const OPEN_SIDEBAR = 'OPEN_SIDEBAR';
+export const CLOSE_SIDEBAR = 'CLOSE_SIDEBAR';
 /* Stories */
 export const REQUEST_STORIES = 'REQUEST_STORIES';
 export const REQUEST_STORY = 'REQUEST_STORY';
@@ -38,6 +40,9 @@ export const openDialogAC = content => ({
 });
 
 export const setLogoNumAC = number => ({ type: SET_LOGO_NUM, payload: { number } });
+export const openSidebarAC = () => ({ type: OPEN_SIDEBAR });
+export const closeSidebarAC = () => ({ type: CLOSE_SIDEBAR });
+
 export const closeDialogAC = () => ({ type: HIDE_DIALOG });
 export const requestAuthAC = (login, password) => ({ type: REQUEST_AUTH, payload: { login, password } });
 export const requestRegAC = payload => ({ type: REQUEST_REG, payload });
@@ -56,6 +61,7 @@ export const uploadAvatarImageAC = file => ({ type: UPLOAD_AVATAR_IMAGE, payload
 export const refreshUserUploadStateAC = () => ({ type: REFRESH_USER_UPLOAD_STATE });
 
 export const getLogoNumber = state => state.app.get('logoNumber');
+export const getSidebarIsOpen = state => state.app.getIn(['sidebar', 'isOpen']);
 export const getIsAppLoading = state => state.oauth.get('isLoading', false);
 export const getCurrentUserUsername = state => state.oauth.getIn(['auth', 'user', 'user'], null);
 export const getCurrentUserRating = state => state.oauth.getIn(['auth', 'user', 'data', 'rating'], 0);

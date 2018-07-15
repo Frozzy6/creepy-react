@@ -28,10 +28,10 @@ class Sidebar extends Component {
   componentDidMount() {
     const { body } = document;
     this.saveSidebarWidth();
-    body.addEventListener('touchstart', this.onTouchStart);
-    body.addEventListener('touchmove', this.onTouchMove);
-    body.addEventListener('touchcancel', this.onTouchEnd);
-    body.addEventListener('touchend', this.onTouchEnd);
+    body.addEventListener('touchstart', this.onTouchStart, true);
+    body.addEventListener('touchmove', this.onTouchMove, true);
+    body.addEventListener('touchcancel', this.onTouchEnd, true);
+    body.addEventListener('touchend', this.onTouchEnd, true);
   }
 
   componentDidUpdate() {
@@ -48,7 +48,8 @@ class Sidebar extends Component {
     if (!this.isTouching()) {
       const { identifier, clientX, clientY } = ev.targetTouches[0];
       if (open && clientX > sidebarWidth) {
-        this.overlayClicked();
+        // this.overlayClicked(ev);
+        return false;
       } else {
         this.setState({
           touchIdentifier: identifier,
@@ -86,15 +87,12 @@ class Sidebar extends Component {
   }
 
   onTouchEnd = () => {
-    console.log('debug:onTouchEnd');
     if (!this.isTouching()) { return; }
 
     const { open } = this.props;
     const touchWidth = this.touchSidebarWidth();
-    // half of current sidebar body width
+    // 3rd part of current sidebar body width
     const dragToggleDistance = this.sidebarChildren.current.offsetWidth / 3;
-
-    console.log('touchWidth', touchWidth, 'getChidlrenWidth', dragToggleDistance);
     if ((open && touchWidth > this.getChidlrenWidth()) ||
         (!open && touchWidth > dragToggleDistance)) {
       this.props.onSetOpen(!this.props.open);
@@ -121,7 +119,9 @@ class Sidebar extends Component {
 
   overlayClicked = () => {
     if (this.props.open) {
-      this.props.onSetOpen(false);
+      setTimeout(()=>{
+        this.props.onSetOpen(false);
+      }, 200);
     }
   }
 
@@ -199,7 +199,7 @@ class Sidebar extends Component {
           style={overlayStyle}
           role="presentation"
           tabIndex="0"
-          onClick={this.overlayClicked}
+          onTouchStart={this.overlayClicked}
         />
       </div>
     );
