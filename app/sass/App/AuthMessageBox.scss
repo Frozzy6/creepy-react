@@ -1,3 +1,8 @@
+
+@-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(-360deg) }}
+@keyframes sk-rotate { 100% { transform: rotate(-360deg); -webkit-transform: rotate(-360deg) }}
+
+
 .overlay {
   position: fixed;
   overflow: hidden;
@@ -27,7 +32,6 @@
 }
 
 .message-box {
-  outline: none;
   margin: auto;
   height: 550px;
   width: 650px;
@@ -42,32 +46,28 @@
 
 .message-box {
   /* if idea with linear gradient doesnt works */
+  background-color: #faf8f9;
   background: url(/images/bg/6-min-extra.jpg);
   background-size: cover;
   position: relative;
   background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.8)), url(/images/bg/6-min-extra.jpg);
   background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 660px) {
+  .message-box {
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .message-box.mb-register {
   background: url(/images/bg/4.jpg);
   background: linear-gradient(rgba(125, 125, 125, 0.3), rgba(0, 0, 0, 0.5)), url(/images/bg/4.jpg);
   background-size: cover;
+  background-position: center;
   color: white;
-}
-
-.message-box-wrapper {
-  margin: 0 auto;
-  margin-top: 10px;
-}
-
-.message-box-wrapper>h1 {
-  margin-bottom: 10px;
-}
-.message-box-wrapper>p {
-  margin-bottom: 25px;
-  font-size: 15px;
-  line-height: 1.2;
 }
 
 .message-box .auth-form {
@@ -75,6 +75,19 @@
   margin: 0 auto;
 }
 
+.message-box-wrapper {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.message-box-wrapper>h1 {
+  margin-bottom: 15px;
+}
+.message-box-wrapper>p {
+  margin-bottom: 25px;
+  font-size: 1.2em;
+  line-height: 1.2;
+}
 
 .message-box .auth-form .controls-block {
   flex-direction: column;

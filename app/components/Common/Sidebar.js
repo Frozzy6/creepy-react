@@ -50,14 +50,14 @@ class Sidebar extends Component {
       if (open && clientX > sidebarWidth) {
         // this.overlayClicked(ev);
         return false;
-      } else {
-        this.setState({
-          touchIdentifier: identifier,
-          touchStartX: clientX,
-          touchStartY: clientY,
-          isMoving: false,
-        });
       }
+
+      this.setState({
+        touchIdentifier: identifier,
+        touchStartX: clientX,
+        touchStartY: clientY,
+        isMoving: false,
+      });
     }
     return ev;
   }
@@ -118,17 +118,18 @@ class Sidebar extends Component {
   }
 
   overlayClicked = () => {
+    // TODO: get another way to prevent user's action
     if (this.props.open) {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.props.onSetOpen(false);
       }, 200);
     }
   }
 
   saveSidebarWidth() {
-    const width = this.sidebarChildren.current.offsetWidth;
-    if (width !== this.state.sidebarWidth) {
-      this.setState({ sidebarWidth: width });
+    const sidebarWidth = this.sidebarChildren.current.offsetWidth;
+    if (sidebarWidth !== this.state.sidebarWidth) {
+      this.setState({ sidebarWidth });
     }
   }
 
