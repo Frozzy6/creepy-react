@@ -19,11 +19,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
   <!-- Other JS -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  {% if env == 'production' %}
-    <script src="/js/axios.min.js"></script>
-  {% else %}
-    <script src="/js/axios.js"></script>
-  {% endif %}
 </head>
 <body>
   <div id="app">{{html|safe}}</div>
