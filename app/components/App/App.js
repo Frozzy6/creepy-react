@@ -1,9 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
+import MediaQuery from 'react-responsive';
 
 import Logo from './Logo/Logo';
 import Footer from '../Footer';
+import MobileSidebar from '../../containers/MobileSidebar/MobileSidebar';
 import NavbarContainer from '../../containers/Navbar/NavbarContainer';
 import DialogContainer from '../../containers/Dialog/DialogContainer';
 
@@ -22,11 +24,16 @@ const App = (props) => {
         <meta name="Keywords" content="страшилки,страшные истории, мистические истории, мистика, на ночь, ужасные истории, страх, ужас, ужастики"/>
       </Helmet>
       <div className="root__wrap">
+
         <Logo logoNumber={logoNumber} />
         <NavbarContainer />
         <div className="wrap main">
           {children}
         </div>
+        {/* Show burger menu to small devices */}
+        <MediaQuery maxWidth={426}>
+          <MobileSidebar />
+        </MediaQuery>
         <DialogContainer />
       </div>
       <Footer />

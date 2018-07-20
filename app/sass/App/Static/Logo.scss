@@ -1,0 +1,97 @@
+.top {
+  background: rgba(0,0,0,0.6);
+  padding: 10px;
+}
+
+.top-extend {
+  padding: 30px 0px;
+}
+
+.header {
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.header a:hover {
+  text-decoration: none;
+}
+
+.header .scary-label {
+  position: relative;
+  top: 7px;
+  width: 100%;
+  max-width: 565px;
+  transition: width $fast, height $fast, max-width $fast;
+}
+
+.header .ghost-logo {
+  position: absolute;
+  right: 138px;
+  top: 0;
+  height: 100px;
+  transition: right $fast;
+}
+
+.ghost-dark-icon {
+  width: 50px;
+  position: absolute;
+  top: 8px;
+  right: 15px;
+}
+
+@media (max-width: 850px) {
+  .header .ghost-logo  {
+    right: 20px;
+  }
+}
+
+@media (max-width: 750px) {
+  .top {
+    padding: 5px;
+  }
+
+  .wrap.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .header .scary-label {
+    max-width: 450px;
+    height: auto;
+  }
+
+  .header .ghost-logo {
+    position: relative;
+    right: inherit;
+    height: 70px;
+  }
+}
+
+@media (max-width: 550px) {
+  .ghost-logo {
+    display: none;
+  }
+
+  .wrap.header {
+    margin-bottom: 0;
+    display: block;
+    text-align: center;
+  }
+
+  .header .scary-label {
+     height: 75px;
+     width: auto;
+  }
+}
+
+@media (max-width: 450px) {
+  .header .scary-label {
+    text-align: center;
+    width: 300px;
+    height: auto;
+  }
+}

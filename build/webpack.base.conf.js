@@ -26,6 +26,14 @@ module.exports = {
           plugins: ['transform-runtime', 'transform-object-assign', 'transform-object-rest-spread'],
         },
       },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' },
+        ],
+      },
     ],
   },
   plugins: [

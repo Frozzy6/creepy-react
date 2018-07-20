@@ -16,15 +16,13 @@
   {{helmet.meta.toString()}}
   <!-- styles -->
   <link rel="stylesheet" href="/stylesheets/reset.css"/>
-  <link rel="stylesheet" href="/stylesheets/{{css}}.css"/>
+  {% if env == 'production' %}
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  {% else %}
+  <link rel="stylesheet" href="/stylesheets/font-awesome.css"/>
+  {% endif %}
   <!-- Other JS -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  {% if env == 'production' %}
-    <script src="/js/axios.min.js"></script>
-  {% else %}
-    <script src="/js/axios.js"></script>
-  {% endif %}
 </head>
 <body>
   <div id="app">{{html|safe}}</div>

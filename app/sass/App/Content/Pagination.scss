@@ -37,3 +37,36 @@
   border-radius: 5px;
   line-height: 1.3em;
 }
+
+
+@media (max-width: 600px) {
+  .pagination {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 7px;
+  }
+
+  .pagination a {
+    font-size: 11pt;
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .pagination a.arrow {
+    font-size: 16pt;
+  }
+
+  .pagination a.current {
+    background: white;
+    color: #333131;
+    border-radius: 5px;
+    line-height: 1.3em;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}

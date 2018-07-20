@@ -8,6 +8,10 @@ import {
   isUserAuthorized,
   openDialogAC,
   getCurrentUserUsername,
+  // Sidebar values
+  getSidebarIsOpen,
+  openSidebarAC,
+  closeSidebarAC,
 } from '../../actions';
 
 import Navbar from '../../components/Navbar/Navbar';
@@ -19,6 +23,9 @@ const NavbarContainer = (props) => {
     isLoading,
     isAuth,
     user,
+    isSidebarOpen,
+    openSidebarAC,
+    closeSidebarAC,
   } = props;
 
   return (
@@ -28,6 +35,9 @@ const NavbarContainer = (props) => {
       isAuth={isAuth}
       openDialogAC={props.openDialogAC.bind(null, AUTH_MODAL_ITEM)}
       location={location}
+      isSidebarOpen={isSidebarOpen}
+      openSidebarAC={openSidebarAC}
+      closeSidebarAC={closeSidebarAC}
     />
   );
 };
@@ -37,6 +47,9 @@ NavbarContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   isAuth: PropTypes.bool.isRequired,
   openDialogAC: PropTypes.func.isRequired,
+  isSidebarOpen: PropTypes.bool.isRequired,
+  openSidebarAC: PropTypes.func.isRequired,
+  closeSidebarAC: PropTypes.func.isRequired,
   user: PropTypes.string,
 };
 
@@ -48,6 +61,9 @@ export default withRouter(connect(state => ({
   isLoading: getIsAppLoading(state),
   isAuth: isUserAuthorized(state),
   user: getCurrentUserUsername(state),
+  isSidebarOpen: getSidebarIsOpen(state),
 }), {
   openDialogAC,
+  openSidebarAC,
+  closeSidebarAC,
 })(NavbarContainer));
