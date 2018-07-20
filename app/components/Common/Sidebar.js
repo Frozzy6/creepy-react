@@ -28,10 +28,10 @@ class Sidebar extends Component {
   componentDidMount() {
     const { body } = document;
     this.saveSidebarWidth();
-    body.addEventListener('touchstart', this.onTouchStart, true);
-    body.addEventListener('touchmove', this.onTouchMove, true);
-    body.addEventListener('touchcancel', this.onTouchEnd, true);
-    body.addEventListener('touchend', this.onTouchEnd, true);
+    body.addEventListener('touchstart', this.onTouchStart);
+    body.addEventListener('touchmove', this.onTouchMove);
+    body.addEventListener('touchcancel', this.onTouchEnd);
+    body.addEventListener('touchend', this.onTouchEnd);
   }
 
   componentDidUpdate() {
@@ -147,7 +147,10 @@ class Sidebar extends Component {
 
   componentWillUnmount = () => {
     const { body } = document;
-    // todo: unsubscribe of document body evetns
+    body.removeEventListener('touchstart', this.onTouchStart);
+    body.removeEventListener('touchmove', this.onTouchMove);
+    body.removeEventListener('touchcancel', this.onTouchEnd);
+    body.removeEventListener('touchend', this.onTouchEnd);
   }
 
   render() {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
+import MediaQuery from 'react-responsive';
 
 import Logo from './Logo/Logo';
 import Footer from '../Footer';
@@ -29,7 +30,10 @@ const App = (props) => {
         <div className="wrap main">
           {children}
         </div>
-        <MobileSidebar />
+        {/* Show burger menu to small devices */}
+        <MediaQuery maxWidth={426}>
+          <MobileSidebar />
+        </MediaQuery>
         <DialogContainer />
       </div>
       <Footer />
