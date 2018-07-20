@@ -16,7 +16,11 @@
   {{helmet.meta.toString()}}
   <!-- styles -->
   <link rel="stylesheet" href="/stylesheets/reset.css"/>
+  {% if env == 'production' %}
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  {% else %}
+  <link rel="stylesheet" href="/stylesheets/font-awesome.css"/>
+  {% endif %}
   <!-- Other JS -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
