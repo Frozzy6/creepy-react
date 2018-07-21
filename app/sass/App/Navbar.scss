@@ -75,6 +75,12 @@ ul.head-menu .nav-burger-menu {
   font-size: 25px;
 }
 
+@media (max-width: 350px) {
+  ul.head-menu .nav-burger-menu {
+    right: 5px;
+  }
+}
+
 .pencil-icon {
   display: inline-block;
   width: 18px;

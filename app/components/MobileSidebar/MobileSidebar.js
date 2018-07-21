@@ -22,6 +22,11 @@ class MobileSidebar extends Component {
     this.props.openDialogAC();
   }
 
+  handleLogoutClick = () => {
+    this.props.requestLogoutAC();
+    this.props.closeSidebarAC();
+  };
+
   render() {
     const {
       isUserAuthorized,
@@ -45,14 +50,14 @@ class MobileSidebar extends Component {
                 Мой профиль
               </Link>
               <hr/>
-              <Link to="/" className="sidebar-menu-item">
+              <Link to="/new" className="sidebar-menu-item" onClick={this.handleClickLink}>
                 <i className="fa fa-pencil"></i>
                 Прислать историю
               </Link>
               <hr/>
 
               <hr className="divider-gap"/>
-              <Link to="/" className="sidebar-menu-item sidebar-menu-item_last">
+              <Link to="/" className="sidebar-menu-item sidebar-menu-item_last" onClick={this.handleLogoutClick}>
                 <i title="Выйти" className="fa fa-sign-out"></i>
                 Выйти
               </Link>
@@ -78,6 +83,7 @@ MobileSidebar.propTypes = {
   openSidebarAC: PropTypes.func.isRequired,
   closeSidebarAC: PropTypes.func.isRequired,
   openDialogAC: PropTypes.func.isRequired,
+  requestLogoutAC: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   isUserAuthorized: PropTypes.bool.isRequired,
   user: PropTypes.string,

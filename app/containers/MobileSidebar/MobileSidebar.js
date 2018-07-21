@@ -4,6 +4,7 @@ import {
   getSidebarIsOpen,
   openSidebarAC,
   closeSidebarAC,
+  requestLogoutAC,
   isUserAuthorized,
   openDialogAC,
   getCurrentUserUsername,
@@ -19,5 +20,6 @@ export default connect(state => ({
   openSidebarAC,
   closeSidebarAC,
   getCurrentUserUsername,
+  requestLogoutAC,
   openDialogAC: () => openDialogAC(AUTH_MODAL_ITEM),
 })(MobileSidebar);

@@ -91,3 +91,22 @@
 #comment-form button {
   width: 200px;
 }
+
+
+@media (max-width: 450px) {
+  .comment-item-body,
+  .comment-item-head,
+  .comment-editor {
+    padding: 15px 15px 20px;
+  }
+  .comment-editor.comment-login-error {
+    padding: 20px 10px;
+  }
+  #comment-form {
+    flex-direction: column;
+  }
+  #comment-form .button {
+    width: 100%;
+    padding: 9px 5px
+  }
+}

@@ -16,6 +16,21 @@ html, body, #app, .root {
 .wrap {
   max-width: 1000px;
   margin: auto;
+  box-sizing: border-box;
+  transition: all $medium;
+}
+
+@media (max-width: 1000px) {
+  .wrap {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 450px) {
+  .wrap {
+    padding: 0 10px;
+  }
 }
 
 .wrap.main {
