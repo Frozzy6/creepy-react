@@ -52,7 +52,7 @@ class Navbar extends Component {
               Случайная<span className="nav-random-additional"> история</span>
             </NavItem>
             {/* Show burger menu to small devices */}
-            <MediaQuery maxWidth={425}>
+            <MediaQuery maxWidth={650}>
               <NavItem
                 className="nav-burger-menu"
                 onClick={this.toogleSidebar}
@@ -61,7 +61,7 @@ class Navbar extends Component {
               </NavItem>
             </MediaQuery>
             {/* Show expanded menu to large devices */}
-            <MediaQuery minWidth={426}>
+            <MediaQuery minWidth={651}>
               { isAuth ?
                 <Fragment>
                   {/* Submit icon */}

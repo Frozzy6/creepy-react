@@ -204,6 +204,7 @@ class Sidebar extends Component {
           role="presentation"
           tabIndex="0"
           onTouchStart={this.overlayClicked}
+          onClick={this.overlayClicked}
         />
       </div>
     );
