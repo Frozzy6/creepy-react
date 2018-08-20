@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { Map, List } from 'immutable';
+import MediaQuery from 'react-responsive';
 
 import Pagination from './Pagination';
 import StoriesList from './StoriesList';
@@ -49,7 +50,10 @@ class Content extends Component {
             <StoriesList
               stories={stories}
             />
-            <SidebarContainer />
+            {/* Hide sidebar to small devices */}
+            <MediaQuery minWidth={650}>
+              <SidebarContainer />
+            </MediaQuery>
           </div>
         }
         { story &&

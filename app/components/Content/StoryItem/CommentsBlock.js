@@ -87,10 +87,10 @@ class CommentsBlock extends Component {
     ) : (
       <div className="comment-editor comment-login-error">
         <p>
-          Чтобы оставить комментарий
-          <Link to="#" onClick={openAuthModal}> войдите </Link>
-           или
-           <Link to="#" onClick={openRegisterModal}> зарегистрируйтесь</Link>.
+          Чтобы оставить комментарий&nbsp;
+          <Link to="#" onClick={openAuthModal}>войдите</Link>
+           <span> или </span>
+           <Link to="#" onClick={openRegisterModal}>зарегистрируйтесь</Link>.
         </p>
       </div>
     ));

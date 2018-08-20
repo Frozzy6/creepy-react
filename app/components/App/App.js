@@ -30,8 +30,8 @@ const App = (props) => {
         <div className="wrap main">
           {children}
         </div>
-        {/* Show burger menu to small devices */}
-        <MediaQuery maxWidth={426}>
+        {/* Enable mobiles sidebar for low resolution devices */}
+        <MediaQuery maxWidth={650}>
           <MobileSidebar />
         </MediaQuery>
         <DialogContainer />
