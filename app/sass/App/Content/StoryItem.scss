@@ -31,11 +31,18 @@
 
   .story-icon {
     left: 5px;
+    top: 9px;
   }
 }
 
 .text {
   font: normal 16px/25px "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+@media (max-width: 1000px) {
+  .text {
+    font: normal 15px/22px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
 }
 
 .text a {
