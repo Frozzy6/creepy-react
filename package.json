@@ -3,8 +3,8 @@
   "description": "React/Redux based content site",
   "version": "0.0.1",
   "scripts": {
-    "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js ./app/**",
-    "eslint:fix": "node ./node_modules/eslint/bin/eslint.js --ext .js ./app/** --fix",
+    "eslint": "node ./node_modules/eslint/bin/eslint.js --ext .js './app/**'",
+    "eslint:fix": "node ./node_modules/eslint/bin/eslint.js --ext .js './app/**' --fix",
     "eslint:report": "node ./node_modules/eslint/bin/eslint.js --ext .js -f html -o ./reports/eslint.html ./app/**",
     "nodemon:dev": "cross-env NODE_ENV=development nodemon",
     "nodemon:dev:inspect": "cross-env NODE_ENV=development node --inspect node bin/creepy-web.js",
