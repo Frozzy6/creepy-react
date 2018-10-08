@@ -21,10 +21,6 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        query: {
-          presets: ['env', 'es2015', 'stage-0', 'stage-2', 'react'],
-          plugins: ['transform-runtime', 'transform-object-assign', 'transform-object-rest-spread'],
-        },
       },
       {
         test: /\.scss$/,
