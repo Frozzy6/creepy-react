@@ -1,4 +1,4 @@
-export const getEnvVaribale = function (param = 'ENV') {
+export default function (param = 'ENV') {
   try {
     return process.env[`NODE_${param}`] || window[`__${param}__`];
   } catch (e) {

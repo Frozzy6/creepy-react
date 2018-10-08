@@ -1,3 +1,5 @@
+import http from 'http';
+import io from 'socket.io';
 import express from 'express';
 import compression from 'compression';
 import morgan from 'morgan';
@@ -12,12 +14,11 @@ import { Provider } from 'react-redux';
 import StaticRouter from 'react-router-dom/StaticRouter';
 import proxy from 'express-http-proxy';
 import { parse } from 'url';
-import Helmet from 'react-helmet';
 
 import config from '../config';
 import configureStore from '../app/utils/configureStore';
 import { AppContainer } from '../app/containers';
-import { getEnvVaribale } from '../app/utils/env';
+// import getEnvVaribale from '../app/utils/env';
 import rootSaga from '../app/sagas';
 import { REQUEST_AUTH, SET_LOGO_NUM } from '../app/actions';
 import { SUCCESS } from '../app/actions/baseActions';
@@ -26,7 +27,7 @@ import tokenManager from './tokenManager';
 import apiOauthRouter from './api/oauth';
 
 const LOGOS_COUNT = 6;
-const ENV = getEnvVaribale();
+// const ENV = getEnvVaribale();
 const { API_HOST } = config;
 const app = express();
 
@@ -115,6 +116,7 @@ app.use((req, res) => {
     /* dispatch oauth event if data exist */
     // const html = render(store, decodeURIComponent(req.url));
     // const helmet = Helmet.renderStatic();
+    // eslint-disable-next-line
     const snapshot = new Buffer.from(JSON.stringify(store.getState()), 'utf-8').toString('base64');
 
     const page = swig.renderFile('views/index.html', {
@@ -236,7 +238,7 @@ app.use((req, res) => {
 
 
 console.log('Starting creepy-web with NODE_ENV: ', process.env.NODE_ENV);
-const server = require('http').createServer(app);
+const server = http.createServer(app);
 
 server.listen(app.get('port'), () => {
   console.log(`creepy-web listening on port ${app.get('port')}`);
@@ -257,16 +259,16 @@ app.use((err, req, res) => {
 });
 
 /* sockets test section */
-const io = require('socket.io')(server);
+const ws = io(server);
 
 let onlineUsers = 0;
-io.sockets.on('connection', (socket) => {
+ws.sockets.on('connection', (socket) => {
   onlineUsers += 1;
 
-  io.sockets.emit('onlineUsers', { onlineUsers });
+  ws.sockets.emit('onlineUsers', { onlineUsers });
 
   socket.on('disconnect', () => {
     onlineUsers -= 1;
-    io.sockets.emit('onlineUsers', { onlineUsers });
+    ws.sockets.emit('onlineUsers', { onlineUsers });
   });
 });
