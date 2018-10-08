@@ -64,8 +64,8 @@ class StoryItem extends Component {
           likesCount={likesCount}
           storyTitle={storyTitle}
         />
-        { verbose &&
-          <CommentsBlockContainer
+        { verbose
+          && <CommentsBlockContainer
             story={story}
           />
         }

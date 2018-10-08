@@ -20,13 +20,13 @@ const Sidebar = (props) => {
 
   return (
     <div className="sidebar">
-      { username ?
-        <UserSidebarModule
+      { username
+        ? <UserSidebarModule
           username={username}
           rating={rating}
           requestLogoutAC={requestLogoutAC}
-        /> :
-        <AuthSidebarModule
+        />
+        : <AuthSidebarModule
           authState={authState}
           registerError={registerError}
           requestAuthAC={requestAuthAC}

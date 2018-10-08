@@ -14,8 +14,7 @@ function PageTagsSidebarModule(props) {
       <div className="sidebar-item-body">
         {
           tags.map(
-            (tag, index) =>
-              <Link to={`/tags/${tag}`} key={index}>{tag}</Link>,
+            (tag, index) => <Link to={`/tags/${tag}`} key={index}>{tag}</Link>,
           )
         }
       </div>

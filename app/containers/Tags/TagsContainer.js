@@ -7,7 +7,7 @@ import { requestTags } from '../../actions';
 
 import Tags from '../../components/Tags/Tags';
 
-export class TagsContainer extends Component {
+class TagsContainer extends Component {
   componentDidMount() {
     this.props.requestTags();
   }

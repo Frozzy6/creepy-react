@@ -38,15 +38,15 @@ class Content extends Component {
           <title>Страшные истории</title>
           <meta name='Description' content={getDescriptionByToken(token)}/>
         </Helmet>
-        {helloMessage &&
-          <Greeting/>
+        {helloMessage
+          && <Greeting/>
         }
         {/* // TODO: make without query param. withRouter may helps alot */}
-        {showPagination &&
-          <Pagination maxPages={maxPages} currentPage={currentPage} query={token}/>
+        {showPagination
+          && <Pagination maxPages={maxPages} currentPage={currentPage} query={token}/>
         }
-        { stories.size !== 0 &&
-          <div className="page-content">
+        { stories.size !== 0
+          && <div className="page-content">
             <StoriesList
               stories={stories}
             />
@@ -56,15 +56,15 @@ class Content extends Component {
             </MediaQuery>
           </div>
         }
-        { story &&
-          <StoryDetails
+        { story
+          && <StoryDetails
             story={story}
           />
         }
         <div style={{ clear: 'both' }}></div>
         {/* // TODO: make without query param. withRouter may helps alot */}
-        {showPagination &&
-          <Pagination maxPages={maxPages} currentPage={currentPage} query={token}/>
+        {showPagination
+          && <Pagination maxPages={maxPages} currentPage={currentPage} query={token}/>
         }
       </div>
     );

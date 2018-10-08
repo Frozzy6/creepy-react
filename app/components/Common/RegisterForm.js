@@ -1,38 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Recaptcha from 'react-recaptcha';
-import {isEmpty, pick, identity } from 'lodash';
+import { isEmpty, pick, identity } from 'lodash';
 
 /* EMAIL */
-const emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRE = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 /* LOGIN */
 const loginRE = /^([a-zA-Z0-9 _-]+)$/;
 
 const MSG_ERRORS_LOOKUP = {
-  login_bad: { control: 'login', msg: 'Некорректный логин'},
-  login_already_exists: { control: 'login', msg: 'Логин занят'},
-  login_short: { control: 'login', msg: 'Логин коротковат'},
-  login_empty: { control: 'login', msg: 'Введите логин'},
-  login_bad_symbols: { control: 'login', msg: 'Логин может состоять из латиницы, цифр и символов - _'},
+  login_bad: { control: 'login', msg: 'Некорректный логин' },
+  login_already_exists: { control: 'login', msg: 'Логин занят' },
+  login_short: { control: 'login', msg: 'Логин коротковат' },
+  login_empty: { control: 'login', msg: 'Введите логин' },
+  login_bad_symbols: { control: 'login', msg: 'Логин может состоять из латиницы, цифр и символов - _' },
 
-  email_bad: { control: 'email', msg: 'Неправильный email'},
-  email_already_exists: { control: 'email', msg: 'Email занят'},
+  email_bad: { control: 'email', msg: 'Неправильный email' },
+  email_already_exists: { control: 'email', msg: 'Email занят' },
 
-  password_bad: { control: 'password', msg: 'Некорректный пароль'},
-  password_tooshort: { control: 'password', msg: 'Пароль коротковат'},
-  password_empty: { control: 'password', msg: 'Введите пароль'},
+  password_bad: { control: 'password', msg: 'Некорректный пароль' },
+  password_tooshort: { control: 'password', msg: 'Пароль коротковат' },
+  password_empty: { control: 'password', msg: 'Введите пароль' },
 
-  repassword_empty: { control: 'passwordRepeat', msg: 'Повторите парль'},
-  repassword_sim: { control: 'passwordRepeat', msg: 'Пароли должны совпадать'},
+  repassword_empty: { control: 'passwordRepeat', msg: 'Повторите парль' },
+  repassword_sim: { control: 'passwordRepeat', msg: 'Пароли должны совпадать' },
 
-  recapthca_bad: { control: 'gRecaptchaResponse', msg: 'Вы ведь не робот? :)'},
+  recapthca_bad: { control: 'gRecaptchaResponse', msg: 'Вы ведь не робот? :)' },
 
-  another: { control: 'login', msg: 'Регестрация не удалась :('}
-}
+  another: { control: 'login', msg: 'Регестрация не удалась :(' },
+};
 
 class RegisterForm extends React.Component {
-  constructor( props ){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -49,11 +49,11 @@ class RegisterForm extends React.Component {
         password: null,
         passwordRepeat: null,
         gRecaptchaResponse: null,
-      }
+      },
     };
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const {
       name,
       value,
@@ -64,7 +64,7 @@ class RegisterForm extends React.Component {
       data: {
         ...prevState.data,
         [name]: value,
-      }
+      },
     }));
   }
 
@@ -80,7 +80,7 @@ class RegisterForm extends React.Component {
 
   clearError = control => this.addError(control, null);
 
-  getMergedErros(){
+  getMergedErros() {
     const { errors } = this.state;
     const { registerError } = this.props;
 
@@ -99,9 +99,9 @@ class RegisterForm extends React.Component {
     const msgObj = MSG_ERRORS_LOOKUP[errorType];
 
     return msgObj && msgObj.msg;
-  };
+  }
 
-  //TODO: simplify and make msg codes from store. not raw string messages
+  // TODO: simplify and make msg codes from store. not raw string messages
   async handleSubmitForm(event) {
     const {
       data: {
@@ -111,17 +111,12 @@ class RegisterForm extends React.Component {
         passwordRepeat,
         gRecaptchaResponse,
       },
-      errors,
     } = this.state;
-    const {
-      registerError,
-      handleRegisterClick,
-    } = this.props;
     event.preventDefault();
 
     if (login.length > 0 && login.length < 4) {
       this.addError('login', 'login_short');
-    } else if (login.length == 0) {
+    } else if (login.length === 0) {
       this.addError('login', 'login_empty');
     } else if (!loginRE.test(login)) {
       this.addError('login', 'login_bad_symbols');
@@ -151,7 +146,7 @@ class RegisterForm extends React.Component {
       this.clearError('passwordRepeat');
     }
 
-    if (gRecaptchaResponse.length == 0) {
+    if (gRecaptchaResponse.length === 0) {
       this.addError('gRecaptchaResponse', 'recapthca_bad');
     } else {
       this.clearError('gRecaptchaResponse');
@@ -159,7 +154,7 @@ class RegisterForm extends React.Component {
 
     // TODO: get rid of this
     // setState is async function
-    setTimeout(this.resolveToSend, 0)
+    setTimeout(this.resolveToSend, 0);
   }
 
   resolveToSend = () => {
@@ -167,7 +162,7 @@ class RegisterForm extends React.Component {
     const { data } = this.state;
     const errors = this.getMergedErros();
     const isValidated = isEmpty(pick(errors, identity));
-    if (isValidated){
+    if (isValidated) {
       handleRegisterClick(data);
       this.recaptchaInstance.reset();
     }
@@ -176,7 +171,6 @@ class RegisterForm extends React.Component {
   render() {
     const {
       handleAuthClick,
-      registerError,
     } = this.props;
     const sendingData = false;
 
@@ -187,7 +181,7 @@ class RegisterForm extends React.Component {
     );
 
     return (
-      <form className="reg-form" onSubmit={( e ) => { this.handleSubmitForm(e); }}>
+      <form className="reg-form" onSubmit={(e) => { this.handleSubmitForm(e); }}>
         <div className="controls-block">
           <input placeholder="Логин" type="text" name="login" autoComplete="off" maxLength="50" onChange={this.handleChange} />
           <div className="control-error">{this.getErrorMessage('login')}</div>
@@ -197,7 +191,7 @@ class RegisterForm extends React.Component {
           <div className="control-error">{this.getErrorMessage('email')}</div>
         </div>
         <div className="controls-block">
-          <input placeholder="Пароль" type="password" name="password" autoComplete="off" maxLength="50"  onChange={this.handleChange}/>
+          <input placeholder="Пароль" type="password" name="password" autoComplete="off" maxLength="50" onChange={this.handleChange}/>
           <div className="control-error">{this.getErrorMessage('password')}</div>
         </div>
         <div className="controls-block">
@@ -205,23 +199,23 @@ class RegisterForm extends React.Component {
           <div className="control-error">{this.getErrorMessage('passwordRepeat')}</div>
         </div>
         <div className="controls-block recaptcha">
-          <Recaptcha elementID={`recaptcha-0`} ref={e => this.recaptchaInstance = e} render="explicit" sitekey="6LesOxcUAAAAAH9i0IygDSN8TVgwaIs6hyZPzyxt" render="explicit" onloadCallback={function(){/*DUMMY FUNC HELLO LIBRARY*/}} verifyCallback={(value)=>{
+          <Recaptcha elementID={'recaptcha-0'} ref={(e) => { this.recaptchaInstance = e; }} render="explicit" sitekey="6LesOxcUAAAAAH9i0IygDSN8TVgwaIs6hyZPzyxt" onloadCallback={() => { /* DUMMY FUNC HELLO LIBRARY */ }} verifyCallback={(value) => {
             this.setState(prevState => ({
               ...prevState,
               data: {
                 ...prevState.data,
                 gRecaptchaResponse: value,
-              }
+              },
             }));
           }}/>
-          <div className="control-error" style={{paddingLeft: "31px"}}>{this.getErrorMessage('gRecaptchaResponse')}</div>
+          <div className="control-error" style={{ paddingLeft: '31px' }}>{this.getErrorMessage('gRecaptchaResponse')}</div>
         </div>
         <div className="controls-block">
           <button className="register-btn" type="submit">Регистрация</button>
         </div>
         <div className="controls-block">
           <div className="wanna-login">
-            <p>Уже есть аккаунт?  <a onClick={( e ) => {
+            <p>Уже есть аккаунт?  <a onClick={() => {
               handleAuthClick();
             }}>Войти</a></p>
           </div>
@@ -231,10 +225,13 @@ class RegisterForm extends React.Component {
     );
   }
 }
-//
-// RegisterForm.propTypes = {
-//  handleFomrSubmit: React.PropTypes.func.isRequired,
-//  linkCallback: React.PropTypes.func
-// }
+
+RegisterForm.propTypes = {
+  handleFomrSubmit: PropTypes.func.isRequired,
+  registerError: PropTypes.shape({}).isRequired,
+  handleRegisterClick: PropTypes.func.isRequired,
+  handleAuthClick: PropTypes.func.isRequired,
+  linkCallback: PropTypes.func,
+};
 
 export default RegisterForm;

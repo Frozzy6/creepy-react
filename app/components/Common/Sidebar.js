@@ -93,8 +93,8 @@ class Sidebar extends Component {
     const touchWidth = this.touchSidebarWidth();
     // 3rd part of current sidebar body width
     const dragToggleDistance = this.sidebarChildren.current.offsetWidth / 3;
-    if ((open && touchWidth > this.getChidlrenWidth()) ||
-        (!open && touchWidth > dragToggleDistance)) {
+    if ((open && touchWidth > this.getChidlrenWidth())
+        || (!open && touchWidth > dragToggleDistance)) {
       this.props.onSetOpen(!this.props.open);
     }
 

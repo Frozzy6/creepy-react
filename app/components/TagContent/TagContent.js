@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
@@ -6,22 +7,16 @@ import StoryItemContainer from '../../containers/StoryItem/StoryItemContainer';
 
 class TagContent extends Component {
   render() {
-    const emptyTag = {
-      description: '',
-      image: null,
-    };
-
     const {
       tag,
       stories,
-      tagInfo = emptyTag,
+      tagInfo,
     } = this.props;
     let storiesHTML = null;
     let imageHTML = null;
 
     if (stories.size > 0) {
-      storiesHTML = stories.map(story =>
-        <StoryItemContainer
+      storiesHTML = stories.map(story => <StoryItemContainer
           story={story}
           key={story.get('uID')}
           activeTag={tag}
@@ -44,7 +39,7 @@ class TagContent extends Component {
     return (
       <div className="tag-content">
         <Helmet>
-          <title>{tag.charAt(0).toUpperCase() + tag.slice(1) + ' - Страшные истории'}</title>
+          <title>{`${tag.charAt(0).toUpperCase() + tag.slice(1)} - Страшные истории`}</title>
         </Helmet>
         <div className="content header">
           <h1>
@@ -56,7 +51,7 @@ class TagContent extends Component {
             </span>
           </h1>
           <div className="text">
-            <p>{emptyTag.description}</p>
+            <p>{tagInfo.description}</p>
           </div>
         </div>
         {imageHTML}
@@ -68,5 +63,18 @@ class TagContent extends Component {
     );
   }
 }
+
+TagContent.propTypes = {
+  tag: PropTypes.string.isRequired,
+  stories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  tagInfo: PropTypes.shape({}),
+};
+
+TagContent.defaultProps = {
+  emptyTag: {
+    description: '',
+    image: null,
+  },
+};
 
 export default TagContent;

@@ -12,7 +12,7 @@ import {
 import AvatarUploadModal from '../../components/AvatarUploadModal/AvatarUploadModal';
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
-const allowedExtensions = /(\jpg|\jpeg|\png|\gif)$/i;
+const allowedExtensions = /(jpg|jpeg|png|gif)$/i;
 
 const getExtension = filename => filename.split('.').slice(-1)[0];
 

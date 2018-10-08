@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { partial } from 'lodash';
 
@@ -27,6 +28,12 @@ class RegisterModalContainer extends Component {
     );
   }
 }
+
+RegisterModalContainer.propTypes = {
+  user: PropTypes.shape({}).isRequired,
+  openDialogAC: PropTypes.func.isRequired,
+  requestRegAC: PropTypes.func.isRequired,
+};
 
 export default connect(state => ({
   user: getCurrentUserUsername(state),

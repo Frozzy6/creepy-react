@@ -13,7 +13,7 @@ import ModalContent from '../../components/ModalContent/ModalContent';
 import { REGISTER_MODAL_ITEM } from '../../components/RegisterModal/RegisterModal';
 
 class ReduxDialog extends Component {
-  render(){
+  render() {
     const {
       isOpen,
       closeDialogAC,
@@ -26,8 +26,7 @@ class ReduxDialog extends Component {
         isOpen={isOpen}
         className={
           classNames('message-box',
-          { 'mb-register': content ===  REGISTER_MODAL_ITEM }
-        )}
+            { 'mb-register': content === REGISTER_MODAL_ITEM })}
         overlayClassName='overlay overlay-dark'
         ariaHideApp={false}
         shouldCloseOnOverlayClick={true}
@@ -39,16 +38,16 @@ class ReduxDialog extends Component {
           {...rest}
         />
       </Modal>
-    )
+    );
   }
-
 }
 
 export default connect(
-  (state) => ({
+  state => ({
     isOpen: getDialogIsOpen(state),
     content: getDialogContent(state),
   }), {
     closeDialogAC,
     openDialogAC,
-  })(ReduxDialog)
+  },
+)(ReduxDialog);

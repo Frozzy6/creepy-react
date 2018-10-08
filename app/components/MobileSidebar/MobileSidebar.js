@@ -42,8 +42,8 @@ class MobileSidebar extends Component {
         onSetOpen={this.onSetOpen}
       >
         <div className="sidebar-menu">
-          {isUserAuthorized ?
-            <Fragment>
+          {isUserAuthorized
+            ? <Fragment>
               <hr/>
               <Link to={`/user/${user}`} className="sidebar-menu-item" onClick={this.handleClickLink}>
                 <i className="fa fa-user-circle-o"></i>
@@ -63,8 +63,7 @@ class MobileSidebar extends Component {
               </Link>
               <hr/>
             </Fragment>
-          :
-          <Fragment>
+            : <Fragment>
             <hr/>
             <Link to="/" className="sidebar-menu-item" onClick={this.handleLoginClick}>
               <i className="fa fa-sign-in"></i>

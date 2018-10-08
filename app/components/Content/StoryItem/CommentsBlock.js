@@ -12,7 +12,7 @@ const drawComment = (comment, key) => {
       <div className="comment-item-head">
         <img
           className="comment-item-head-account-image"
-          src={accountImage ? accountImage : '/images/question-sign.svg'}
+          src={accountImage || '/images/question-sign.svg'}
         />
         <span className="comment-item-username">
           {comment.getIn(['author', 'username'])}
@@ -24,7 +24,7 @@ const drawComment = (comment, key) => {
       <div className="comment-item-body">{comment.get('content')}</div>
       {/* <i className="comment-item-like icon-like fa " title="Мне понравилось"></i> */}
     </div>
-  )
+  );
 };
 
 class CommentsBlock extends Component {
@@ -47,12 +47,12 @@ class CommentsBlock extends Component {
     } = this.props;
     const msg = this.state.message.trim();
     if (msg.length > 0) {
-      appendCommentAC(this.props.uID, msg);
+      appendCommentAC(uID, msg);
       this.setState({ message: '' });
     } else {
       /* Clear all spaces */
       this.handleChange({ target: { value: '' } });
-      event.target.querySelector('textarea').focus()
+      event.target.querySelector('textarea').focus();
     }
   }
 
@@ -78,8 +78,8 @@ class CommentsBlock extends Component {
         <form id="comment-form" onSubmit={this.handleSubmit.bind(this)}>
           <textarea placeholder="Текст коментария" value={this.state.message} onChange={this.handleChange}/>
           <button type="submit" disabled={isError} className="button comment-form-button">Отправить</button>
-          {isError &&
-            <div className="error">Слишком большой коментарий</div>
+          {isError
+            && <div className="error">Слишком большой коментарий</div>
           }
         </form>
         {commentsBlockState.isSending ? loadingHTML : null }
@@ -106,5 +106,19 @@ class CommentsBlock extends Component {
     );
   }
 }
+
+CommentsBlock.propTypes = {
+  comments: PropTypes.arrayOf(PropTypes.shape({})),
+  uID: PropTypes.number.isRequired,
+  openAuthModal: PropTypes.func.isRequired,
+  openRegisterModal: PropTypes.func.isRequired,
+  appendCommentAC: PropTypes.func.isRequired,
+  user: PropTypes.shape({}),
+};
+
+CommentsBlock.defaultProps = {
+  comments: [],
+  user: null,
+};
 
 export default CommentsBlock;

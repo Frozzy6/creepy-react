@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class AuthForm extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class AuthForm extends Component {
     event.preventDefault();
 
     if (login.length === 0) {
-      target.querySelector('[name=login]').focus()
+      target.querySelector('[name=login]').focus();
       return false;
     }
 
@@ -55,13 +56,9 @@ class AuthForm extends Component {
 
   render() {
     const {
-      user,
       authState,
       handleRegisterClick,
     } = this.props;
-
-    const isAuthFail = false;
-    const isSendingData = false;
 
     const wrongAuthHtml = (authState.get('fail') ? (
       <div className="controls-block">
@@ -118,8 +115,15 @@ class AuthForm extends Component {
         { wrongAuthHtml }
         { loadingHTML }
       </form>
-    )
+    );
   }
 }
+
+AuthForm.propTypes = {
+  handleAuthClick: PropTypes.func.isRequired,
+  handleRegisterClick: PropTypes.func.isRequired,
+  forceFocus: PropTypes.bool.isRequired,
+  authState: PropTypes.shape({}).isRequired,
+};
 
 export default AuthForm;

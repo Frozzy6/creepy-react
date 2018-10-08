@@ -1,5 +1,5 @@
 // TODO: should we change utils folder?
-import { getEnvVaribale } from './app/utils/env';
+import getEnvVaribale from './app/utils/env';
 
 const CONFIG = {
   production: {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 // import {Link} from 'react-router';
 // import Logo from './App/Static/Logo';

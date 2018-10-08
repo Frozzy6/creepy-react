@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import AuthForm from '../../Common/AuthForm';
 import RegisterForm from '../../Common/RegisterForm';
 
@@ -23,29 +23,39 @@ class AuthSidebarModule extends Component {
       requestRegAC,
     } = this.props;
 
-    const isLoginTabShow = this.state.currentTab == 'auth';
+    const isLoginTabShow = this.state.currentTab === 'auth';
     const widgets = [(
       <AuthForm
         handleRegisterClick={this.switchTab.bind(this, 'register')}
         handleAuthClick={requestAuthAC}
         authState={authState}
+        key={new Date()}
       />
-    ),(
+    ), (
       <RegisterForm
         handleAuthClick={this.switchTab.bind(this, 'auth')}
         handleRegisterClick={requestRegAC}
         registerError={registerError}
+        key={new Date()}
       />
     )];
 
-    const widet = ( isLoginTabShow ? widgets[0] : widgets[1] );
+    const widet = (isLoginTabShow ? widgets[0] : widgets[1]);
 
     return (
       <div className="sidebar-item sidebar-item__signup">
         <h2>{isLoginTabShow ? 'Авторизация' : 'Регистрация'}</h2>
         <div className="sidebar-item-body">{widet}</div>
       </div>
-  )}
+    );
+  }
 }
+
+AuthSidebarModule.propTypes = {
+  authState: PropTypes.shape({}).isRequired,
+  registerError: PropTypes.shape({}).isRequired,
+  requestAuthAC: PropTypes.func.isRequired,
+  requestRegAC: PropTypes.func.isRequired,
+};
 
 export default AuthSidebarModule;

@@ -12,14 +12,14 @@ class StoriesList extends React.Component {
 
     return (
       <div className={'content'}>
-        {stories.size > 0 ?
-          stories.map(story => (
+        {stories.size > 0
+          ? stories.map(story => (
             <StoryItemContainer
               story={story}
               key={story.get('uID')}
             />
-          )) :
-          <div className="panel-top">
+          ))
+          : <div className="panel-top">
             <h1>Ничего нет</h1>
             <p>По данной ссылке нет историй.</p>
           </div>

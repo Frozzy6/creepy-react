@@ -62,8 +62,8 @@ class Navbar extends Component {
             </MediaQuery>
             {/* Show expanded menu to large devices */}
             <MediaQuery minWidth={651}>
-              { isAuth ?
-                <Fragment>
+              { isAuth
+                ? <Fragment>
                   {/* Submit icon */}
                   <NavItem currentLocation={currentLocation} className="submit" to="/new">
                     <i className="pencil-icon"/>
@@ -77,9 +77,9 @@ class Navbar extends Component {
                   >
                     <i title={user} className="fa fa-user-circle-o"/>
                   </NavItem>
-                </Fragment> :
+                </Fragment>
                 /* Login icon */
-                <NavItem
+                : <NavItem
                   currentLocation={currentLocation}
                   className="profile"
                   onClick={this.handleAuthClick.bind(this)}

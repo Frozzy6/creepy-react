@@ -18,18 +18,18 @@ const UserPageHeader = (props) => {
       <div className="content wide user-page--header">
         <div className="account-info">
           <div className="account-portrait">
-            { accountImage ?
-              <img
+            { accountImage
+              ? <img
                 className="account-portrait-image"
                 src={accountImage}
-              /> :
-              <img
+              />
+              : <img
                 className="account-portrait-image account-portrait-question"
                 src="/images/question-sign.svg"
               />
             }
-            {isCurrentUser &&
-              <div
+            {isCurrentUser
+              && <div
                 className="account-portrait--upload-btn"
                 onClick={openDialogAC}>
                 Загрузить
@@ -47,8 +47,8 @@ const UserPageHeader = (props) => {
             <i className="fa fa-clock-o"/>
             Дата регистрации: {moment(requestUser.get('dateRegister')).format('DD MMMM YYYY')}
           </p>
-          {firstPubDate &&
-            <p>
+          {firstPubDate
+            && <p>
               <i className="fa fa-book"/>
               Первая публикация: {moment(firstPubDate).format('DD MMMM YYYY')}
             </p>

@@ -1,9 +1,12 @@
-import React, {PropTypes} from 'react';
-import {Helmet} from "react-helmet";
+/* eslint-disable */
+// TODO: rewrite component
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 import Recaptcha from 'react-recaptcha';
 
 class UsersStory extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     const flux = props.flux;
@@ -12,7 +15,7 @@ class UsersStory extends React.Component {
 
     this.state = this.userStoryStore.getState();
 
-    this.handleChange = this.handleChange.bind( this );
+    this.handleChange = this.handleChange.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
@@ -26,25 +29,25 @@ class UsersStory extends React.Component {
 
   // Handler to generate event trustly links object
   // to prevent converting circular structure
-  handleChange( event ) {
-    let params = {
+  handleChange(event) {
+    const params = {
       name: event.target.name,
-      value: event.target.value
+      value: event.target.value,
     };
 
-    this.userStoryActions.updateData( params );
+    this.userStoryActions.updateData(params);
   }
 
-  handleSubmit( event ){
+  handleSubmit(event) {
     event.preventDefault();
 
-    let data = {
+    const data = {
       title: this.state.title,
       content: this.state.content,
-      email: this.state.email
+      email: this.state.email,
     };
 
-    this.userStoryActions.postStory( data );
+    this.userStoryActions.postStory(data);
   }
 
   onChange(state) {
@@ -72,8 +75,8 @@ class UsersStory extends React.Component {
           <input id="input-email" type="email" placeholder="custom@ya.ru" name="email" required value={this.state.email} onChange={this.handleChange}/>
         </div>
         <div className="user-story__row">
-          <div id="g" style={{height: "78px"}}>
-            <Recaptcha sitekey="6LesOxcUAAAAAH9i0IygDSN8TVgwaIs6hyZPzyxt" render="explicit" onloadCallback={function(){}} verifyCallback={this.userStoryActions.responseCaptcha}/>
+          <div id="g" style={{ height: '78px' }}>
+            <Recaptcha sitekey="6LesOxcUAAAAAH9i0IygDSN8TVgwaIs6hyZPzyxt" render="explicit" onloadCallback={function () {}} verifyCallback={this.userStoryActions.responseCaptcha}/>
           </div>
         </div>
         <button className="user-story__save-btn" type="submit" disabled={this.state.disabled}>Отправить</button>
@@ -82,10 +85,10 @@ class UsersStory extends React.Component {
 
     const successHTML = (
       <div className="user-story">
-        <p style={{color: "#009688"}}>Вашу историю в скором времени рассмотрят и если она соответствует требованиям - опубликуют.</p>
-        <p style={{color: "#009688"}}>Спасибо за Ваш вклад.</p>
+        <p style={{ color: '#009688' }}>Вашу историю в скором времени рассмотрят и если она соответствует требованиям - опубликуют.</p>
+        <p style={{ color: '#009688' }}>Спасибо за Ваш вклад.</p>
       </div>
-    )
+    );
 
     return (
       <div className="wrap">
@@ -96,10 +99,10 @@ class UsersStory extends React.Component {
         <div className="content wide white padding">
           <form id="add-story" onSubmit={this.handleSubmit.bind(this)}>
             <h1>Обратная связь</h1>
-            { success ? successHTML: stroryHTML}
+            { success ? successHTML : stroryHTML}
           </form>
         </div>
-        <div style={{clear: "both"}}></div>
+        <div style={{ clear: 'both' }}></div>
       </div>
     );
   }

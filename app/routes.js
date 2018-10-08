@@ -1,9 +1,10 @@
-import privateRoute from './containers/privateRoute/privateRoute';
 import StoriesPage from './pages/stories';
 import ScaryPage from './pages/scary';
 import StoryPage from './pages/story';
 import RandomPage from './pages/random';
 import About from './components/About';
+// TODO: move to utils
+import privateRoute from './containers/PrivateRoute/privateRoute';
 import TagsContainer from './containers/Tags/TagsContainer';
 import TagContentContainer from './containers/TagContent/TagContentContainer';
 import UserPageContainer from './containers/UserPage/UserPageContainer';

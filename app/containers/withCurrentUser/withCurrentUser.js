@@ -4,12 +4,11 @@ import { compose } from 'redux';
 
 import { getCurrentUserUsername } from '../../actions';
 
-const withCurrentUserWrapper = Component =>
-  function withCurrentUser(props) {
-    return (
-      <Component {...props} />
-    );
-  };
+const withCurrentUserWrapper = Component => function withCurrentUser(props) {
+  return (
+    <Component {...props} />
+  );
+};
 
 export default compose(
   connect(state => ({

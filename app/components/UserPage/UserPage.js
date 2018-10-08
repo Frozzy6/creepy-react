@@ -15,9 +15,9 @@ const STATUSES = [
   'Опубликована',
 ];
 
-const getNoPublicationsMessage = isCurrentUser => (isCurrentUser ?
-  <p>Вы пока не сделали ни одной публикации</p> :
-  <p>Автор пока не сделал ни одной публикации</p>
+const getNoPublicationsMessage = isCurrentUser => (isCurrentUser
+  ? <p>Вы пока не сделали ни одной публикации</p>
+  : <p>Автор пока не сделал ни одной публикации</p>
 );
 
 const getPublicationItem = (publication, isCurrentUser) => {
@@ -34,16 +34,16 @@ const getPublicationItem = (publication, isCurrentUser) => {
   return (
     <li key={uID} className="publication-item">
       <div>
-        {href ?
-          <Link to={href}>
+        {href
+          ? <Link to={href}>
             <b>{title}</b>
-          </Link> :
-          <div className="publication-field-title">{title}</div>
+          </Link>
+          : <div className="publication-field-title">{title}</div>
         }
       </div>
       <div className="publication-info">
-        {isCurrentUser && !isPublishedStory &&
-          <span
+        {isCurrentUser && !isPublishedStory
+          && <span
             className={classNames('publication-field-status', {
               'publication-field-status_rejected': status === 1,
             })}
@@ -51,8 +51,8 @@ const getPublicationItem = (publication, isCurrentUser) => {
             {STATUSES[status]}
           </span>
         }
-        { isPublishedStory &&
-          <Fragment>
+        { isPublishedStory
+          && <Fragment>
             <span className="publication-field-comments"><i className="fa fa-heart" /> {likesCount}</span>
             <span className="publication-field-likes"><i className="fa fa-comments" /> {commentsCount}</span>
           </Fragment>
@@ -87,9 +87,9 @@ class UserPage extends Component {
           openDialogAC={openDialogAC}
         />
         <div className="content wide white padding">
-          { pubInfo.size === 0 ?
-            getNoPublicationsMessage(isCurrentUser) :
-            <div>
+          { pubInfo.size === 0
+            ? getNoPublicationsMessage(isCurrentUser)
+            : <div>
               <h2>{isCurrentUser ? 'Ваши публикации:' : 'Публикации:'}</h2>
               <ul className="publication-list">
                 {pubInfo.map(item => getPublicationItem(item, isCurrentUser))}
