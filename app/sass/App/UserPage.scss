@@ -82,11 +82,6 @@
   bottom: 0;
 }
 
-.upload-avatar-modal {
-  text-align: left;
-  width: 500px;
-}
-
 .upload-btn-wrapper {
   margin: 0 auto;
   margin-top: 20px;
@@ -102,7 +97,7 @@
 }
 
 .resolve-btn-wrapper .button {
-  width: 30%;
+  width: 33%;
   transition: none;
   display: inline-block;
   margin-right: 10px;
@@ -143,6 +138,7 @@
   list-style: disc;
   margin-top: 10px;
   margin-left: 20px;
+  text-align: left;
 }
 
 .upload-avatar--image-preload {

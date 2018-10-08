@@ -9,7 +9,6 @@ import TagContentContainer from './containers/TagContent/TagContentContainer';
 import UserPageContainer from './containers/UserPage/UserPageContainer';
 import UserStoryContainer from './containers/UserStory/UserStoryContainer';
 
-// https://github.com/ReactTraining/react-router/blob/master/packages/react-router-config/modules/renderRoutes.js
 export default [
   {
     path: '/',

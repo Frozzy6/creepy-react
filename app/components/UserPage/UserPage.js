@@ -64,11 +64,7 @@ const getPublicationItem = (publication, isCurrentUser) => {
 
 class UserPage extends Component {
   handleUpload = (event) => {
-    console.log(event.target.files);
     event.preventDefault();
-    // this.appActions.doLogout();
-
-    // this.props.router.push('/');
   }
 
   render() {

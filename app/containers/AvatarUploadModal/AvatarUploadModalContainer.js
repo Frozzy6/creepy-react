@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,6 +12,9 @@ import {
 import AvatarUploadModal from '../../components/AvatarUploadModal/AvatarUploadModal';
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
+const allowedExtensions = /(\jpg|\jpeg|\png|\gif)$/i;
+
+const getExtension = filename => filename.split('.').slice(-1)[0];
 
 class AvatarUploadModalContainer extends Component {
   constructor(props) {
@@ -18,6 +22,7 @@ class AvatarUploadModalContainer extends Component {
     this.state = {
       image: null,
       wrongSize: false,
+      wrongFormat: false,
     };
 
     this.file = null;
@@ -31,6 +36,10 @@ class AvatarUploadModalContainer extends Component {
 
     if (file.size > MAX_FILE_SIZE) {
       return this.setState({ wrongSize: true });
+    }
+
+    if (!allowedExtensions.test(getExtension(file.name))) {
+      return this.setState({ wrongFormat: true });
     }
 
     const fr = new FileReader();

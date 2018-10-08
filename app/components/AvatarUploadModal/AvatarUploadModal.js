@@ -23,14 +23,17 @@ const AvatarUploadModal = props => (
         </div> :
         <div className="upload-btn-wrapper">
           <button className="button">Загрузить</button>
-          <input type="file" name="avatar" onChange={props.handleAttached}/>
+          <input type="file" name="avatar" accept="image/*" onChange={props.handleAttached}/>
         </div>
       }
+    <div className="upload-errors">
     {props.wrongSize &&
-      <div className="upload-errors">
-        <p>Выбранный файл больше, чем 1мб.</p>
-      </div>
+      <p>Выбранный файл больше, чем 1мб.</p>
     }
+    {props.wrongFormat &&
+      <p>Выбранный файл не является изображением.</p>
+    }
+    </div>
     {props.netError &&
       <div className="upload-errors">
         <p>Во время выполнения запроса произошла ошибка</p>
