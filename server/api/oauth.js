@@ -12,7 +12,6 @@ router.route('/oauth/token').post(async (req, res) => {
   try {
     const token = await tokenManager.getUserToken(req.body.login, req.body.password);
     const userInfo = await tokenManager.getUserInfo(token.token);
-    console.log(userInfo);
 
     token.user = userInfo.user;
     token.data = userInfo.data;
@@ -91,11 +90,13 @@ router.route('/oauth/register').post(async (req, res) => {
   const recaptchaAnwer = await checkRecaptcha();
 
   /* Bad news for robots */
-  if ( !recaptchaAnwer.success ) {
-    res.status(403).send({ 'error': true, data: {
-      type: 'gRecaptchaResponse',
-      code: 'recapthca_bad'
-      }
+  if (!recaptchaAnwer.success) {
+    res.status(403).send({
+      error: true,
+      data: {
+        type: 'gRecaptchaResponse',
+        code: 'recapthca_bad',
+      },
     });
     return false;
   }
