@@ -42,7 +42,7 @@
     "iconv-lite": "^0.4.21",
     "immutable": "^3.8.2",
     "moment": "^2.22.1",
-    "mongoose": "^5.0.17",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
