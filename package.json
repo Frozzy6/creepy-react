@@ -25,7 +25,7 @@
     "delay": "2000"
   },
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^2.6.4",
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
