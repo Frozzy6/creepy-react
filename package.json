@@ -80,7 +80,7 @@
     "eslint-plugin-react": "^7.11.1",
     "extract-text-webpack-plugin": "x",
     "friendly-errors-webpack-plugin": "^1.7.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-rename": "x",
     "gulp-sass": "^4.0.1",
     "node-sass": "^4.9.0",
